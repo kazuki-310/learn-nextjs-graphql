@@ -1,12 +1,12 @@
-import { WithApollo } from '@/providers/with-apollo';
+import { WithApolloProvider } from '@/providers/with-apollo-provider';
 import { User } from './_components/user';
 
 export default function Home() {
   return (
     <main>
-      <WithApollo>
+      <WithApolloProvider>
         <User />
-      </WithApollo>
+      </WithApolloProvider>
     </main>
   );
 }
