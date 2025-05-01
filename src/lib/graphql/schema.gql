@@ -1,0 +1,28 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  users: [User!]!
+  products: [Product!]!
+}
+
+type Mutation {
+  createProduct(input: ProductInput!): Product!
+}
+
+input ProductInput {
+  title: String!
+  description: String
+}
+
+type User {
+  name: String
+}
+
+type Product {
+  id: ID!
+  title: String!
+  description: String
+}

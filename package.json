@@ -9,14 +9,14 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "format": "npx prettier --write src",
-    "compile": "graphql-codegen",
-    "watch": "graphql-codegen -w"
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "@apollo/server": "^4.12.0",
     "@as-integrations/next": "^3.2.0",
     "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
     "next": "15.2.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -27,6 +27,8 @@
     "@graphql-codegen/cli": "^5.0.5",
     "@graphql-codegen/client-preset": "^4.8.0",
     "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-generic-sdk": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-resolvers": "^4.5.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
