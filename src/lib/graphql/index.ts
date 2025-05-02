@@ -38,8 +38,8 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
       throw new Error(`GraphQL Error: ${response.status} ${response.statusText}`);
     }
 
-    const res = await response.json();
-    return res.data;
+    const data = (await response.json()).data;
+    return data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
   }
