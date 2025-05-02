@@ -1,8 +1,10 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
 import { Resolvers } from '@/lib/graphql/__generated__/resolvers-types';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { NextRequest } from 'next/server';
 
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
@@ -42,4 +44,5 @@ const server = new ApolloServer({
 
 const handler = startServerAndCreateNextHandler(server);
 
-export { handler as GET, handler as POST };
+export const GET = (req: NextRequest) => handler(req);
+export const POST = (req: NextRequest) => handler(req);

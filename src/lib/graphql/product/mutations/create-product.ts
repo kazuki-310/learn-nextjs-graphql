@@ -1,4 +1,5 @@
 import { revalidateTag } from 'next/cache';
+
 import { graphQLFetchSdk } from '../..';
 import { ProductInput } from '../../__generated__/resolvers-types';
 

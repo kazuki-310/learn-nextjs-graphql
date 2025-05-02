@@ -1,21 +1,21 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
- 
+
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 // import tailwind from 'eslint-plugin-tailwindcss';
 import importPlugin from 'eslint-plugin-import';
 import unusedImports from 'eslint-plugin-unused-imports';
 import eslintConfigPrettier from 'eslint-config-prettier';
- 
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
- 
+
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
- 
+
 export default tseslint.config(
   {
     files: ['*.ts', '*.tsx'], // 読み込むファイル
@@ -74,28 +74,19 @@ export default tseslint.config(
     },
   },
   {
-    // eslint-plugin-unused-importsに関する設定
-    plugins: {
-      'unused-imports': unusedImports,
-    },
-    rules: {
-      'unused-imports/no-unused-imports': 'error',
-    },
-  },
-  {
     // その他設定
-    files: ["src/**/*.{js,jsx,ts,tsx}"],
+    files: ['src/**/*.{js,jsx,ts,tsx}'],
     linterOptions: {
-      reportUnusedDisableDirectives: "error",
+      reportUnusedDisableDirectives: 'error',
     },
     languageOptions: {
       globals: {
-        React: "readonly",
+        React: 'readonly',
       },
     },
     rules: {
-      "react/jsx-boolean-value": "error", // JSXの中でのbooleanの使用
-      "react/jsx-curly-brace-presence": "error", // JSXの中での余分な{}の使用
+      'react/jsx-boolean-value': 'error', // JSXの中でのbooleanの使用
+      'react/jsx-curly-brace-presence': 'error', // JSXの中での余分な{}の使用
     },
   },
   eslintConfigPrettier, // Prettierとの競合防止

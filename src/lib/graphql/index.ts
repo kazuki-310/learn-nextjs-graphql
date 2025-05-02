@@ -1,7 +1,8 @@
 import { print } from 'graphql';
+
 import { getSdk, Requester } from './__generated__';
 
-const URL = process.env.NEXT_PUBLIC_API_URL;
+const URL = process.env.NEXT_PUBLIC_API_URL as string;
 const endpoint = `${URL}/api/graphql`;
 
 type RequestOptions = {
@@ -37,8 +38,8 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
       throw new Error(`GraphQL Error: ${response.status} ${response.statusText}`);
     }
 
-    const data = (await response.json()).data;
-    return data;
+    const res = await response.json();
+    return res.data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
   }
