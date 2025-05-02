@@ -6,7 +6,8 @@ export async function getProducts() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
   const res = await graphQLFetchSdk.getProducts(undefined, {
-    revalidate: 3600,
+    cache: 'force-cache',
+    // revalidate: 3600,
     tags: ['products'],
   });
 
