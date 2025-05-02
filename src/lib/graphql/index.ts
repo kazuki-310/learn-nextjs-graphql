@@ -1,8 +1,9 @@
 import { print } from 'graphql';
 
 import { getSdk, Requester } from './__generated__';
+import { env } from '@/env.mjs';
 
-const URL = process.env.NEXT_PUBLIC_API_URL as string;
+const URL = env.NEXT_PUBLIC_API_URL;
 const endpoint = `${URL}/api/graphql`;
 
 type RequestOptions = {
