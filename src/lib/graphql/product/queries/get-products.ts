@@ -1,14 +1,13 @@
-// import { graphQLFetchSdk } from '../..';
+import { graphQLFetchSdk } from '../..';
 
-// export async function getProducts() {
-//   console.log('Fetching products data...');
-//   await new Promise((resolve) => setTimeout(resolve, 2000));
+export async function getProducts() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-//   const res = await graphQLFetchSdk.getProducts(undefined, {
-//     tags: ['products'],
-//   });
+  const res = await graphQLFetchSdk.getProducts(undefined, {
+    tags: ['products'],
+  });
 
-//   console.log('Data fetch completed after 2 seconds.');
+  console.log('Data fetch completed after 2 seconds.');
 
-//   return res;
-// }
+  return res;
+}
