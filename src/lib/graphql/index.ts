@@ -5,7 +5,7 @@ const URL = process.env.NEXT_PUBLIC_API_URL;
 const endpoint = `${URL}/api/graphql`;
 
 type RequestOptions = {
-  cache: 'default' | 'no-store' | 'force-cache';
+  cache?: 'default' | 'no-store' | 'force-cache';
   revalidate?: false | number;
   tags?: string[];
 };
@@ -14,8 +14,10 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
   const headers = {
     'Content-Type': 'application/json',
   };
-  const revalidate = options?.revalidate;
+  const revalidate = options?.revalidate ?? false;
   const tags = options?.tags ?? [];
+  const cache = options?.cache ?? 'force-cache';
+
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -24,7 +26,7 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
         query: print(doc),
         variables,
       }),
-      cache: options?.cache,
+      cache,
       next: {
         revalidate,
         tags,
