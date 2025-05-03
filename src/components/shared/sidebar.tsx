@@ -10,7 +10,7 @@ const navLinks = [
 
 export function Sidebar() {
   return (
-    <aside className="w-64 border-r p-6">
+    <aside className="min-w-64 border-r p-6">
       <h2 className="mb-6 text-2xl font-bold">
         <Link href="/" className="hover:text-gray-300">
           Home

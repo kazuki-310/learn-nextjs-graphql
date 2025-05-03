@@ -6,17 +6,11 @@ export const typeDefs = gql`
     mutation: Mutation
   }
 
-  enum UserRole {
-    ADMIN
-    EDITOR
-    VIEWER
-  }
-
   type User {
     id: ID!
     name: String!
     email: String!
-    role: UserRole!
+    role: String!
     company: String!
     lastLogin: String!
   }

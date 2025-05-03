@@ -1,6 +1,6 @@
+import { graphQLFetchSdk } from '@/lib/graphql';
+import { ProductInput } from '@/lib/graphql/__generated__';
 import { revalidateTag } from 'next/cache';
-import { graphQLFetchSdk } from '../..';
-import { ProductInput } from '../../__generated__/resolvers-types';
 
 export const createProduct = async (data: ProductInput) => {
   const res = await graphQLFetchSdk.createProduct({ input: data });

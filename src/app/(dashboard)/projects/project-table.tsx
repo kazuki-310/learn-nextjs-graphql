@@ -17,7 +17,6 @@ export function ProjectTable({ products }: { products: Product[] }) {
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>ID</TableHead>
           <TableHead>Title</TableHead>
           <TableHead>Description</TableHead>
           <TableHead>Tags</TableHead>
@@ -30,11 +29,10 @@ export function ProjectTable({ products }: { products: Product[] }) {
       <TableBody>
         {products.map((product) => (
           <TableRow key={product.id}>
-            <TableCell className="font-medium">{product.id}</TableCell>
             <TableCell>{product.title}</TableCell>
             <TableCell>{product.description}</TableCell>
             <TableCell>{product.tags ? product.tags.join(', ') : '-'}</TableCell>
-            <TableCell className="text-right">{product.price}</TableCell>
+            <TableCell className="text-right">{product.price} 円</TableCell>
             <TableCell>{new Date(product.createdAt).toLocaleDateString('ja-JP')}</TableCell>
             <TableCell>{new Date(product.updatedAt).toLocaleDateString('ja-JP')}</TableCell>
           </TableRow>

@@ -1,7 +1,10 @@
 import { Resolvers } from '@/lib/graphql/__generated__/resolvers-types';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { typeDefs } from '@/lib/graphql/schema';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
 const productData = [
   {

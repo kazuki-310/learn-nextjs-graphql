@@ -1,4 +1,4 @@
-import { graphQLFetchSdk } from '../..';
+import { graphQLFetchSdk } from '@/lib/graphql';
 
 export async function getProducts() {
   await new Promise((resolve) => setTimeout(resolve, 1000));

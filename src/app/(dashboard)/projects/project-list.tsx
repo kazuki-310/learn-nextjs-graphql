@@ -1,4 +1,4 @@
-import { getProducts } from '@/lib/graphql/product/queries/get-products';
+import { getProducts } from './_server-actions/fetcher';
 import { ProjectTable } from './project-table';
 
 export async function ProjectList() {
