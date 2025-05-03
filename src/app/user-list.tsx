@@ -1,15 +1,15 @@
 import { getProducts } from '@/lib/graphql/product/queries/get-products';
 
 export async function UserList() {
-  const product = await getProducts();
+  const products = await getProducts();
 
   return (
     <div className="p-6">
       <ul>
-        {product?.map((product) => (
-          <li key={product?.id}>
-            <h2>{product?.title}</h2>
-            <p>{product?.description}</p>
+        {products.map((product) => (
+          <li key={product.id}>
+            <h2>{product.title}</h2>
+            <p>{product.description}</p>
           </li>
         ))}
       </ul>
