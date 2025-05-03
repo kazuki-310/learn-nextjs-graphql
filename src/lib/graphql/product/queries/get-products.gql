@@ -3,5 +3,9 @@ query getProducts {
     id
     title
     description
+    createdAt
+    updatedAt
+    tags
+    price
   }
 }

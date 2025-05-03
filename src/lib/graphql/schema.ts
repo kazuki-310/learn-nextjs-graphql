@@ -6,19 +6,38 @@ export const typeDefs = gql`
     mutation: Mutation
   }
 
+  enum UserRole {
+    ADMIN
+    EDITOR
+    VIEWER
+  }
+
   type User {
-    name: String
+    id: ID!
+    name: String!
+    email: String!
+    role: UserRole!
+    company: String!
+    lastLogin: String!
   }
 
   type Product {
     id: ID!
     title: String!
     description: String
+    createdAt: String!
+    updatedAt: String!
+    tags: [String]
+    price: Int
   }
 
   input ProductInput {
     title: String!
     description: String
+    createdAt: String!
+    updatedAt: String!
+    tags: [String]
+    price: Int
   }
 
   type Query {

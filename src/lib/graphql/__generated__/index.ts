@@ -14,6 +14,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  Date: { input: any; output: any; }
 };
 
 export type Mutation = {
@@ -28,14 +29,22 @@ export type MutationCreateProductArgs = {
 
 export type Product = {
   __typename?: 'Product';
+  createdAt: Scalars['String']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
+  price?: Maybe<Scalars['Int']['output']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
 };
 
 export type ProductInput = {
+  createdAt: Scalars['String']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
+  price?: InputMaybe<Scalars['Int']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   title: Scalars['String']['input'];
+  updatedAt: Scalars['String']['input'];
 };
 
 export type Query = {
@@ -59,7 +68,7 @@ export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null }> };
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: string, updatedAt: string, tags?: Array<string | null> | null, price?: number | null }> };
 
 
 export const CreateProductDocument = gql`
@@ -77,6 +86,10 @@ export const GetProductsDocument = gql`
     id
     title
     description
+    createdAt
+    updatedAt
+    tags
+    price
   }
 }
     `;

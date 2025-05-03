@@ -10,7 +10,7 @@ const navLinks = [
 
 export function Sidebar() {
   return (
-    <aside className="w-64 border-r p-6 text-white">
+    <aside className="w-64 border-r p-6">
       <h2 className="mb-6 text-2xl font-bold">
         <Link href="/" className="hover:text-gray-300">
           Home
@@ -35,7 +35,7 @@ export function NavMenu() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`hover:text-gray-300 ${isActive ? 'text-blue-600' : 'text-white'}`}
+                className={`hover:text-red-400 ${isActive ? 'text-red-400' : 'text-black'}`}
               >
                 {link.label}
               </Link>
