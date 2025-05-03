@@ -1,4 +1,4 @@
-import { getProducts } from './_server-actions/fetcher';
+import { getProducts } from './_server-actions/fetchers/get-products';
 import { ProjectTable } from './project-table';
 
 export async function ProjectList() {
