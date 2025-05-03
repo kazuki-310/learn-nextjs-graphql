@@ -1,4 +1,4 @@
-import { getProducts } from '@/lib/graphql/fetcher';
+import { getProducts } from '../projects/_server-actions/fetcher';
 import { UserTable } from './user-table';
 
 export async function UserList() {
