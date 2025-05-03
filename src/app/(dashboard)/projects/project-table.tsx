@@ -27,7 +27,7 @@ export function ProjectTable({ products }: { products: Product[] }) {
       </TableHeader>
 
       <TableBody>
-        {products.map((product) => (
+        {products?.map((product) => (
           <TableRow key={product.id}>
             <TableCell>{product.title}</TableCell>
             <TableCell>{product.description}</TableCell>
