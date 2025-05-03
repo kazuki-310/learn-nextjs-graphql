@@ -35,8 +35,8 @@ export function ProjectTable({ products }: { products: Product[] }) {
             <TableCell>{product.description}</TableCell>
             <TableCell>{product.tags ? product.tags.join(', ') : '-'}</TableCell>
             <TableCell className="text-right">{product.price}</TableCell>
-            <TableCell>{new Date(product.createdAt).toLocaleString()}</TableCell>
-            <TableCell>{new Date(product.updatedAt).toLocaleString()}</TableCell>
+            <TableCell>{new Date(product.createdAt).toLocaleDateString('ja-JP')}</TableCell>
+            <TableCell>{new Date(product.updatedAt).toLocaleDateString('ja-JP')}</TableCell>
           </TableRow>
         ))}
       </TableBody>

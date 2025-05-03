@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { ProjectList } from './project-list';
+import { TableSpinner } from '@/components/shared/spinner';
 
 export default function Page() {
   return (
@@ -7,7 +8,7 @@ export default function Page() {
       <div className="p-6">
         <h1 className="text-3xl font-bold">User List を表示します</h1>
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<TableSpinner />}>
           <ProjectList />
         </Suspense>
       </div>
