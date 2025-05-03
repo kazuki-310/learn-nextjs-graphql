@@ -4,7 +4,6 @@ import { getSdk, Requester } from './__generated__';
 import { env } from '@/env.mjs';
 
 const URL = env.NEXT_PUBLIC_API_URL;
-console.log('🚀 ~ URL:', URL);
 const endpoint = `${URL}/api/graphql`;
 
 type RequestOptions = {
