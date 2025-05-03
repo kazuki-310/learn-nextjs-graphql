@@ -40,8 +40,8 @@ export type ProductInput = {
 
 export type Query = {
   __typename?: 'Query';
-  products: Array<Product>;
-  users: Array<User>;
+  products?: Maybe<Array<Maybe<Product>>>;
+  users?: Maybe<Array<Maybe<User>>>;
 };
 
 export type User = {
@@ -59,7 +59,7 @@ export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null }> };
+export type GetProductsQuery = { __typename?: 'Query', products?: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null } | null> | null };
 
 
 export const CreateProductDocument = gql`
