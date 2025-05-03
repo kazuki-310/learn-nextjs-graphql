@@ -4,7 +4,11 @@ import { join } from 'path';
 import { Resolvers } from '@/lib/graphql/__generated__/resolvers-types';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { NextRequest } from 'next/server';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+import {
+  ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,
+} from '@apollo/server/plugin/landingPage/default';
 
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
@@ -40,13 +44,14 @@ const resolvers: Resolvers = {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  plugins: [
+    process.env.NODE_ENV === 'production'
+      ? ApolloServerPluginLandingPageProductionDefault({
+          footer: false,
+        })
+      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+  ],
 });
-
-// const handler = startServerAndCreateNextHandler<NextRequest>(server, {
-//   context: async (req) => ({ req }),
-// });
-
-// export { handler as GET, handler as POST };
 
 const handler = startServerAndCreateNextHandler(server);
 
