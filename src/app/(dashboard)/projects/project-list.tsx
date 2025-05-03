@@ -1,6 +1,6 @@
 import { getProducts } from '@/lib/graphql/product/queries/get-products';
 
-export async function UserList() {
+export async function ProjectList() {
   const products = await getProducts();
 
   return (
