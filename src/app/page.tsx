@@ -1,15 +1,15 @@
-import { Suspense } from 'react';
-import { UserList } from './user-list';
+import Link from 'next/link';
 
 export default function Page() {
   return (
-    <main>
-      <div className="p-6">
-        <h1 className="text-3xl font-bold">User List を表示します</h1>
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <UserList />
-        </Suspense>
+    <main className="flex h-screen items-center justify-center">
+      <div className="text-center">
+        <h1 className="mb-8 text-3xl font-bold">Top Page</h1>
+        <Link href="/users">
+          <button className="rounded bg-blue-500 px-6 py-3 text-2xl text-white hover:bg-blue-600">
+            Dashboard Page
+          </button>
+        </Link>
       </div>
     </main>
   );

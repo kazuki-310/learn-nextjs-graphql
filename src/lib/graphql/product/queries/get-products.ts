@@ -1,7 +1,6 @@
-import { cache } from 'react';
 import { graphQLFetchSdk } from '../..';
 
-export const getProducts = cache(async () => {
+export async function getProducts() {
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
   const res = await graphQLFetchSdk.getProducts(undefined, {
@@ -11,4 +10,4 @@ export const getProducts = cache(async () => {
   console.log('Data fetch completed after 2 seconds.');
 
   return res.products;
-});
+}
