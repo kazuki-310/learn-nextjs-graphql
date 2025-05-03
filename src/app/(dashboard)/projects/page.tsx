@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 import { ProjectList } from './project-list';
 import { TableSpinner } from '@/components/shared/spinner';
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   return (
     <main>
