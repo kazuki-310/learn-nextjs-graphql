@@ -5,7 +5,6 @@ query getProducts {
     description
     createdAt
     updatedAt
-    tags
     price
   }
 }

@@ -20,16 +20,12 @@ type Product {
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  tags: [String!]
   price: Int
 }
 
 input ProductInput {
   title: String!
   description: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  tags: [String!]
   price: Int
 }
 

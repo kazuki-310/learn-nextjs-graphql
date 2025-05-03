@@ -19,7 +19,6 @@ export function ProjectTable({ products }: { products: Product[] }) {
         <TableRow>
           <TableHead>Title</TableHead>
           <TableHead>Description</TableHead>
-          <TableHead>Tags</TableHead>
           <TableHead className="text-right">Price</TableHead>
           <TableHead>Created At</TableHead>
           <TableHead>Updated At</TableHead>
@@ -31,7 +30,6 @@ export function ProjectTable({ products }: { products: Product[] }) {
           <TableRow key={product.id}>
             <TableCell>{product.title}</TableCell>
             <TableCell>{product.description}</TableCell>
-            <TableCell>{product.tags ? product.tags.join(', ') : '-'}</TableCell>
             <TableCell className="text-right">{product.price} 円</TableCell>
             <TableCell>{new Date(product.createdAt).toLocaleDateString('ja-JP')}</TableCell>
             <TableCell>{new Date(product.updatedAt).toLocaleDateString('ja-JP')}</TableCell>

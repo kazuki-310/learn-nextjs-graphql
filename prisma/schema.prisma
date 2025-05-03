@@ -27,6 +27,5 @@ model Product {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  tags        String[]
   price       Int
 }

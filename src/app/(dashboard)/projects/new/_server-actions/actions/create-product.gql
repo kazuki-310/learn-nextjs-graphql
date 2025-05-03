@@ -3,5 +3,8 @@ mutation createProduct($input: ProductInput!) {
     id
     title
     description
+    createdAt
+    updatedAt
+    price
   }
 }

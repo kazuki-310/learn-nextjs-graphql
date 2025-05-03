@@ -33,18 +33,14 @@ export type Product = {
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   price?: Maybe<Scalars['Int']['output']>;
-  tags?: Maybe<Array<Scalars['String']['output']>>;
   title: Scalars['String']['output'];
   updatedAt: Scalars['DateTime']['output'];
 };
 
 export type ProductInput = {
-  createdAt: Scalars['DateTime']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
-  tags?: InputMaybe<Array<Scalars['String']['input']>>;
   title: Scalars['String']['input'];
-  updatedAt: Scalars['DateTime']['input'];
 };
 
 export type Query = {
@@ -63,28 +59,19 @@ export type User = {
   role: Scalars['String']['output'];
 };
 
+export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null }> };
+
 export type CreateProductMutationVariables = Exact<{
   input: ProductInput;
 }>;
 
 
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: string, title: string, description?: string | null } };
-
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, tags?: Array<string> | null, price?: number | null }> };
-
-
-export const CreateProductDocument = gql`
-    mutation createProduct($input: ProductInput!) {
-  createProduct(input: $input) {
-    id
-    title
-    description
-  }
-}
-    `;
 export const GetProductsDocument = gql`
     query getProducts {
   products {
@@ -93,7 +80,18 @@ export const GetProductsDocument = gql`
     description
     createdAt
     updatedAt
-    tags
+    price
+  }
+}
+    `;
+export const CreateProductDocument = gql`
+    mutation createProduct($input: ProductInput!) {
+  createProduct(input: $input) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
     price
   }
 }
@@ -101,11 +99,11 @@ export const GetProductsDocument = gql`
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
-    createProduct(variables: CreateProductMutationVariables, options?: C): Promise<CreateProductMutation> {
-      return requester<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, variables, options) as Promise<CreateProductMutation>;
-    },
     getProducts(variables?: GetProductsQueryVariables, options?: C): Promise<GetProductsQuery> {
       return requester<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, variables, options) as Promise<GetProductsQuery>;
+    },
+    createProduct(variables: CreateProductMutationVariables, options?: C): Promise<CreateProductMutation> {
+      return requester<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, variables, options) as Promise<CreateProductMutation>;
     }
   };
 }
