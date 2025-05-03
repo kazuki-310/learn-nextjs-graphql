@@ -3,6 +3,8 @@ schema {
   mutation: Mutation
 }
 
+scalar DateTime
+
 type User {
   id: ID!
   name: String!
@@ -16,18 +18,18 @@ type Product {
   id: ID!
   title: String!
   description: String
-  createdAt: String!
-  updatedAt: String!
-  tags: [String]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tags: [String!]
   price: Int
 }
 
 input ProductInput {
   title: String!
   description: String
-  createdAt: String!
-  updatedAt: String!
-  tags: [String]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tags: [String!]
   price: Int
 }
 
