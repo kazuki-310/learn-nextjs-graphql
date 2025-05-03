@@ -1,11 +1,11 @@
-import { UserForm } from './user-form';
+import { ProjectForm } from './project-form';
 
 export default function Page() {
   return (
     <main>
-      <h1 className="text-3xl font-bold">ユーザ作成</h1>
+      <h1 className="text-3xl font-bold">プロジェクト作成</h1>
 
-      <UserForm />
+      <ProjectForm />
     </main>
   );
 }

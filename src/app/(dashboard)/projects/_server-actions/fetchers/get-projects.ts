@@ -7,7 +7,5 @@ export async function getProjects() {
     tags: ['projects'],
   });
 
-  console.log('Data fetch completed after 1 seconds.');
-
   return res.projects;
 }

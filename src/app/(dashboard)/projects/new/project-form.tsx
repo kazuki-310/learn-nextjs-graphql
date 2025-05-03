@@ -25,7 +25,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function UserForm() {
+export function ProjectForm() {
   const router = useRouter();
 
   const form = useForm<FormValues>({
@@ -45,8 +45,6 @@ export function UserForm() {
   } = form;
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
-
     await createProject(data);
 
     router.push('/projects');

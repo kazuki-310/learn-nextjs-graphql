@@ -14,7 +14,6 @@ import { Project } from '@/lib/graphql/__generated__';
 export function ProjectTable({ projects }: { projects: Project[] }) {
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Title</TableHead>
