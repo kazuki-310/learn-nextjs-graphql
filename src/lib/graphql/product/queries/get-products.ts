@@ -9,5 +9,5 @@ export async function getProducts() {
 
   console.log('Data fetch completed after 2 seconds.');
 
-  return res;
+  return res.products;
 }
