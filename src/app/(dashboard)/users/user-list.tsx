@@ -4,6 +4,5 @@ import { UserTable } from './user-table';
 export async function UserList() {
   const products = await getProducts();
 
-  // return <UserTable products={products} />;
-  return <div>tet</div>;
+  return <UserTable products={products} />;
 }
