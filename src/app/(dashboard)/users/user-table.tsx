@@ -9,10 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Product } from '@/lib/graphql/__generated__';
+import { Project } from '@/lib/graphql/__generated__';
 
-export function UserTable({ products }: { products: Product[] }) {
-  console.log('🚀 ~ UserTable ~ products:', products);
+export function UserTable({ projects }: { projects: Project[] }) {
+  console.log('🚀 ~ UserTable ~ projects:', projects);
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>

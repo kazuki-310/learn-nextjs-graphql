@@ -1,8 +1,8 @@
-import { getProducts } from '../projects/_server-actions/fetchers/get-products';
+import { getProjects } from '../projects/_server-actions/fetchers/get-projects';
 import { UserTable } from './user-table';
 
 export async function UserList() {
-  const products = await getProducts();
+  const projects = await getProjects();
 
-  return <UserTable products={products} />;
+  return <UserTable projects={projects} />;
 }

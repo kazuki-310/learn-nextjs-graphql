@@ -14,8 +14,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { createProduct } from './_server-actions/actions/create-product';
 import { useRouter } from 'next/navigation';
+import { createProject } from './_server-actions/actions/create-project';
 
 const formSchema = z.object({
   title: z.string().min(1, '商品名は必須項目です'),
@@ -47,7 +47,7 @@ export function UserForm() {
   const onSubmit = async (data: FormValues) => {
     console.log(data);
 
-    await createProduct(data);
+    await createProject(data);
 
     router.push('/projects');
   };

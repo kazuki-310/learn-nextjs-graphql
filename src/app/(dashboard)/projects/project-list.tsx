@@ -1,12 +1,12 @@
-import { getProducts } from './_server-actions/fetchers/get-products';
+import { getProjects } from './_server-actions/fetchers/get-projects';
 import { ProjectTable } from './project-table';
 
 export async function ProjectList() {
-  const products = await getProducts();
+  const projects = await getProjects();
 
   return (
     <div className="p-6">
-      <ProjectTable products={products} />
+      <ProjectTable projects={projects} />
     </div>
   );
 }

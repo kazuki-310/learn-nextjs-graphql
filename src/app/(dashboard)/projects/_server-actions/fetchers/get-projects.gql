@@ -1,5 +1,5 @@
-query getProducts {
-  products {
+query getProjects {
+  projects {
     id
     title
     description

@@ -9,9 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Product } from '@/lib/graphql/__generated__';
+import { Project } from '@/lib/graphql/__generated__';
 
-export function ProjectTable({ products }: { products: Product[] }) {
+export function ProjectTable({ projects }: { projects: Project[] }) {
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
@@ -26,13 +26,13 @@ export function ProjectTable({ products }: { products: Product[] }) {
       </TableHeader>
 
       <TableBody>
-        {products.map((product) => (
-          <TableRow key={product.id}>
-            <TableCell>{product.title}</TableCell>
-            <TableCell>{product.description}</TableCell>
-            <TableCell className="text-right">{product.price} 円</TableCell>
-            <TableCell>{new Date(product.createdAt).toLocaleDateString('ja-JP')}</TableCell>
-            <TableCell>{new Date(product.updatedAt).toLocaleDateString('ja-JP')}</TableCell>
+        {projects.map((project) => (
+          <TableRow key={project.id}>
+            <TableCell>{project.title}</TableCell>
+            <TableCell>{project.description}</TableCell>
+            <TableCell className="text-right">{project.price} 円</TableCell>
+            <TableCell>{new Date(project.createdAt).toLocaleDateString('ja-JP')}</TableCell>
+            <TableCell>{new Date(project.updatedAt).toLocaleDateString('ja-JP')}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -13,7 +13,7 @@ enum Role {
   VIEWER
 }
 
-model User {
+model Users {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
@@ -21,7 +21,7 @@ model User {
   createdAt DateTime @default(now())
 }
 
-model Product {
+model Projects {
   id          String   @id @default(cuid())
   title       String
   description String?

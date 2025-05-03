@@ -1,13 +1,13 @@
 import { graphQLFetchSdk } from '@/lib/graphql';
 
-export async function getProducts() {
+export async function getProjects() {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const res = await graphQLFetchSdk.getProducts(undefined, {
-    tags: ['products'],
+  const res = await graphQLFetchSdk.getProjects(undefined, {
+    tags: ['projects'],
   });
 
   console.log('Data fetch completed after 1 seconds.');
 
-  return res.products;
+  return res.projects;
 }

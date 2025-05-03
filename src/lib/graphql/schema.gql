@@ -19,7 +19,7 @@ type User {
   createdAt: DateTime!
 }
 
-type Product {
+type Project {
   id: ID!
   title: String!
   description: String
@@ -28,7 +28,7 @@ type Product {
   price: Int
 }
 
-input ProductInput {
+input ProjectInput {
   title: String!
   description: String
   price: Int
@@ -36,9 +36,9 @@ input ProductInput {
 
 type Query {
   users: [User!]!
-  products: [Product!]!
+  projects: [Project!]!
 }
 
 type Mutation {
-  createProduct(input: ProductInput!): Product!
+  createProject(input: ProjectInput!): Project!
 }

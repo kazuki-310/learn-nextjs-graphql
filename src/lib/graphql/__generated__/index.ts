@@ -19,16 +19,16 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createProduct: Product;
+  createProject: Project;
 };
 
 
-export type MutationCreateProductArgs = {
-  input: ProductInput;
+export type MutationCreateProjectArgs = {
+  input: ProjectInput;
 };
 
-export type Product = {
-  __typename?: 'Product';
+export type Project = {
+  __typename?: 'Project';
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -37,7 +37,7 @@ export type Product = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
-export type ProductInput = {
+export type ProjectInput = {
   description?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
   title: Scalars['String']['input'];
@@ -45,7 +45,7 @@ export type ProductInput = {
 
 export type Query = {
   __typename?: 'Query';
-  products: Array<Product>;
+  projects: Array<Project>;
   users: Array<User>;
 };
 
@@ -64,22 +64,22 @@ export type User = {
   role: Role;
 };
 
-export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsQuery = { __typename?: 'Query', products: Array<{ __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null }> };
+export type GetProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null }> };
 
-export type CreateProductMutationVariables = Exact<{
-  input: ProductInput;
+export type CreateProjectMutationVariables = Exact<{
+  input: ProjectInput;
 }>;
 
 
-export type CreateProductMutation = { __typename?: 'Mutation', createProduct: { __typename?: 'Product', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
 
 
-export const GetProductsDocument = gql`
-    query getProducts {
-  products {
+export const GetProjectsDocument = gql`
+    query getProjects {
+  projects {
     id
     title
     description
@@ -89,9 +89,9 @@ export const GetProductsDocument = gql`
   }
 }
     `;
-export const CreateProductDocument = gql`
-    mutation createProduct($input: ProductInput!) {
-  createProduct(input: $input) {
+export const CreateProjectDocument = gql`
+    mutation createProject($input: ProjectInput!) {
+  createProject(input: $input) {
     id
     title
     description
@@ -104,11 +104,11 @@ export const CreateProductDocument = gql`
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
-    getProducts(variables?: GetProductsQueryVariables, options?: C): Promise<GetProductsQuery> {
-      return requester<GetProductsQuery, GetProductsQueryVariables>(GetProductsDocument, variables, options) as Promise<GetProductsQuery>;
+    getProjects(variables?: GetProjectsQueryVariables, options?: C): Promise<GetProjectsQuery> {
+      return requester<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, variables, options) as Promise<GetProjectsQuery>;
     },
-    createProduct(variables: CreateProductMutationVariables, options?: C): Promise<CreateProductMutation> {
-      return requester<CreateProductMutation, CreateProductMutationVariables>(CreateProductDocument, variables, options) as Promise<CreateProductMutation>;
+    createProject(variables: CreateProjectMutationVariables, options?: C): Promise<CreateProjectMutation> {
+      return requester<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, variables, options) as Promise<CreateProjectMutation>;
     }
   };
 }
