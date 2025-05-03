@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { UserList } from './user-list';
 import { TableSpinner } from '@/components/shared/spinner';
-export const dynamic = 'force-dynamic';
 
 export default function Page() {
   return (
