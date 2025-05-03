@@ -5,13 +5,18 @@ schema {
 
 scalar DateTime
 
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
+
 type User {
   id: ID!
   name: String!
   email: String!
-  role: String!
-  company: String!
-  lastLogin: String!
+  role: Role!
+  createdAt: DateTime!
 }
 
 type Product {

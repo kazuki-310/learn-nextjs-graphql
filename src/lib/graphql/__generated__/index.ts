@@ -49,14 +49,19 @@ export type Query = {
   users: Array<User>;
 };
 
+export enum Role {
+  Admin = 'ADMIN',
+  Editor = 'EDITOR',
+  Viewer = 'VIEWER'
+}
+
 export type User = {
   __typename?: 'User';
-  company: Scalars['String']['output'];
+  createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  lastLogin: Scalars['String']['output'];
   name: Scalars['String']['output'];
-  role: Scalars['String']['output'];
+  role: Role;
 };
 
 export type GetProductsQueryVariables = Exact<{ [key: string]: never; }>;

@@ -1,4 +1,4 @@
-import { Resolvers } from '@/lib/graphql/__generated__/resolvers-types';
+import { Resolvers, Role } from '@/lib/graphql/__generated__/resolvers-types';
 import { prisma } from '@/lib/prisma';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
@@ -60,8 +60,13 @@ const userData = [
 
 const resolvers: Resolvers = {
   Query: {
-    users() {
-      return userData;
+    async users() {
+      const prismaUsers = await prisma.user.findMany();
+
+      return prismaUsers.map((user) => ({
+        ...user,
+        role: user.role as Role,
+      }));
     },
     async products() {
       return await prisma.product.findMany();
