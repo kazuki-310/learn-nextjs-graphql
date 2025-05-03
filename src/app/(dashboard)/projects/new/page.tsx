@@ -5,7 +5,7 @@ export default function Page() {
     <main>
       <h1 className="text-3xl font-bold">ユーザ作成</h1>
 
-      {/* <UserForm /> */}
+      <UserForm />
     </main>
   );
 }

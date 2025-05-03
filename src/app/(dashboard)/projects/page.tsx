@@ -16,9 +16,9 @@ export default function Page() {
           </Button>
         </div>
 
-        {/* <Suspense fallback={<TableSpinner />}>
+        <Suspense fallback={<TableSpinner />}>
           <ProjectList />
-        </Suspense> */}
+        </Suspense>
       </div>
     </main>
   );
