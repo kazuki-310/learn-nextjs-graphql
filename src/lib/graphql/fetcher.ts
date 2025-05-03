@@ -6,6 +6,7 @@ export async function getProducts() {
   const res = await graphQLFetchSdk.getProducts(undefined, {
     tags: ['products'],
   });
+  console.log('🚀 ~ getProducts ~ res:', res);
 
   console.log('Data fetch completed after 2 seconds.');
 
