@@ -8,9 +8,9 @@ export default function Page() {
       <div className="p-6">
         <h1 className="text-3xl font-bold">User List を表示します</h1>
 
-        <Suspense fallback={<TableSpinner />}>
+        {/* <Suspense fallback={<TableSpinner />}>
           <UserList />
-        </Suspense>
+        </Suspense> */}
       </div>
     </main>
   );
