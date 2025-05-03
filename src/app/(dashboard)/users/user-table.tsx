@@ -12,6 +12,7 @@ import {
 import { Product } from '@/lib/graphql/__generated__';
 
 export function UserTable({ products }: { products: Product[] }) {
+  console.log('🚀 ~ UserTable ~ products:', products);
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
