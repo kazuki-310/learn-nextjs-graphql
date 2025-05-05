@@ -1,8 +1,9 @@
-import { getProjects } from '../projects/_server-actions/fetchers/get-projects';
+import { getUsers } from './_server-actions/fetchers/get-users';
 import { UserTable } from './user-table';
 
 export async function UserList() {
-  const projects = await getProjects();
+  const users = await getUsers();
+  console.log('🚀 ~ UserList ~ users:', users);
 
-  return <UserTable projects={projects} />;
+  return <UserTable users={users} />;
 }

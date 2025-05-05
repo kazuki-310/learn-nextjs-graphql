@@ -16,6 +16,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { createProject } from './_server-actions/actions/create-project';
+import { Loader2 } from 'lucide-react';
 
 const formSchema = z.object({
   title: z.string().min(1, '商品名は必須項目です'),
@@ -101,6 +102,7 @@ export function ProjectForm() {
         />
 
         <Button type="submit" disabled={!isValid || isSubmitting}>
+          {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
           送信
         </Button>
       </form>

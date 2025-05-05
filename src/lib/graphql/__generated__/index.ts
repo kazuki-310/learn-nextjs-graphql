@@ -76,6 +76,11 @@ export type CreateProjectMutationVariables = Exact<{
 
 export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
 
+export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any }> };
+
 
 export const GetProjectsDocument = gql`
     query getProjects {
@@ -101,6 +106,17 @@ export const CreateProjectDocument = gql`
   }
 }
     `;
+export const GetUsersDocument = gql`
+    query getUsers {
+  users {
+    id
+    name
+    email
+    role
+    createdAt
+  }
+}
+    `;
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
@@ -109,6 +125,9 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     createProject(variables: CreateProjectMutationVariables, options?: C): Promise<CreateProjectMutation> {
       return requester<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, variables, options) as Promise<CreateProjectMutation>;
+    },
+    getUsers(variables?: GetUsersQueryVariables, options?: C): Promise<GetUsersQuery> {
+      return requester<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, variables, options) as Promise<GetUsersQuery>;
     }
   };
 }

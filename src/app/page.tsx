@@ -7,9 +7,11 @@ export default function Page() {
       <div className="text-center">
         <h1 className="mb-8 text-3xl font-bold">Top Page</h1>
 
-        <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-          <Link href="/users">Dashboard Page</Link>
-        </Button>
+        <Link href="/users">
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+            Dashboard Page
+          </Button>
+        </Link>
       </div>
     </main>
   );
