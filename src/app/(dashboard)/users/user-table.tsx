@@ -3,7 +3,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -12,9 +11,8 @@ import {
 import { User } from '@/lib/graphql/__generated__';
 
 export function UserTable({ users }: { users: User[] }) {
-  console.log('🚀 ~ UserTable ~ users:', users);
   return (
-    <Table>
+    <Table className="p-6">
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>

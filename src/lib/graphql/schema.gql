@@ -6,9 +6,9 @@ schema {
 scalar DateTime
 
 enum Role {
-  ADMIN
-  EDITOR
-  VIEWER
+  admin
+  editor
+  viewer
 }
 
 type User {
@@ -34,6 +34,12 @@ input ProjectInput {
   price: Int
 }
 
+input UserInput {
+  name: String!
+  email: String!
+  role: Role!
+}
+
 type Query {
   users: [User!]!
   projects: [Project!]!
@@ -41,4 +47,5 @@ type Query {
 
 type Mutation {
   createProject(input: ProjectInput!): Project!
+  createUser(input: UserInput!): User!
 }

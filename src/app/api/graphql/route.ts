@@ -33,6 +33,20 @@ const resolvers: Resolvers = {
 
       return project;
     },
+    async createUser(_, { input }) {
+      const user = await prisma.users.create({
+        data: {
+          name: input.name,
+          email: input.email,
+          role: input.role,
+        },
+      });
+
+      return {
+        ...user,
+        role: user.role as Role,
+      };
+    },
   },
 };
 

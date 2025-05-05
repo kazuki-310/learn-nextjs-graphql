@@ -20,11 +20,17 @@ export type Scalars = {
 export type Mutation = {
   __typename?: 'Mutation';
   createProject: Project;
+  createUser: User;
 };
 
 
 export type MutationCreateProjectArgs = {
   input: ProjectInput;
+};
+
+
+export type MutationCreateUserArgs = {
+  input: UserInput;
 };
 
 export type Project = {
@@ -50,9 +56,9 @@ export type Query = {
 };
 
 export enum Role {
-  Admin = 'ADMIN',
-  Editor = 'EDITOR',
-  Viewer = 'VIEWER'
+  Admin = 'admin',
+  Editor = 'editor',
+  Viewer = 'viewer'
 }
 
 export type User = {
@@ -61,6 +67,12 @@ export type User = {
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  role: Role;
+};
+
+export type UserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
   role: Role;
 };
 
@@ -80,6 +92,13 @@ export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any }> };
+
+export type CreateUserMutationVariables = Exact<{
+  input: UserInput;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
 
 
 export const GetProjectsDocument = gql`
@@ -117,6 +136,17 @@ export const GetUsersDocument = gql`
   }
 }
     `;
+export const CreateUserDocument = gql`
+    mutation createUser($input: UserInput!) {
+  createUser(input: $input) {
+    id
+    name
+    email
+    role
+    createdAt
+  }
+}
+    `;
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
@@ -128,6 +158,9 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     getUsers(variables?: GetUsersQueryVariables, options?: C): Promise<GetUsersQuery> {
       return requester<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, variables, options) as Promise<GetUsersQuery>;
+    },
+    createUser(variables: CreateUserMutationVariables, options?: C): Promise<CreateUserMutation> {
+      return requester<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument, variables, options) as Promise<CreateUserMutation>;
     }
   };
 }

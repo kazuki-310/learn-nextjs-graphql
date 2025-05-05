@@ -8,16 +8,16 @@ datasource db {
 }
 
 enum Role {
-  ADMIN
-  EDITOR
-  VIEWER
+  admin
+  editor
+  viewer
 }
 
 model Users {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
-  role      Role   @default(ADMIN)
+  role      Role   @default(admin)
   createdAt DateTime @default(now())
 }
 
