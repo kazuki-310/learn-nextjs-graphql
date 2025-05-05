@@ -18,9 +18,9 @@ export default function Page() {
           </Link>
         </div>
 
-        <Suspense fallback={<TableSpinner />}>
+        {/* <Suspense fallback={<TableSpinner />}>
           <UserList />
-        </Suspense>
+        </Suspense> */}
       </div>
     </main>
   );
