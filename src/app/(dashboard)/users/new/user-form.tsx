@@ -13,10 +13,9 @@ import {
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { createUser } from './_server-actions/actions/create-user';
+import { createUser } from './_server-actions/actions';
 import { Role } from '@prisma/client';
 import {
   Select,

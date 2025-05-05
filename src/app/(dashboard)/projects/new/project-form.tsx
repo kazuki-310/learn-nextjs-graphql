@@ -15,8 +15,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-import { createProject } from './_server-actions/actions/create-project';
 import { Loader2 } from 'lucide-react';
+import { createProject } from './_server-actions/actions';
 
 const formSchema = z.object({
   title: z.string().min(1, '商品名は必須項目です'),
