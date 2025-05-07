@@ -95,6 +95,13 @@ export type UserInput = {
   role: Role;
 };
 
+export type DeleteProjectMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
+
 export type GetProjectQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -135,6 +142,18 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
 
 
+export const DeleteProjectDocument = gql`
+    mutation deleteProject($id: ID!) {
+  deleteProject(id: $id) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    price
+  }
+}
+    `;
 export const GetProjectDocument = gql`
     query getProject($id: ID!) {
   project(id: $id) {
@@ -208,6 +227,9 @@ export const CreateUserDocument = gql`
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
+    deleteProject(variables: DeleteProjectMutationVariables, options?: C): Promise<DeleteProjectMutation> {
+      return requester<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, variables, options) as Promise<DeleteProjectMutation>;
+    },
     getProject(variables: GetProjectQueryVariables, options?: C): Promise<GetProjectQuery> {
       return requester<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, variables, options) as Promise<GetProjectQuery>;
     },

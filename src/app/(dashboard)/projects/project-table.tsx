@@ -15,10 +15,24 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Project } from '@/lib/graphql/__generated__';
-import { EllipsisIcon } from 'lucide-react';
+import { EllipsisIcon, Trash } from 'lucide-react';
 import Link from 'next/link';
+import { useTransition } from 'react';
+import { deleteProject } from './[id]/_server-actions/actions';
 
 export function ProjectTable({ projects }: { projects: Project[] }) {
+  const [isPending, startTransition] = useTransition();
+
+  const handleDelete = (id: string) => {
+    startTransition(async () => {
+      try {
+        const result = await deleteProject(id);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+
   return (
     <Table>
       <TableHeader>
@@ -49,6 +63,13 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
                   <Link href={`/projects/${project.id}`}>
                     <DropdownMenuItem>編集</DropdownMenuItem>
                   </Link>
+                  <DropdownMenuItem
+                    className="text-red-600 focus:text-red-600"
+                    onClick={() => handleDelete(project.id)}
+                    disabled={isPending}
+                  >
+                    削除
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </TableCell>

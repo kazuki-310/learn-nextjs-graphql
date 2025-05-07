@@ -5,7 +5,7 @@ import { Role, UserInput } from '@/lib/graphql/__generated__/resolvers-types';
 import { Role as PrismaRole } from '@prisma/client';
 import { revalidateTag } from 'next/cache';
 
-export const createUser = async (data: { name: string; email: string; role: PrismaRole }) => {
+export async function createUser(data: { name: string; email: string; role: PrismaRole }) {
   try {
     const input: UserInput = {
       name: data.name,
@@ -22,4 +22,4 @@ export const createUser = async (data: { name: string; email: string; role: Pris
     console.error('GraphQL error:', error);
     throw new Error('ユーザー作成に失敗しました');
   }
-};
+}
