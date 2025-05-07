@@ -21,6 +21,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createProject: Project;
   createUser: User;
+  deleteProject: Project;
   updateProject: Project;
 };
 
@@ -32,6 +33,11 @@ export type MutationCreateProjectArgs = {
 
 export type MutationCreateUserArgs = {
   input: UserInput;
+};
+
+
+export type MutationDeleteProjectArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -60,17 +66,11 @@ export type Query = {
   __typename?: 'Query';
   project?: Maybe<Project>;
   projects: Array<Project>;
-  user?: Maybe<User>;
   users: Array<User>;
 };
 
 
 export type QueryProjectArgs = {
-  id: Scalars['ID']['input'];
-};
-
-
-export type QueryUserArgs = {
   id: Scalars['ID']['input'];
 };
 

@@ -44,11 +44,11 @@ type Query {
   users: [User!]!
   projects: [Project!]!
   project(id: ID!): Project
-  user(id: ID!): User
 }
 
 type Mutation {
   createProject(input: ProjectInput!): Project!
   updateProject(id: ID!, input: ProjectInput!): Project!
+  deleteProject(id: ID!): Project!
   createUser(input: UserInput!): User!
 }

@@ -52,6 +52,19 @@ const resolvers: Resolvers = {
 
       return project;
     },
+    async deleteProject(_, { id }) {
+      const project = await prisma.projects.findUnique({
+        where: { id },
+      });
+
+      if (!project) {
+        throw new Error(`プロジェクトが見つかりません: ${id}`);
+      }
+
+      return await prisma.projects.delete({
+        where: { id },
+      });
+    },
     async createUser(_, { input }) {
       const user = await prisma.users.create({
         data: {
