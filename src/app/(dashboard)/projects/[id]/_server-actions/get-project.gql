@@ -1,0 +1,10 @@
+query getProject($id: ID!) {
+  project(id: $id) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    price
+  }
+}

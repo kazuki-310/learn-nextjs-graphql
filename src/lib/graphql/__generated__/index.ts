@@ -95,6 +95,21 @@ export type UserInput = {
   role: Role;
 };
 
+export type GetProjectQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type GetProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } | null };
+
+export type UpdateProjectMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: ProjectInput;
+}>;
+
+
+export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price?: number | null } };
+
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -120,6 +135,30 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
 
 
+export const GetProjectDocument = gql`
+    query getProject($id: ID!) {
+  project(id: $id) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    price
+  }
+}
+    `;
+export const UpdateProjectDocument = gql`
+    mutation updateProject($id: ID!, $input: ProjectInput!) {
+  updateProject(id: $id, input: $input) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    price
+  }
+}
+    `;
 export const GetProjectsDocument = gql`
     query getProjects {
   projects {
@@ -169,6 +208,12 @@ export const CreateUserDocument = gql`
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
+    getProject(variables: GetProjectQueryVariables, options?: C): Promise<GetProjectQuery> {
+      return requester<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, variables, options) as Promise<GetProjectQuery>;
+    },
+    updateProject(variables: UpdateProjectMutationVariables, options?: C): Promise<UpdateProjectMutation> {
+      return requester<UpdateProjectMutation, UpdateProjectMutationVariables>(UpdateProjectDocument, variables, options) as Promise<UpdateProjectMutation>;
+    },
     getProjects(variables?: GetProjectsQueryVariables, options?: C): Promise<GetProjectsQuery> {
       return requester<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, variables, options) as Promise<GetProjectsQuery>;
     },

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { ProjectList } from './project-list';
-import { TableSpinner } from '@/components/shared/spinner';
+import { Spinner } from '@/components/shared/spinner';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
@@ -18,7 +18,7 @@ export default function Page() {
           </Link>
         </div>
 
-        <Suspense fallback={<TableSpinner />}>
+        <Suspense fallback={<Spinner />}>
           <ProjectList />
         </Suspense>
       </div>

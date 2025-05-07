@@ -17,6 +17,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { createProject } from './_server-actions/actions';
+import { Project } from '@/lib/graphql/__generated__';
+import { updateProject } from '../[id]/_server-actions/actions';
 
 const formSchema = z.object({
   title: z.string().min(1, '商品名は必須項目です'),
@@ -26,15 +28,16 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function ProjectForm() {
+export function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();
+  const isEditMode = !!project;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      price: 0,
+      title: project?.title ?? '',
+      description: project?.description ?? '',
+      price: project?.price ?? 0,
     },
     mode: 'onChange',
   });
@@ -46,9 +49,17 @@ export function ProjectForm() {
   } = form;
 
   const onSubmit = async (data: FormValues) => {
-    await createProject(data);
+    try {
+      if (isEditMode) {
+        await updateProject(project.id, data);
+      } else {
+        await createProject(data);
+      }
 
-    router.push('/projects');
+      router.push('/projects');
+    } catch (error) {
+      console.error('Error creating/updating project:', error);
+    }
   };
 
   return (
@@ -103,7 +114,7 @@ export function ProjectForm() {
 
         <Button type="submit" disabled={!isValid || isSubmitting}>
           {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
-          送信
+          {isEditMode ? '更新' : '作成'}
         </Button>
       </form>
     </Form>
