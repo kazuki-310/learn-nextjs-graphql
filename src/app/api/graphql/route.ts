@@ -20,10 +20,27 @@ const resolvers: Resolvers = {
     async projects() {
       return await prisma.projects.findMany();
     },
+    async project(_, { id }) {
+      return await prisma.projects.findUnique({
+        where: { id },
+      });
+    },
   },
   Mutation: {
     async createProject(_, { input }) {
       const project = await prisma.projects.create({
+        data: {
+          title: input.title,
+          description: input.description,
+          price: input.price ?? 0,
+        },
+      });
+
+      return project;
+    },
+    async updateProject(_, { id, input }) {
+      const project = await prisma.projects.update({
+        where: { id },
         data: {
           title: input.title,
           description: input.description,
