@@ -18,7 +18,9 @@ const resolvers: Resolvers = {
       }));
     },
     async projects() {
-      return await prisma.projects.findMany();
+      return await prisma.projects.findMany({
+        orderBy: { updatedAt: 'desc' },
+      });
     },
     async project(_, { id }) {
       return await prisma.projects.findUnique({
