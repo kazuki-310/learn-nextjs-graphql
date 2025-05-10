@@ -1,25 +1,19 @@
 'use server';
 
 import { graphQLFetchSdk } from '@/lib/graphql';
-import { Role, UserInput } from '@/lib/graphql/__generated__/resolvers-types';
-import { Role as PrismaRole } from '@prisma/client';
+import { UserInput } from '@/lib/graphql/__generated__/resolvers-types';
 import { revalidateTag } from 'next/cache';
 
-export async function createUser(data: { name: string; email: string; role: PrismaRole }) {
+export async function createUser(data: UserInput) {
   try {
-    const input: UserInput = {
-      name: data.name,
-      email: data.email,
-      role: data.role as Role,
-    };
-
-    const res = await graphQLFetchSdk.createUser({ input });
+    const res = await graphQLFetchSdk.createUser({ input: data });
 
     revalidateTag('users');
 
     return res.createUser;
   } catch (error) {
     console.error('GraphQL error:', error);
+
     throw new Error('ユーザー作成に失敗しました');
   }
 }
