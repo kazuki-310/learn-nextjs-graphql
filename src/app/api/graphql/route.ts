@@ -10,7 +10,9 @@ const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'),
 const resolvers: Resolvers = {
   Query: {
     async users() {
-      const prismaUsers = await prisma.users.findMany();
+      const prismaUsers = await prisma.users.findMany({
+        orderBy: { createdAt: 'desc' },
+      });
 
       return prismaUsers.map((user) => ({
         ...user,
