@@ -1,10 +1,11 @@
 import { graphQLFetchSdk } from '@/lib/graphql';
+import { cache } from 'react';
 
-export async function getUsers() {
+export const getUsers = cache(async () => {
   const res = await graphQLFetchSdk.getUsers(undefined, {
+    cache: 'force-cache',
     revalidate: false,
-    tags: ['users'],
   });
 
   return res.users;
-}
+});

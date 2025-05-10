@@ -1,6 +1,7 @@
 import { graphQLFetchSdk } from '@/lib/graphql';
+import { cache } from 'react';
 
-export async function getProjects() {
+export const getProjects = cache(async () => {
   // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const res = await graphQLFetchSdk.getProjects(undefined, {
@@ -9,4 +10,4 @@ export async function getProjects() {
   });
 
   return res.projects;
-}
+});
