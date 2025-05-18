@@ -15,7 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Project } from '@/lib/graphql/__generated__';
-import { EllipsisIcon, Trash } from 'lucide-react';
+import { EllipsisIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useTransition } from 'react';
 import { deleteProject } from './[id]/_server-actions/actions';
@@ -26,7 +26,7 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
   const handleDelete = (id: string) => {
     startTransition(async () => {
       try {
-        const result = await deleteProject(id);
+        await deleteProject(id);
       } catch (error) {
         console.error(error);
       }
