@@ -7,6 +7,6 @@ export const TEST_CONFIG: TestConfig = {
   headless: false,
   screenshots: {
     enabled: true,
-    path: './tests/e2e/screenshots/',
+    path: './src/tests/e2e/screenshots/',
   },
 };
