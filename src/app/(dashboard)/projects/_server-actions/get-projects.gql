@@ -4,7 +4,6 @@ query getProjects {
     title
     description
     createdAt
-    updatedAt
     price
   }
 }

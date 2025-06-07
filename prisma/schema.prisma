@@ -13,72 +13,18 @@ enum Role {
   viewer
 }
 
-enum ProjectStatus {
-  draft
-  active
-  completed
-  archived
-}
-
-enum Priority {
-  low
-  medium
-  high
-  urgent
-}
-
-enum ActivityType {
-  created
-  updated
-  completed
-  archived
-  assigned
-}
-
 model Users {
-  id          String     @id @default(cuid())
-  name        String
-  email       String     @unique
-  role        Role       @default(admin)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt @default(now())
-  lastLoginAt DateTime?
-  isActive    Boolean    @default(true)
-  projects    Projects[] @relation("ProjectOwner")
-  activities  Activity[]
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      Role     @default(admin)
+  createdAt DateTime @default(now())
 }
 
 model Projects {
-  id          String        @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
   description String?
   price       Int
-  status      ProjectStatus @default(active)
-  priority    Priority      @default(medium)
-  category    String?
-  tags        String[]
-  startDate   DateTime?
-  endDate     DateTime?
-  completedAt DateTime?
-  progress    Int           @default(0) // 0-100%
-  ownerId     String?
-  owner       Users?        @relation("ProjectOwner", fields: [ownerId], references: [id])
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  activities  Activity[]
-}
-
-model Activity {
-  id          String       @id @default(cuid())
-  type        ActivityType
-  description String
-  metadata    Json?
-
-  userId String
-  user   Users  @relation(fields: [userId], references: [id])
-
-  projectId String?
-  project   Projects? @relation(fields: [projectId], references: [id])
-
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
 }

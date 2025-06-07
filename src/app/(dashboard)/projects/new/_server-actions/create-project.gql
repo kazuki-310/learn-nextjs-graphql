@@ -4,7 +4,6 @@ mutation createProject($input: ProjectInput!) {
     title
     description
     createdAt
-    updatedAt
     price
   }
 }

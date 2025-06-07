@@ -17,40 +17,11 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
-export type Activity = {
-  __typename?: 'Activity';
-  createdAt: Scalars['DateTime']['output'];
-  description: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  project?: Maybe<Project>;
-  projectId?: Maybe<Scalars['String']['output']>;
-  type: ActivityType;
-  user: User;
-  userId: Scalars['String']['output'];
-};
-
-export enum ActivityType {
-  Archived = 'archived',
-  Assigned = 'assigned',
-  Completed = 'completed',
-  Created = 'created',
-  Updated = 'updated'
-}
-
 export type DashboardStats = {
   __typename?: 'DashboardStats';
-  activeProjects: Scalars['Int']['output'];
-  activeUsers: Scalars['Int']['output'];
-  completedProjects: Scalars['Int']['output'];
   totalProjects: Scalars['Int']['output'];
   totalRevenue: Scalars['Int']['output'];
   totalUsers: Scalars['Int']['output'];
-};
-
-export type MonthlyRevenue = {
-  __typename?: 'MonthlyRevenue';
-  month: Scalars['String']['output'];
-  revenue: Scalars['Int']['output'];
 };
 
 export type Mutation = {
@@ -95,70 +66,27 @@ export type MutationUpdateUserArgs = {
   input: UserInput;
 };
 
-export enum Priority {
-  High = 'high',
-  Low = 'low',
-  Medium = 'medium',
-  Urgent = 'urgent'
-}
-
 export type Project = {
   __typename?: 'Project';
-  activities: Array<Activity>;
-  category?: Maybe<Scalars['String']['output']>;
-  completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
-  endDate?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
-  owner?: Maybe<User>;
-  ownerId?: Maybe<Scalars['String']['output']>;
   price: Scalars['Int']['output'];
-  priority: Priority;
-  progress: Scalars['Int']['output'];
-  startDate?: Maybe<Scalars['DateTime']['output']>;
-  status: ProjectStatus;
-  tags: Array<Scalars['String']['output']>;
   title: Scalars['String']['output'];
-  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type ProjectInput = {
-  category?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  ownerId?: InputMaybe<Scalars['String']['input']>;
   price?: InputMaybe<Scalars['Int']['input']>;
-  priority?: InputMaybe<Priority>;
-  progress?: InputMaybe<Scalars['Int']['input']>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<ProjectStatus>;
-  tags?: InputMaybe<Array<Scalars['String']['input']>>;
   title: Scalars['String']['input'];
-};
-
-export enum ProjectStatus {
-  Active = 'active',
-  Archived = 'archived',
-  Completed = 'completed',
-  Draft = 'draft'
-}
-
-export type ProjectStatusCount = {
-  __typename?: 'ProjectStatusCount';
-  count: Scalars['Int']['output'];
-  status: ProjectStatus;
 };
 
 export type Query = {
   __typename?: 'Query';
   dashboardStats: DashboardStats;
-  monthlyRevenue: Array<MonthlyRevenue>;
   project?: Maybe<Project>;
-  projectStatusCounts: Array<ProjectStatusCount>;
   projects: Array<Project>;
   user?: Maybe<User>;
-  userProjectCounts: Array<UserProjectCount>;
   users: Array<User>;
 };
 
@@ -180,16 +108,11 @@ export enum Role {
 
 export type User = {
   __typename?: 'User';
-  activities: Array<Activity>;
   createdAt: Scalars['DateTime']['output'];
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  isActive: Scalars['Boolean']['output'];
-  lastLoginAt?: Maybe<Scalars['DateTime']['output']>;
   name: Scalars['String']['output'];
-  projects: Array<Project>;
   role: Role;
-  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserInput = {
@@ -198,25 +121,24 @@ export type UserInput = {
   role: Role;
 };
 
-export type UserProjectCount = {
-  __typename?: 'UserProjectCount';
-  projectCount: Scalars['Int']['output'];
-  user: User;
-};
+export type GetDashboardStatsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDashboardStatsQuery = { __typename?: 'Query', dashboardStats: { __typename?: 'DashboardStats', totalProjects: number, totalUsers: number, totalRevenue: number } };
 
 export type DeleteProjectMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
+export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
 
 export type GetProjectQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } | null };
+export type GetProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } | null };
 
 export type UpdateProjectMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -224,19 +146,19 @@ export type UpdateProjectMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
+export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
 
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number }> };
+export type GetProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number }> };
 
 export type CreateProjectMutationVariables = Exact<{
   input: ProjectInput;
 }>;
 
 
-export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
 
 export type DeleteUserMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -273,6 +195,15 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
 
 
+export const GetDashboardStatsDocument = gql`
+    query getDashboardStats {
+  dashboardStats {
+    totalProjects
+    totalUsers
+    totalRevenue
+  }
+}
+    `;
 export const DeleteProjectDocument = gql`
     mutation deleteProject($id: ID!) {
   deleteProject(id: $id) {
@@ -280,7 +211,6 @@ export const DeleteProjectDocument = gql`
     title
     description
     createdAt
-    updatedAt
     price
   }
 }
@@ -292,7 +222,6 @@ export const GetProjectDocument = gql`
     title
     description
     createdAt
-    updatedAt
     price
   }
 }
@@ -304,7 +233,6 @@ export const UpdateProjectDocument = gql`
     title
     description
     createdAt
-    updatedAt
     price
   }
 }
@@ -316,7 +244,6 @@ export const GetProjectsDocument = gql`
     title
     description
     createdAt
-    updatedAt
     price
   }
 }
@@ -328,7 +255,6 @@ export const CreateProjectDocument = gql`
     title
     description
     createdAt
-    updatedAt
     price
   }
 }
@@ -391,6 +317,9 @@ export const CreateUserDocument = gql`
 export type Requester<C = {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C>(requester: Requester<C>) {
   return {
+    getDashboardStats(variables?: GetDashboardStatsQueryVariables, options?: C): Promise<GetDashboardStatsQuery> {
+      return requester<GetDashboardStatsQuery, GetDashboardStatsQueryVariables>(GetDashboardStatsDocument, variables, options) as Promise<GetDashboardStatsQuery>;
+    },
     deleteProject(variables: DeleteProjectMutationVariables, options?: C): Promise<DeleteProjectMutation> {
       return requester<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, variables, options) as Promise<DeleteProjectMutation>;
     },
