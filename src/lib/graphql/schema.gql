@@ -11,27 +11,108 @@ enum Role {
   viewer
 }
 
+enum ProjectStatus {
+  draft
+  active
+  completed
+  archived
+}
+
+enum Priority {
+  low
+  medium
+  high
+  urgent
+}
+
+enum ActivityType {
+  created
+  updated
+  completed
+  archived
+  assigned
+}
+
 type User {
   id: ID!
   name: String!
   email: String!
   role: Role!
   createdAt: DateTime!
+  updatedAt: DateTime!
+  lastLoginAt: DateTime
+  isActive: Boolean!
+  projects: [Project!]!
+  activities: [Activity!]!
 }
 
 type Project {
   id: ID!
   title: String!
   description: String
+  price: Int!
+  status: ProjectStatus!
+  priority: Priority!
+  category: String
+  tags: [String!]!
+  startDate: DateTime
+  endDate: DateTime
+  completedAt: DateTime
+  progress: Int!
+  owner: User
+  ownerId: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  price: Int
+  activities: [Activity!]!
+}
+
+type Activity {
+  id: ID!
+  type: ActivityType!
+  description: String!
+  user: User!
+  userId: String!
+  project: Project
+  projectId: String
+  createdAt: DateTime!
+}
+
+type DashboardStats {
+  totalProjects: Int!
+  activeProjects: Int!
+  completedProjects: Int!
+  totalRevenue: Int!
+  totalUsers: Int!
+  activeUsers: Int!
+}
+
+type ProjectStatusCount {
+  status: ProjectStatus!
+  count: Int!
+}
+
+type MonthlyRevenue {
+  month: String!
+  revenue: Int!
+}
+
+type UserProjectCount {
+  user: User!
+  projectCount: Int!
 }
 
 input ProjectInput {
   title: String!
   description: String
   price: Int
+  status: ProjectStatus
+  priority: Priority
+  category: String
+  tags: [String!]
+  startDate: DateTime
+  endDate: DateTime
+  progress: Int
+  ownerId: String
 }
 
 input UserInput {
@@ -45,6 +126,10 @@ type Query {
   user(id: ID!): User
   projects: [Project!]!
   project(id: ID!): Project
+  dashboardStats: DashboardStats!
+  projectStatusCounts: [ProjectStatusCount!]!
+  monthlyRevenue: [MonthlyRevenue!]!
+  userProjectCounts: [UserProjectCount!]!
 }
 
 type Mutation {
