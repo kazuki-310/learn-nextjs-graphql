@@ -1,14 +1,19 @@
 import { graphQLFetchSdk } from '@/lib/graphql';
 
 export async function getProject(projectId: string) {
-  const res = await graphQLFetchSdk.getProject(
-    {
-      id: projectId,
-    },
-    {
-      cache: 'no-store',
-    },
-  );
+  try {
+    const res = await graphQLFetchSdk.getProject(
+      {
+        id: projectId,
+      },
+      {
+        cache: 'no-store',
+      },
+    );
 
-  return res.project;
+    return res.project;
+  } catch (error) {
+    console.error('Error fetching project:', error);
+    return null;
+  }
 }

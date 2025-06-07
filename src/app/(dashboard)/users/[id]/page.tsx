@@ -1,9 +1,11 @@
 import { UserForm } from '../_components/user-form';
 import { getUser } from './_server-actions/fetchers';
 
-export default async function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  console.log('🚀 ~ Page ~ id:', id);
   const user = await getUser(id);
+  console.log('🚀 ~ Page ~ user:', user);
 
   if (!user) {
     return <div>ユーザーは存在しません</div>;
