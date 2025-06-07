@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { createUser } from './_server-actions/actions';
 import { useAppForm } from '@/hooks/use-app-form';
 import { Role } from '@/lib/graphql/__generated__';
+import { createUser } from '../new/_server-actions/actions';
 
 const formSchema = z.object({
   name: z.string().min(1, '名前は必須項目です'),
