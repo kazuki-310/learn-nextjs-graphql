@@ -45,8 +45,9 @@ The app uses a structured approach for server-side operations:
 
 - `_server-actions/` directories contain GraphQL operations and fetchers
 - Each operation has its own `.gql` file (e.g., `get-projects.gql`, `create-project.gql`)
-- `actions.ts` files handle form submissions and mutations
+- `actions.ts` files handle form submissions and mutations using `withServerAction` wrapper
 - `fetchers.ts` files handle data fetching for components
+- Common error handling and cache revalidation via `src/lib/utils/server-action-wrapper.ts`
 
 #### GraphQL Integration
 
@@ -63,9 +64,17 @@ The app uses a structured approach for server-side operations:
 
 #### Form Handling
 
-- Custom form components in `src/components/form/`
-- Form validation and state management using TanStack Form
-- Server actions handle form submissions with proper error handling
+- Two form approaches: React Hook Form (ProjectForm) and TanStack Form (UserForm)
+- Validation schemas centralized in `src/schemas/` by entity (project.ts, user.ts)
+- Custom form components in `src/components/form/` with proper accessibility
+- Server actions handle form submissions with unified error handling via `withServerAction` wrapper
+
+#### Shared Components and Utilities
+
+- `DataTable` component (`src/components/shared/data-table.tsx`) for generic table rendering with actions
+- Date formatting utility (`src/lib/utils/date-format.ts`) for consistent date display
+- Form field components (`src/components/form/`) with proper label-input associations
+- Server action wrapper (`src/lib/utils/server-action-wrapper.ts`) for DRY error handling
 
 ### Directory Structure Notes
 
@@ -73,6 +82,7 @@ The app uses a structured approach for server-side operations:
 - Dashboard pages are grouped under `(dashboard)` route group
 - UI components follow shadcn/ui conventions
 - Shared components in `src/components/shared/`
+- Validation schemas organized by entity in `src/schemas/` (direct imports, no re-exports)
 
 ### Environment Configuration
 
