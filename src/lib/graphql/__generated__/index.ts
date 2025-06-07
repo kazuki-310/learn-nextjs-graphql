@@ -22,7 +22,9 @@ export type Mutation = {
   createProject: Project;
   createUser: User;
   deleteProject: Project;
+  deleteUser: User;
   updateProject: Project;
+  updateUser: User;
 };
 
 
@@ -41,9 +43,20 @@ export type MutationDeleteProjectArgs = {
 };
 
 
+export type MutationDeleteUserArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
 export type MutationUpdateProjectArgs = {
   id: Scalars['ID']['input'];
   input: ProjectInput;
+};
+
+
+export type MutationUpdateUserArgs = {
+  id: Scalars['ID']['input'];
+  input: UserInput;
 };
 
 export type Project = {
@@ -66,11 +79,17 @@ export type Query = {
   __typename?: 'Query';
   project?: Maybe<Project>;
   projects: Array<Project>;
+  user?: Maybe<User>;
   users: Array<User>;
 };
 
 
 export type QueryProjectArgs = {
+  id: Scalars['ID']['input'];
+};
+
+
+export type QueryUserArgs = {
   id: Scalars['ID']['input'];
 };
 

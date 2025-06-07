@@ -16,12 +16,13 @@ export function SelectField({
   defaultValue?: string;
 }) {
   const field = useFieldContext<string>();
+  const fieldId = field.name;
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={label}>{label}</label>
+      <label htmlFor={fieldId}>{label}</label>
       <Select defaultValue={defaultValue} onValueChange={field.handleChange}>
-        <SelectTrigger className="w-[300px]">
+        <SelectTrigger className="w-[300px]" id={fieldId}>
           <SelectValue placeholder="Select option" />
         </SelectTrigger>
         <SelectContent>

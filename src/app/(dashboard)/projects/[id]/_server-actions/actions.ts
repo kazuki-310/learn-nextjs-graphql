@@ -2,35 +2,31 @@
 
 import { graphQLFetchSdk } from '@/lib/graphql';
 import { ProjectInput } from '@/lib/graphql/__generated__/resolvers-types';
-import { revalidateTag } from 'next/cache';
+import { withServerAction } from '@/lib/utils/server-action-wrapper';
 
-export async function updateProject(id: string, data: ProjectInput) {
-  try {
+export const updateProject = withServerAction(
+  async (id: string, data: ProjectInput) => {
     const res = await graphQLFetchSdk.updateProject({
       id,
       input: data,
     });
-
-    revalidateTag('projects');
-
     return res.updateProject;
-  } catch (error) {
-    console.error('GraphQL error:', error);
-    throw new Error('商品の更新に失敗しました');
+  },
+  {
+    revalidateTag: 'projects',
+    errorMessage: '商品の更新に失敗しました',
   }
-}
+);
 
-export async function deleteProject(id: string) {
-  try {
+export const deleteProject = withServerAction(
+  async (id: string) => {
     const res = await graphQLFetchSdk.deleteProject({
       id,
     });
-
-    revalidateTag('projects');
-
     return res.deleteProject;
-  } catch (error) {
-    console.error('GraphQL error:', error);
-    throw new Error('商品の削除に失敗しました');
+  },
+  {
+    revalidateTag: 'projects',
+    errorMessage: '商品の削除に失敗しました',
   }
-}
+);

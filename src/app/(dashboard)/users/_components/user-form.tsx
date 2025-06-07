@@ -1,16 +1,10 @@
 'use client';
 
-import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { useAppForm } from '@/hooks/use-app-form';
 import { Role } from '@/lib/graphql/__generated__';
 import { createUser } from '../new/_server-actions/actions';
-
-const formSchema = z.object({
-  name: z.string().min(1, '名前は必須項目です'),
-  email: z.string().email('有効なメールアドレスを入力してください'),
-  role: z.nativeEnum(Role),
-});
+import { createUserSchema } from '@/schemas/user';
 
 const USER_ROLE_OPTIONS = [
   { value: Role.Admin, label: '管理者' },
@@ -36,7 +30,7 @@ export function UserForm() {
       }
     },
     validators: {
-      onChange: formSchema,
+      onChange: createUserSchema,
     },
   });
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -16,24 +15,17 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { createProject } from './_server-actions/actions';
 import { Project } from '@/lib/graphql/__generated__';
+import { createProjectSchema, ProjectFormData } from '@/schemas/project';
 import { updateProject } from '../[id]/_server-actions/actions';
-
-const formSchema = z.object({
-  title: z.string().min(1, '商品名は必須項目です'),
-  description: z.string().optional(),
-  price: z.coerce.number().int().min(0, '価格は0以上の整数を入力してください'),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { createProject } from './_server-actions/actions';
 
 export function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();
   const isEditMode = !!project;
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<ProjectFormData>({
+    resolver: zodResolver(createProjectSchema),
     defaultValues: {
       title: project?.title ?? '',
       description: project?.description ?? '',
@@ -48,7 +40,7 @@ export function ProjectForm({ project }: { project?: Project }) {
     formState: { isValid, isSubmitting },
   } = form;
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: ProjectFormData) => {
     try {
       if (isEditMode) {
         await updateProject(project.id, data);

@@ -2,12 +2,13 @@ import { useFieldContext } from '@/hooks/form-context';
 
 export function TextField({ label }: { label: string }) {
   const field = useFieldContext<string>();
+  const fieldId = field.name;
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={label}>{label}</label>
+      <label htmlFor={fieldId}>{label}</label>
       <input
-        id={field.name}
+        id={fieldId}
         name={field.name}
         value={field.state.value}
         onBlur={field.handleBlur}

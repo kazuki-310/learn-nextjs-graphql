@@ -42,6 +42,7 @@ input UserInput {
 
 type Query {
   users: [User!]!
+  user(id: ID!): User
   projects: [Project!]!
   project(id: ID!): Project
 }
@@ -51,4 +52,6 @@ type Mutation {
   updateProject(id: ID!, input: ProjectInput!): Project!
   deleteProject(id: ID!): Project!
   createUser(input: UserInput!): User!
+  updateUser(id: ID!, input: UserInput!): User!
+  deleteUser(id: ID!): User!
 }
