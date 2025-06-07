@@ -11,19 +11,19 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     <main className="space-y-6">
       <h1 className="text-3xl font-bold">プロジェクト編集</h1>
 
-      <Suspense fallback={<Spinner />}>
+      {/* <Suspense fallback={<Spinner />}>
         <ProjectFormLoader projectId={id} />
-      </Suspense>
+      </Suspense> */}
     </main>
   );
 }
 
-async function ProjectFormLoader({ projectId }: { projectId: string }) {
-  const project = await getProject(projectId);
+// async function ProjectFormLoader({ projectId }: { projectId: string }) {
+//   const project = await getProject(projectId);
 
-  if (!project) {
-    return notFound();
-  }
+//   if (!project) {
+//     return notFound();
+//   }
 
-  return <ProjectForm project={project} />;
-}
+//   return <ProjectForm project={project} />;
+// }
