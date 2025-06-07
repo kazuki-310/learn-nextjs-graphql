@@ -18,7 +18,7 @@ import { Project } from '@/lib/graphql/__generated__';
 import { EllipsisIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useTransition } from 'react';
-import { deleteProject } from './[id]/_server-actions/actions';
+import { deleteProject } from '../[id]/_server-actions/actions';
 
 export function ProjectTable({ projects }: { projects: Project[] }) {
   const [isPending, startTransition] = useTransition();
