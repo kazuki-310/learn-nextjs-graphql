@@ -19,6 +19,20 @@ const resolvers: Resolvers = {
         role: user.role as Role,
       }));
     },
+    async user(_, { id }) {
+      const prismaUser = await prisma.users.findUnique({
+        where: { id },
+      });
+
+      if (!prismaUser) {
+        return null;
+      }
+
+      return {
+        ...prismaUser,
+        role: prismaUser.role as Role,
+      };
+    },
     async projects() {
       return await prisma.projects.findMany({
         orderBy: { updatedAt: 'desc' },
@@ -79,6 +93,39 @@ const resolvers: Resolvers = {
       return {
         ...user,
         role: user.role as Role,
+      };
+    },
+    async updateUser(_, { id, input }) {
+      const user = await prisma.users.update({
+        where: { id },
+        data: {
+          name: input.name,
+          email: input.email,
+          role: input.role,
+        },
+      });
+
+      return {
+        ...user,
+        role: user.role as Role,
+      };
+    },
+    async deleteUser(_, { id }) {
+      const user = await prisma.users.findUnique({
+        where: { id },
+      });
+
+      if (!user) {
+        throw new Error(`ユーザーが見つかりません: ${id}`);
+      }
+
+      const deletedUser = await prisma.users.delete({
+        where: { id },
+      });
+
+      return {
+        ...deletedUser,
+        role: deletedUser.role as Role,
       };
     },
   },
