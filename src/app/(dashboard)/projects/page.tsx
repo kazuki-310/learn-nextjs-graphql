@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { ProjectList } from './project-list';
 import { Spinner } from '@/components/shared/spinner';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { ProjectList } from './_components/project-list';
 
 export default function Page() {
   return (

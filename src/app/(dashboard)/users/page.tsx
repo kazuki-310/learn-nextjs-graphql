@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { UserList } from './user-list';
 import { Spinner } from '@/components/shared/spinner';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { UserList } from './_components/user-list';
 
 export default function Page() {
   return (
