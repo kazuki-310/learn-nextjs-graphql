@@ -18,9 +18,9 @@ export default function Page() {
           </Link>
         </div>
 
-        {/* <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />}>
           <ProjectList />
-        </Suspense> */}
+        </Suspense>
       </div>
     </main>
   );
