@@ -14,6 +14,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run lint:fix` - Run ESLint with auto-fix
 - `npm run format` - Format code with Prettier
 
+### Testing
+
+- `npm run test` - Run all Jest tests
+- `npm run test:watch` - Run Jest in watch mode
+- `npm run test:coverage` - Run tests with coverage report
+
 ### Database (Prisma)
 
 - `npm run prisma-migrate` - Run database migrations
@@ -89,3 +95,9 @@ The app uses a structured approach for server-side operations:
 - Uses T3 Env for type-safe environment variables
 - Currently configured for `NEXT_PUBLIC_API_URL`
 - Add database URL and other secrets as needed
+
+# important-instruction-reminders
+Do what has been asked; nothing more, nothing less.
+NEVER create files unless they're absolutely necessary for achieving your goal.
+ALWAYS prefer editing an existing file to creating a new one.
+NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
