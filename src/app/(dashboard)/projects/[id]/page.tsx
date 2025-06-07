@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { ProjectForm } from '../new/project-form';
 import { getProject } from './_server-actions/fetchers';
 import { Suspense } from 'react';
@@ -22,7 +21,7 @@ async function ProjectFormLoader({ projectId }: { projectId: string }) {
   const project = await getProject(projectId);
 
   if (!project) {
-    return notFound();
+    return <div>プロジェクトは存在しません</div>;
   }
 
   return <ProjectForm project={project} />;

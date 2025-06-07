@@ -2,8 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useAppForm } from '@/hooks/use-app-form';
-import { Role } from '@/lib/graphql/__generated__';
+import { Role, User } from '@/lib/graphql/__generated__';
 import { createUser } from '../new/_server-actions/actions';
+import { updateUser } from '../[id]/_server-actions/actions';
 import { createUserSchema } from '@/schemas/user';
 
 const USER_ROLE_OPTIONS = [
@@ -12,21 +13,26 @@ const USER_ROLE_OPTIONS = [
   { value: Role.Viewer, label: '閲覧者' },
 ];
 
-export function UserForm() {
+export function UserForm({ user }: { user?: User }) {
   const router = useRouter();
+  const isEditMode = !!user;
 
   const form = useAppForm({
     defaultValues: {
-      name: '',
-      email: '',
-      role: Role.Admin,
+      name: user?.name ?? '',
+      email: user?.email ?? '',
+      role: user?.role ?? Role.Admin,
     },
     onSubmit: async ({ value }) => {
       try {
-        await createUser(value);
+        if (isEditMode) {
+          await updateUser(user.id, value);
+        } else {
+          await createUser(value);
+        }
         router.push('/users');
       } catch (error) {
-        console.error('Error creating user:', error);
+        console.error('Error creating/updating user:', error);
       }
     },
     validators: {
@@ -75,7 +81,7 @@ export function UserForm() {
       </div>
 
       <form.AppForm>
-        <form.SubscribeButton label="Submit" />
+        <form.SubscribeButton label={isEditMode ? '更新' : '作成'} />
       </form.AppForm>
     </form>
   );
