@@ -50,11 +50,11 @@ export function UserForm({ user }: { user?: User }) {
     >
       <div className="grid gap-6 sm:grid-cols-1">
         <form.AppField name="name">
-          {(field) => <field.TextField label="ユーザー名" placeholder="山田太郎" />}
+          {(field) => <field.TextField label="ユーザー名" />}
         </form.AppField>
 
         <form.AppField name="email">
-          {(field) => <field.TextField label="メールアドレス" placeholder="user@example.com" type="email" />}
+          {(field) => <field.TextField label="メールアドレス" type="email" />}
         </form.AppField>
 
         <form.AppField name="role">
@@ -68,12 +68,9 @@ export function UserForm({ user }: { user?: User }) {
         </form.AppField>
       </div>
 
-      <div className="flex justify-end pt-6 border-t">
+      <div className="flex justify-end border-t pt-6">
         <form.AppForm>
-          <form.SubscribeButton 
-            label={isEditMode ? '更新する' : '作成する'} 
-            className="min-w-32"
-          />
+          <form.SubscribeButton label={isEditMode ? '更新する' : '作成する'} className="min-w-32" />
         </form.AppForm>
       </div>
     </form>

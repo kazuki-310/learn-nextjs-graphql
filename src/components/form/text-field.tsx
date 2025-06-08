@@ -1,6 +1,6 @@
 import { useFieldContext } from '@/hooks/form-context';
 
-export function TextField({ label }: { label: string }) {
+export function TextField({ label, type = 'text' }: { label: string; type?: string }) {
   const field = useFieldContext<string>();
   const fieldId = field.name;
 
@@ -10,6 +10,7 @@ export function TextField({ label }: { label: string }) {
       <input
         id={fieldId}
         name={field.name}
+        type={type}
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}

@@ -1,11 +1,31 @@
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ArrowLeft } from 'lucide-react';
 import { ProjectForm } from '../_components/project-form';
 
 export default function Page() {
   return (
-    <main className="space-y-6">
-      <h1 className="text-3xl font-bold">プロジェクト作成</h1>
-
-      <ProjectForm />
-    </main>
+    <div className="container mx-auto max-w-2xl space-y-8 p-6">
+      <Card className="gap-0 border-0 p-0 shadow-md">
+        <CardHeader className="bg-muted/50 border-b p-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl">新規プロジェクト作成</CardTitle>
+              <CardDescription>必要な情報を入力してプロジェクトを作成してください</CardDescription>
+            </div>
+            <Link href="/projects">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                戻る
+              </Button>
+            </Link>
+          </div>
+        </CardHeader>
+        <CardContent className="p-6">
+          <ProjectForm />
+        </CardContent>
+      </Card>
+    </div>
   );
 }

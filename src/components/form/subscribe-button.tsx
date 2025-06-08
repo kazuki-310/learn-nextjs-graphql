@@ -1,7 +1,7 @@
 import { useFormContext } from '@/hooks/form-context';
 import clsx from 'clsx';
 
-export function SubscribeButton({ label }: { label: string }) {
+export function SubscribeButton({ label, className }: { label: string; className?: string }) {
   const form = useFormContext();
 
   return (
@@ -12,6 +12,7 @@ export function SubscribeButton({ label }: { label: string }) {
           className={clsx(
             'my-auto w-[200px] rounded-md p-2 text-white',
             canSubmit ? 'bg-blue-500 hover:bg-blue-600' : 'cursor-not-allowed bg-gray-400',
+            className,
           )}
           disabled={isSubmitting || !canSubmit}
         >
