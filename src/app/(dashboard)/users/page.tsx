@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
 import { UserList } from './_components/user-list';
-import Loading from './loading';
+import UserTableSkeleton from './_components/user-table-skeleton';
 
 export default function Page() {
   return (
@@ -26,7 +26,7 @@ export default function Page() {
         </CardHeader>
 
         <CardContent className="p-3">
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<UserTableSkeleton />}>
             <UserList />
           </Suspense>
         </CardContent>

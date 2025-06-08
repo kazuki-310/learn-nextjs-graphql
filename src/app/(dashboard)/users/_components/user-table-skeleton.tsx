@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export default function Loading() {
+export default function UserTableSkeleton() {
   return (
     <Table className="p-6">
       <TableHeader>

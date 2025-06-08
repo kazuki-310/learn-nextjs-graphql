@@ -1,12 +1,12 @@
 import { ProjectForm } from '../_components/project-form';
+import { ProjectEditSkeleton } from '../_components/project-edit-skeleton';
 import { getProject } from './_server-actions/fetchers';
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ArrowLeft, FolderEdit, AlertTriangle } from 'lucide-react';
-import { ProjectEditSkeleton } from './_components/project-edit.skeleton';
+import { ArrowLeft, AlertTriangle } from 'lucide-react';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
