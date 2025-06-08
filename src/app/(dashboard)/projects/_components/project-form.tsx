@@ -18,7 +18,7 @@ import { Loader2 } from 'lucide-react';
 import { Project } from '@/lib/graphql/__generated__';
 import { createProjectSchema, ProjectFormData } from '@/schemas/project';
 import { updateProject } from '../[id]/_server-actions/actions';
-import { createProject } from './_server-actions/actions';
+import { createProject } from '../new/_server-actions/actions';
 
 export function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();

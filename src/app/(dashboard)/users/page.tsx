@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { Spinner } from '@/components/shared/spinner';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { UserList } from './_components/user-list';
+import { UserListSkeleton } from './_components/user-list-skeleton';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +18,7 @@ export default function Page() {
         </Link>
       </div>
 
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<UserListSkeleton />}>
         <UserList />
       </Suspense>
     </div>
