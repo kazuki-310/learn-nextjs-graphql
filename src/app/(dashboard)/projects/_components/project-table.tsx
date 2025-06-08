@@ -1,7 +1,7 @@
 'use client';
 
 import { DataTable, TableColumn, TableAction } from '@/components/shared/data-table';
-import { Project } from '@/lib/graphql/__generated__';
+import { GetProjectQuery, Project } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { deleteProject } from '../[id]/_server-actions/actions';

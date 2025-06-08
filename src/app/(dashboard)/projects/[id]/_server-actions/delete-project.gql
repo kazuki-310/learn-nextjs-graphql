@@ -4,6 +4,7 @@ mutation deleteProject($id: ID!) {
     title
     description
     createdAt
+    updatedAt
     price
   }
 }

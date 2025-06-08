@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { UserList } from './_components/user-list';
 
+export const dynamic = 'force-dynamic';
+
 export default function Page() {
   return (
     <div className="space-y-6">

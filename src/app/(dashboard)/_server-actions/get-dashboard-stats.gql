@@ -3,5 +3,8 @@ query getDashboardStats {
     totalProjects
     totalUsers
     totalRevenue
+    averageProjectPrice
+    maxProjectPrice
+    recentProjectsCount
   }
 }

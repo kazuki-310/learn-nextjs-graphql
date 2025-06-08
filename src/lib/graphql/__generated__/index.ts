@@ -19,6 +19,9 @@ export type Scalars = {
 
 export type DashboardStats = {
   __typename?: 'DashboardStats';
+  averageProjectPrice: Scalars['Float']['output'];
+  maxProjectPrice: Scalars['Int']['output'];
+  recentProjectsCount: Scalars['Int']['output'];
   totalProjects: Scalars['Int']['output'];
   totalRevenue: Scalars['Int']['output'];
   totalUsers: Scalars['Int']['output'];
@@ -73,6 +76,7 @@ export type Project = {
   id: Scalars['ID']['output'];
   price: Scalars['Int']['output'];
   title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type ProjectInput = {
@@ -113,6 +117,7 @@ export type User = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   role: Role;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserInput = {
@@ -124,21 +129,21 @@ export type UserInput = {
 export type GetDashboardStatsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetDashboardStatsQuery = { __typename?: 'Query', dashboardStats: { __typename?: 'DashboardStats', totalProjects: number, totalUsers: number, totalRevenue: number } };
+export type GetDashboardStatsQuery = { __typename?: 'Query', dashboardStats: { __typename?: 'DashboardStats', totalProjects: number, totalUsers: number, totalRevenue: number, averageProjectPrice: number, maxProjectPrice: number, recentProjectsCount: number } };
 
 export type DeleteProjectMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
+export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
 
 export type GetProjectQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } | null };
+export type GetProjectQuery = { __typename?: 'Query', project?: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } | null };
 
 export type UpdateProjectMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -146,33 +151,33 @@ export type UpdateProjectMutationVariables = Exact<{
 }>;
 
 
-export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
+export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
 
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number }> };
+export type GetProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number }> };
 
 export type CreateProjectMutationVariables = Exact<{
   input: ProjectInput;
 }>;
 
 
-export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, price: number } };
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
 
 export type DeleteUserMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
 
 export type GetUserQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } | null };
+export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } | null };
 
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -180,19 +185,19 @@ export type UpdateUserMutationVariables = Exact<{
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any }> };
+export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any }> };
 
 export type CreateUserMutationVariables = Exact<{
   input: UserInput;
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
 
 
 export const GetDashboardStatsDocument = gql`
@@ -201,6 +206,9 @@ export const GetDashboardStatsDocument = gql`
     totalProjects
     totalUsers
     totalRevenue
+    averageProjectPrice
+    maxProjectPrice
+    recentProjectsCount
   }
 }
     `;
@@ -211,6 +219,7 @@ export const DeleteProjectDocument = gql`
     title
     description
     createdAt
+    updatedAt
     price
   }
 }
@@ -222,6 +231,7 @@ export const GetProjectDocument = gql`
     title
     description
     createdAt
+    updatedAt
     price
   }
 }
@@ -233,6 +243,7 @@ export const UpdateProjectDocument = gql`
     title
     description
     createdAt
+    updatedAt
     price
   }
 }
@@ -244,6 +255,7 @@ export const GetProjectsDocument = gql`
     title
     description
     createdAt
+    updatedAt
     price
   }
 }
@@ -255,6 +267,7 @@ export const CreateProjectDocument = gql`
     title
     description
     createdAt
+    updatedAt
     price
   }
 }
@@ -267,6 +280,7 @@ export const DeleteUserDocument = gql`
     email
     role
     createdAt
+    updatedAt
   }
 }
     `;
@@ -278,6 +292,7 @@ export const GetUserDocument = gql`
     email
     role
     createdAt
+    updatedAt
   }
 }
     `;
@@ -289,6 +304,7 @@ export const UpdateUserDocument = gql`
     email
     role
     createdAt
+    updatedAt
   }
 }
     `;
@@ -300,6 +316,7 @@ export const GetUsersDocument = gql`
     email
     role
     createdAt
+    updatedAt
   }
 }
     `;
@@ -311,6 +328,7 @@ export const CreateUserDocument = gql`
     email
     role
     createdAt
+    updatedAt
   }
 }
     `;

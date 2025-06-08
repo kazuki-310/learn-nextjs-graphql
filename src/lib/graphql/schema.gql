@@ -17,6 +17,7 @@ type User {
   email: String!
   role: Role!
   createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Project {
@@ -25,13 +26,18 @@ type Project {
   description: String
   price: Int!
   createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type DashboardStats {
   totalProjects: Int!
   totalUsers: Int!
   totalRevenue: Int!
+  averageProjectPrice: Float!
+  maxProjectPrice: Int!
+  recentProjectsCount: Int!
 }
+
 
 input ProjectInput {
   title: String!

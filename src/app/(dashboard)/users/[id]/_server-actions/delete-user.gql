@@ -5,5 +5,6 @@ mutation deleteUser($id: ID!) {
     email
     role
     createdAt
+    updatedAt
   }
 }

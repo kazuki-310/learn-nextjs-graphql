@@ -1,17 +1,15 @@
 'use client';
 
 import { DataTable, TableColumn, TableAction } from '@/components/shared/data-table';
-import { GetUsersQuery, User } from '@/lib/graphql/__generated__';
+import { User } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { deleteUser } from '../[id]/_server-actions/actions';
 
-type UserFromQuery = GetUsersQuery['users'][number];
-
-export function UserTable({ users }: { users: UserFromQuery[] }) {
+export function UserTable({ users }: { users: User[] }) {
   const router = useRouter();
 
-  const columns: TableColumn<UserFromQuery>[] = [
+  const columns: TableColumn<User>[] = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
     { key: 'role', label: 'Role' },
@@ -20,9 +18,14 @@ export function UserTable({ users }: { users: UserFromQuery[] }) {
       label: 'Created At',
       render: (value) => formatDate(value),
     },
+    {
+      key: 'updatedAt',
+      label: 'Updated At',
+      render: (value) => formatDate(value),
+    },
   ];
 
-  const actions: TableAction<UserFromQuery>[] = [
+  const actions: TableAction<User>[] = [
     {
       label: '編集',
       onClick: (user) => router.push(`/users/${user.id}`),

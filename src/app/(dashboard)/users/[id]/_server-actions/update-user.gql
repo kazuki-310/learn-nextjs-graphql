@@ -5,5 +5,6 @@ mutation updateUser($id: ID!, $input: UserInput!) {
     email
     role
     createdAt
+    updatedAt
   }
 }

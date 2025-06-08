@@ -19,6 +19,7 @@ model Users {
   email     String   @unique
   role      Role     @default(admin)
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Projects {
@@ -27,4 +28,5 @@ model Projects {
   description String?
   price       Int
   createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

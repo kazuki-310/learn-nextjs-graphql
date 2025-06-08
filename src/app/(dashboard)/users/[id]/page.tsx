@@ -48,20 +48,6 @@ async function UserDetailLoader({ userId }: { userId: string }) {
             <p className="text-sm">{user.role}</p>
           </div>
           <div>
-            <label className="text-sm font-medium text-muted-foreground">ステータス</label>
-            <p className="text-sm">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-              }`}>
-                {user.isActive ? 'アクティブ' : '非アクティブ'}
-              </span>
-            </p>
-          </div>
-          <div>
-            <label className="text-sm font-medium text-muted-foreground">最終ログイン</label>
-            <p className="text-sm">{user.lastLoginAt ? formatDate(user.lastLoginAt) : '未ログイン'}</p>
-          </div>
-          <div>
             <label className="text-sm font-medium text-muted-foreground">作成日</label>
             <p className="text-sm">{formatDate(user.createdAt)}</p>
           </div>

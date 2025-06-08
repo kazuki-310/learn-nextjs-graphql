@@ -5,5 +5,6 @@ query getUsers {
     email
     role
     createdAt
+    updatedAt
   }
 }

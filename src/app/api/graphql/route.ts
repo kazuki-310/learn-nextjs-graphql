@@ -48,16 +48,28 @@ const resolvers: Resolvers = {
       return project;
     },
     async dashboardStats() {
-      const [totalProjects, totalUsers, totalRevenue] = await Promise.all([
-        prisma.projects.count(),
-        prisma.users.count(),
-        prisma.projects.aggregate({ _sum: { price: true } }),
-      ]);
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+      const [totalProjects, totalUsers, totalRevenue, avgPrice, maxPrice, recentProjects] =
+        await Promise.all([
+          prisma.projects.count(),
+          prisma.users.count(),
+          prisma.projects.aggregate({ _sum: { price: true } }),
+          prisma.projects.aggregate({ _avg: { price: true } }),
+          prisma.projects.aggregate({ _max: { price: true } }),
+          prisma.projects.count({
+            where: { createdAt: { gte: thirtyDaysAgo } },
+          }),
+        ]);
 
       return {
         totalProjects,
         totalUsers,
         totalRevenue: totalRevenue._sum.price || 0,
+        averageProjectPrice: avgPrice._avg.price || 0,
+        maxProjectPrice: maxPrice._max.price || 0,
+        recentProjectsCount: recentProjects,
       };
     },
   },
@@ -79,7 +91,7 @@ const resolvers: Resolvers = {
         data: {
           title: input.title,
           description: input.description,
-          price: input.price,
+          price: input.price ?? 0,
         },
       });
 

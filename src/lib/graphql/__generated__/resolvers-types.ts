@@ -19,6 +19,9 @@ export type Scalars = {
 
 export type DashboardStats = {
   __typename?: 'DashboardStats';
+  averageProjectPrice: Scalars['Float']['output'];
+  maxProjectPrice: Scalars['Int']['output'];
+  recentProjectsCount: Scalars['Int']['output'];
   totalProjects: Scalars['Int']['output'];
   totalRevenue: Scalars['Int']['output'];
   totalUsers: Scalars['Int']['output'];
@@ -73,6 +76,7 @@ export type Project = {
   id: Scalars['ID']['output'];
   price: Scalars['Int']['output'];
   title: Scalars['String']['output'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type ProjectInput = {
@@ -113,6 +117,7 @@ export type User = {
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   role: Role;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserInput = {
@@ -195,6 +200,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   DashboardStats: ResolverTypeWrapper<DashboardStats>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -212,6 +218,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   DashboardStats: DashboardStats;
   DateTime: Scalars['DateTime']['output'];
+  Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   Mutation: {};
@@ -224,6 +231,9 @@ export type ResolversParentTypes = {
 };
 
 export type DashboardStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DashboardStats'] = ResolversParentTypes['DashboardStats']> = {
+  averageProjectPrice?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  maxProjectPrice?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  recentProjectsCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalProjects?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalRevenue?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalUsers?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -249,6 +259,7 @@ export type ProjectResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -266,6 +277,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   role?: Resolver<ResolversTypes['Role'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
