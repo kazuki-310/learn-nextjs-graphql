@@ -1,19 +1,8 @@
 import { Suspense } from 'react';
-import { Spinner } from '@/components/shared/spinner';
-import { DashboardStats } from './_components/dashboard-stats';
-import { getDashboardStats } from './_server-actions/fetchers';
+import { DashboardContent } from './_components/dashboard-content';
+import { DashboardSkeleton } from './_components/dashboard-skeleton';
 
 export const dynamic = 'force-dynamic';
-
-async function DashboardContent() {
-  const stats = await getDashboardStats();
-
-  return (
-    <div className="space-y-8">
-      <DashboardStats stats={stats} />
-    </div>
-  );
-}
 
 export default function DashboardPage() {
   return (
@@ -23,7 +12,7 @@ export default function DashboardPage() {
         <p className="text-muted-foreground">プロジェクトとユーザーの概要</p>
       </div>
 
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<DashboardSkeleton />}>
         <DashboardContent />
       </Suspense>
     </div>
