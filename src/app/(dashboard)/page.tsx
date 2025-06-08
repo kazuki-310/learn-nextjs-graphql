@@ -1,8 +1,4 @@
-import { Suspense } from 'react';
 import { DashboardContent } from './_components/dashboard-content';
-import { DashboardSkeleton } from './_components/dashboard-skeleton';
-
-export const dynamic = 'force-dynamic';
 
 export default function DashboardPage() {
   return (
@@ -12,9 +8,7 @@ export default function DashboardPage() {
         <p className="text-muted-foreground">プロジェクトとユーザーの概要</p>
       </div>
 
-      <Suspense fallback={<DashboardSkeleton />}>
-        <DashboardContent />
-      </Suspense>
+      <DashboardContent />
     </div>
   );
 }

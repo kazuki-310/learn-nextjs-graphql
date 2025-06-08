@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ProjectList } from './_components/project-list';
-import { ProjectListSkeleton } from './_components/project-list-skeleton';
+import Loading from './loading';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,7 +18,7 @@ export default function Page() {
         </Link>
       </div>
 
-      <Suspense fallback={<ProjectListSkeleton />}>
+      <Suspense fallback={<Loading />}>
         <ProjectList />
       </Suspense>
     </div>

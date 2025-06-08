@@ -1,9 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { GetDashboardStatsQuery } from '@/lib/graphql/__generated__/index';
 
-type DashboardStatsFromQuery = GetDashboardStatsQuery['dashboardStats'];
-
-export function DashboardStats({ stats }: { stats: DashboardStatsFromQuery }) {
+export function DashboardStats({ stats }: { stats: GetDashboardStatsQuery['dashboardStats'] }) {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <Card>
@@ -38,7 +36,9 @@ export function DashboardStats({ stats }: { stats: DashboardStatsFromQuery }) {
           <CardTitle className="text-sm font-medium">平均プロジェクト価格</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">¥{Math.round(stats.averageProjectPrice).toLocaleString()}</div>
+          <div className="text-2xl font-bold">
+            ¥{Math.round(stats.averageProjectPrice).toLocaleString()}
+          </div>
         </CardContent>
       </Card>
 

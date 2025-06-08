@@ -46,33 +46,21 @@ export function UserForm({ user }: { user?: User }) {
         e.preventDefault();
         form.handleSubmit();
       }}
-      className="mt-3 flex justify-around gap-6 py-6"
+      className="space-y-6"
     >
-      <div className="flex flex-col gap-3">
-        <form.AppField
-          name="name"
-          // asyncDebounceMs={500}
-          // validators={{
-          //   onChangeAsync: formSchema.shape.name,
-          // }}
-        >
-          {(field) => <field.TextField label="Name" />}
+      <div className="grid gap-6 sm:grid-cols-1">
+        <form.AppField name="name">
+          {(field) => <field.TextField label="ユーザー名" placeholder="山田太郎" />}
         </form.AppField>
 
-        <form.AppField
-          name="email"
-          // asyncDebounceMs={500}
-          // validators={{
-          //   onChangeAsync: formSchema.shape.email,
-          // }}
-        >
-          {(field) => <field.TextField label="Email" />}
+        <form.AppField name="email">
+          {(field) => <field.TextField label="メールアドレス" placeholder="user@example.com" type="email" />}
         </form.AppField>
 
         <form.AppField name="role">
           {(field) => (
             <field.SelectField
-              label="role"
+              label="ロール"
               selectOptions={USER_ROLE_OPTIONS}
               defaultValue={field.state.value}
             />
@@ -80,9 +68,14 @@ export function UserForm({ user }: { user?: User }) {
         </form.AppField>
       </div>
 
-      <form.AppForm>
-        <form.SubscribeButton label={isEditMode ? '更新' : '作成'} />
-      </form.AppForm>
+      <div className="flex justify-end pt-6 border-t">
+        <form.AppForm>
+          <form.SubscribeButton 
+            label={isEditMode ? '更新する' : '作成する'} 
+            className="min-w-32"
+          />
+        </form.AppForm>
+      </div>
     </form>
   );
 }
