@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Role, User } from '@/lib/graphql/__generated__';
 
-// Mock the UserForm component
 jest.mock('../../_components/user-form', () => ({
   UserForm: ({ user }: { user: User }) => (
     <div data-testid="user-form">
@@ -11,9 +10,8 @@ jest.mock('../../_components/user-form', () => ({
   ),
 }));
 
-// Mock the UserFormLoader component by testing it separately
 describe('User Edit Page Components', () => {
-  describe('UserFormLoader', () => {
+  describe('UserDetailLoader', () => {
     it('should render UserForm when user exists', () => {
       const mockUser = {
         id: '1',

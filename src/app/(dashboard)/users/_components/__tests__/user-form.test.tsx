@@ -32,21 +32,21 @@ describe('UserForm', () => {
   it('should render form fields with correct labels', () => {
     render(<UserForm />)
     
-    expect(screen.getByLabelText('Name')).toBeInTheDocument()
-    expect(screen.getByLabelText('Email')).toBeInTheDocument()
-    expect(screen.getByLabelText('role')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '作成' })).toBeInTheDocument()
+    expect(screen.getByLabelText('ユーザー名')).toBeInTheDocument()
+    expect(screen.getByLabelText('メールアドレス')).toBeInTheDocument()
+    expect(screen.getByLabelText('ロール')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '作成する' })).toBeInTheDocument()
   })
 
   it('should render with default values in create mode', () => {
     render(<UserForm />)
     
-    const nameField = screen.getByLabelText('Name') as HTMLInputElement
-    const emailField = screen.getByLabelText('Email') as HTMLInputElement
+    const nameField = screen.getByLabelText('ユーザー名') as HTMLInputElement
+    const emailField = screen.getByLabelText('メールアドレス') as HTMLInputElement
     
     expect(nameField.value).toBe('')
     expect(emailField.value).toBe('')
-    expect(screen.getByRole('button', { name: '作成' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '作成する' })).toBeInTheDocument()
   })
 
   it('should render with user data in edit mode', () => {
@@ -61,12 +61,12 @@ describe('UserForm', () => {
 
     render(<UserForm user={mockUser} />)
     
-    const nameField = screen.getByLabelText('Name') as HTMLInputElement
-    const emailField = screen.getByLabelText('Email') as HTMLInputElement
+    const nameField = screen.getByLabelText('ユーザー名') as HTMLInputElement
+    const emailField = screen.getByLabelText('メールアドレス') as HTMLInputElement
     
     expect(nameField.value).toBe('Test User')
     expect(emailField.value).toBe('test@example.com')
-    expect(screen.getByRole('button', { name: '更新' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '更新する' })).toBeInTheDocument()
   })
 
   it('should call createUser when form is submitted in create mode', async () => {
@@ -76,15 +76,15 @@ describe('UserForm', () => {
     render(<UserForm />)
     
     // Fill form fields
-    fireEvent.change(screen.getByLabelText('Name'), {
+    fireEvent.change(screen.getByLabelText('ユーザー名'), {
       target: { value: 'New User' }
     })
-    fireEvent.change(screen.getByLabelText('Email'), {
+    fireEvent.change(screen.getByLabelText('メールアドレス'), {
       target: { value: 'new@example.com' }
     })
     
     // Submit form
-    fireEvent.click(screen.getByRole('button', { name: '作成' }))
+    fireEvent.click(screen.getByRole('button', { name: '作成する' }))
     
     await waitFor(() => {
       expect(mockCreateUser).toHaveBeenCalledWith({
@@ -102,7 +102,7 @@ describe('UserForm', () => {
   it('should display role options correctly', () => {
     render(<UserForm />)
     
-    const roleSelect = screen.getByLabelText('role')
+    const roleSelect = screen.getByLabelText('ロール')
     expect(roleSelect).toBeInTheDocument()
     
     // TanStack Form select might need different approach to test options
