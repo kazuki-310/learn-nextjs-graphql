@@ -6,6 +6,7 @@ import { Role, User } from '@/lib/graphql/__generated__';
 import { createUser } from '../new/_server-actions/actions';
 import { updateUser } from '../[id]/_server-actions/actions';
 import { createUserSchema } from '@/schemas/user';
+import { toast } from 'sonner';
 
 const USER_ROLE_OPTIONS = [
   { value: Role.Admin, label: '管理者' },
@@ -27,12 +28,15 @@ export function UserForm({ user }: { user?: User }) {
       try {
         if (isEditMode) {
           await updateUser(user.id, value);
+          toast.success(`「${value.name}」を更新しました`);
         } else {
           await createUser(value);
+          toast.success(`「${value.name}」を作成しました`);
         }
         router.push('/users');
       } catch (error) {
         console.error('Error creating/updating user:', error);
+        toast.error(isEditMode ? '更新に失敗しました' : '作成に失敗しました');
       }
     },
     validators: {

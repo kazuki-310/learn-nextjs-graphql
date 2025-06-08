@@ -5,6 +5,7 @@ import { User } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { deleteUser } from '../[id]/_server-actions/actions';
+import { toast } from 'sonner';
 
 export function UserTable({ users }: { users: User[] }) {
   const router = useRouter();
@@ -32,7 +33,14 @@ export function UserTable({ users }: { users: User[] }) {
     },
     {
       label: '削除',
-      onClick: (user) => deleteUser(user.id),
+      onClick: async (user) => {
+        try {
+          await deleteUser(user.id);
+          toast.success(`「${user.name}」を削除しました`);
+        } catch (error) {
+          toast.error('削除に失敗しました');
+        }
+      },
       variant: 'destructive',
     },
   ];

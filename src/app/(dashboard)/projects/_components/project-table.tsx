@@ -5,6 +5,7 @@ import { GetProjectQuery, Project } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { deleteProject } from '../[id]/_server-actions/actions';
+import { toast } from 'sonner';
 
 export function ProjectTable({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -36,7 +37,14 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
     },
     {
       label: '削除',
-      onClick: (project) => deleteProject(project.id),
+      onClick: async (project) => {
+        try {
+          await deleteProject(project.id);
+          toast.success(`「${project.title}」を削除しました`);
+        } catch (error) {
+          toast.error('削除に失敗しました');
+        }
+      },
       variant: 'destructive',
     },
   ];

@@ -19,6 +19,7 @@ import { Project } from '@/lib/graphql/__generated__';
 import { createProjectSchema, ProjectFormData } from '@/schemas/project';
 import { updateProject } from '../[id]/_server-actions/actions';
 import { createProject } from '../new/_server-actions/actions';
+import { toast } from 'sonner';
 
 export function ProjectForm({ project }: { project?: Project }) {
   const router = useRouter();
@@ -44,13 +45,16 @@ export function ProjectForm({ project }: { project?: Project }) {
     try {
       if (isEditMode) {
         await updateProject(project.id, data);
+        toast.success(`「${data.title}」を更新しました`);
       } else {
         await createProject(data);
+        toast.success(`「${data.title}」を作成しました`);
       }
 
       router.push('/projects');
     } catch (error) {
       console.error('Error creating/updating project:', error);
+      toast.error(isEditMode ? '更新に失敗しました' : '作成に失敗しました');
     }
   };
 
