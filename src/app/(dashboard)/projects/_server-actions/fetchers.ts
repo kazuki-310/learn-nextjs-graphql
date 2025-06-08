@@ -1,14 +1,14 @@
-import { graphQLFetchSdk } from '@/lib/graphql';
+import { graphQLFetchSdk, cacheOptions } from '@/lib/graphql';
 import { cache } from 'react';
 
 export const getProjects = cache(async () => {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const res = await graphQLFetchSdk.getProjects(undefined, {
-      revalidate: false,
-      tags: ['projects'],
-    });
+    const res = await graphQLFetchSdk.getProjects(
+      undefined,
+      cacheOptions.static(['projects'])
+    );
 
     return res.projects;
   } catch (error) {

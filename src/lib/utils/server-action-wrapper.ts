@@ -5,7 +5,7 @@ type ServerActionConfig = {
   errorMessage: string;
 };
 
-export function withServerAction<T extends any[], R>(
+export function withServerAction<T extends readonly unknown[], R>(
   action: (...args: T) => Promise<R>,
   config: ServerActionConfig
 ) {

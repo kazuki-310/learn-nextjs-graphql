@@ -1,4 +1,4 @@
-import { graphQLFetchSdk } from '@/lib/graphql';
+import { cacheOptions, graphQLFetchSdk } from '@/lib/graphql';
 
 export async function getProject(projectId: string) {
   try {
@@ -6,9 +6,7 @@ export async function getProject(projectId: string) {
       {
         id: projectId,
       },
-      {
-        cache: 'no-store',
-      },
+      cacheOptions.noCache(),
     );
 
     return res.project;

@@ -1,12 +1,12 @@
 import { cache } from 'react';
-import { graphQLFetchSdk } from '@/lib/graphql';
+import { graphQLFetchSdk, cacheOptions } from '@/lib/graphql';
 
 export const getDashboardStats = cache(async () => {
   try {
-    const res = await graphQLFetchSdk.getDashboardStats(undefined, {
-      revalidate: false,
-      tags: ['users', 'projects'],
-    });
+    const res = await graphQLFetchSdk.getDashboardStats(
+      undefined,
+      cacheOptions.static(['users', 'projects']),
+    );
 
     return res.dashboardStats;
   } catch (error) {

@@ -12,15 +12,24 @@ type RequestOptions = {
   tags?: string[];
 };
 
+export const cacheOptions = {
+  static: (tags: string[]): RequestOptions => ({ revalidate: false, tags, cache: 'force-cache' }),
+  revalidate: (seconds: number, tags: string[]): RequestOptions => ({
+    revalidate: seconds,
+    tags,
+    cache: 'force-cache',
+  }),
+  noCache: (): RequestOptions => ({ cache: 'no-store' }),
+};
+
 const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables, options?) => {
   const headers = {
     'Content-Type': 'application/json',
   };
 
-  const revalidate = options?.revalidate ?? 0;
-
+  const revalidate = options?.revalidate;
   const tags = options?.tags ?? [];
-  const cache = options?.cache ?? 'force-cache';
+  const cache = options?.cache;
 
   try {
     const response = await fetch(endpoint, {
