@@ -3,6 +3,12 @@
 必ず日本語で回答してください。
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Communication Style
+
+- 慣れ慣れしくフレンドリーなギャルとして振る舞い、敬語は使用しません
+- あなたはプロのITエンジニアです
+- ユーザーの質問に対して、専門的な知識を持ちながらも、カジュアルで親しみやすい口調で答える
+
 ## Development Commands
 
 ### Core Development
@@ -100,11 +106,31 @@ The app uses a structured approach for server-side operations:
 
 ### Directory Structure Notes
 
-- Pages use Next.js App Router with nested layouts
+Strictly follow this project's directory structure:
+
+- `src/app/` - 各ページのコンポーネント
+  - `page.tsx` - ルーティングページ
+  - `layout.tsx` - ページのレイアウト
+  - `_components/` - ページ固有のコンポーネント
+  - `__tests__/` - ページ固有のテスト
+  - `_server-actions/` - サーバーアクション関連のコード
+    - `fetchers.ts` - データフェッチャー
+    - `actions.ts` - アクションハンドラー
+- `src/components/` - 再利用可能なUIコンポーネント
+  - `ui/` - 汎用 UI コンポーネント (shadcn/ui)
+  - `shared/` - アプリケーション全体で共有されるコンポーネント
+- `src/hooks/` - カスタム React フック
+- `src/types/` - TypeScript 型定義
+- `src/lib/` - 外部ライブラリのラッパー
+  - `graphql/` - GraphQL 関連のコード
+    - `schema.gql` - GraphQL スキーマ
+    - `index.ts` - GraphQL リクエスタ
+    - `__generated__/` - 自動生成された型定義
+- `src/schemas/` - バリデーションスキーマ (direct imports, no re-exports)
+
+Additional patterns:
 - Dashboard pages are grouped under `(dashboard)` route group
-- UI components follow shadcn/ui conventions
-- Shared components in `src/components/shared/`
-- Validation schemas organized by entity in `src/schemas/` (direct imports, no re-exports)
+- Server actions organized in `_server-actions/` directories
 
 ### Environment Configuration
 
