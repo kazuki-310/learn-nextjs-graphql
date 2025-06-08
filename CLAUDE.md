@@ -75,12 +75,28 @@ The app uses a structured approach for server-side operations:
 - Custom form components in `src/components/form/` with proper accessibility
 - Server actions handle form submissions with unified error handling via `withServerAction` wrapper
 
+#### Caching Strategy
+
+- Custom GraphQL requester with configurable cache options (`src/lib/graphql/index.ts`)
+- `cacheOptions` helpers:
+  - `static(tags)` - Static cache with revalidation tags
+  - `revalidate(seconds, tags)` - Time-based revalidation
+  - `noCache()` - No caching for dynamic content
+- All data fetchers use `cache()` from React for request deduplication
+
+#### User Experience
+
+- Toast notifications using `sonner` for all CRUD operations
+- Success messages show entity names (e.g., "「Project Name」を作成しました")
+- Error handling with user-friendly Japanese messages
+- Loading states and skeletons for all async operations
+
 #### Shared Components and Utilities
 
 - `DataTable` component (`src/components/shared/data-table.tsx`) for generic table rendering with actions
 - Date formatting utility (`src/lib/utils/date-format.ts`) for consistent date display
 - Form field components (`src/components/form/`) with proper label-input associations
-- Server action wrapper (`src/lib/utils/server-action-wrapper.ts`) for DRY error handling
+- Server action wrapper (`src/lib/utils/server-action-wrapper.ts`) for DRY error handling and cache revalidation
 
 ### Directory Structure Notes
 
