@@ -126,16 +126,14 @@ describe('getProjects fetcher', () => {
     });
   });
 
-  it('should handle GraphQL response with null projects', async () => {
-    const mockResponse = {
-      projects: null,
-    };
+  it('should handle GraphQL response with undefined projects', async () => {
+    const mockError = new Error('Projects query returned undefined');
 
-    mockGraphQLFetchSdk.getProjects.mockResolvedValue(mockResponse);
+    mockGraphQLFetchSdk.getProjects.mockRejectedValue(mockError);
 
-    const result = await getProjects();
+    await expect(getProjects()).rejects.toThrow('Projects query returned undefined');
 
-    expect(result).toBeNull();
+    expect(consoleSpy).toHaveBeenCalledWith('Error fetching projects:', mockError);
   });
 
   it('should handle malformed project data', async () => {
