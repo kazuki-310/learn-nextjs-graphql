@@ -6,12 +6,17 @@ jest.mock('@/lib/graphql', () => ({
   graphQLFetchSdk: {
     getProject: jest.fn(),
   },
+  cacheOptions: {
+    static: jest.fn((tags) => ({ revalidate: false, tags, cache: 'force-cache' })),
+    revalidate: jest.fn((seconds, tags) => ({ revalidate: seconds, tags, cache: 'force-cache' })),
+    noCache: jest.fn(() => ({ cache: 'no-store' })),
+  },
 }));
 
 // Mock console.error to test error logging
 const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
 
-describe('getProject fetcher', () => {
+describe('getProjectフェッチャー', () => {
   const mockGraphQLFetchSdk = graphQLFetchSdk as jest.Mocked<typeof graphQLFetchSdk>;
 
   beforeEach(() => {
@@ -23,7 +28,7 @@ describe('getProject fetcher', () => {
     consoleSpy.mockRestore();
   });
 
-  it('should fetch a project successfully', async () => {
+  it('プロジェクトを正常に取得できること', async () => {
     const projectId = '1';
     const mockResponse = {
       project: {
@@ -47,7 +52,7 @@ describe('getProject fetcher', () => {
     expect(result).toEqual(mockResponse.project);
   });
 
-  it('should return null when project is not found', async () => {
+  it('プロジェクトが見つからない時にnullを返すこと', async () => {
     const projectId = '999';
     const mockError = new Error('Project not found');
 
@@ -63,7 +68,7 @@ describe('getProject fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching project:', mockError);
   });
 
-  it('should handle GraphQL errors gracefully', async () => {
+  it('GraphQLエラーを適切に処理できること', async () => {
     const projectId = '2';
     const mockError = new Error('GraphQL server error');
 
@@ -75,7 +80,7 @@ describe('getProject fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching project:', mockError);
   });
 
-  it('should handle network errors', async () => {
+  it('ネットワークエラーを処理できること', async () => {
     const projectId = '3';
     const networkError = new Error('Network error');
 
@@ -87,7 +92,7 @@ describe('getProject fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching project:', networkError);
   });
 
-  it('should call GraphQL with no-store cache option', async () => {
+  it('no-storeキャッシュオプションでGraphQLを呼び出すこと', async () => {
     const projectId = '4';
     const mockResponse = {
       project: {
@@ -110,7 +115,7 @@ describe('getProject fetcher', () => {
     );
   });
 
-  it('should handle empty project ID', async () => {
+  it('空のプロジェクトIDを処理できること', async () => {
     const projectId = '';
     const mockResponse = {
       project: null,
@@ -127,7 +132,7 @@ describe('getProject fetcher', () => {
     expect(result).toBeNull();
   });
 
-  it('should handle malformed project data', async () => {
+  it('不正なプロジェクトデータを処理できること', async () => {
     const projectId = '5';
     const mockError = new Error('Invalid project data');
 

@@ -13,14 +13,14 @@ jest.mock('@/lib/utils/server-action-wrapper', () => ({
   withServerAction: jest.fn((fn) => fn),
 }));
 
-describe('createProject action', () => {
+describe('プロジェクト作成アクション', () => {
   const mockGraphQLFetchSdk = graphQLFetchSdk as jest.Mocked<typeof graphQLFetchSdk>;
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should create a project successfully', async () => {
+  it('プロジェクトを正常に作成できること', async () => {
     const mockProjectData = {
       title: 'Test Project',
       description: 'Test description',
@@ -48,7 +48,7 @@ describe('createProject action', () => {
     expect(result).toEqual(mockResponse.createProject);
   });
 
-  it('should handle GraphQL errors', async () => {
+  it('GraphQLエラーを処理できること', async () => {
     const mockProjectData = {
       title: 'Test Project',
       description: 'Test description',
@@ -65,7 +65,7 @@ describe('createProject action', () => {
     });
   });
 
-  it('should call GraphQL with correct input structure', async () => {
+  it('正しい入力構造でGraphQLを呼び出すこと', async () => {
     const mockProjectData = {
       title: 'Another Project',
       description: 'Another description',
@@ -95,7 +95,7 @@ describe('createProject action', () => {
     });
   });
 
-  it('should handle empty description', async () => {
+  it('空の説明を処理できること', async () => {
     const mockProjectData = {
       title: 'Project without description',
       description: '',
@@ -121,7 +121,7 @@ describe('createProject action', () => {
     });
   });
 
-  it('should handle zero price', async () => {
+  it('ゼロ価格を処理できること', async () => {
     const mockProjectData = {
       title: 'Free Project',
       description: 'This is free',

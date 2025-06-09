@@ -6,20 +6,20 @@ jest.mock('../../_components/user-form', () => ({
   UserForm: () => <div data-testid="user-form">User Form Component</div>,
 }));
 
-describe('Users New Page', () => {
-  it('should render page title', () => {
+describe('ユーザー新規作成ページ', () => {
+  it('ページタイトルをレンダーできること', () => {
     render(<Page />);
 
     expect(screen.getByText('新規ユーザー作成')).toBeInTheDocument();
   });
 
-  it('should render UserForm component', () => {
+  it('UserFormコンポーネントをレンダーできること', () => {
     render(<Page />);
 
     expect(screen.getByTestId('user-form')).toBeInTheDocument();
   });
 
-  it('should have correct page structure', () => {
+  it('正しいページ構造を持つこと', () => {
     render(<Page />);
 
     const container = screen.getByText('新規ユーザー作成').closest('.container');

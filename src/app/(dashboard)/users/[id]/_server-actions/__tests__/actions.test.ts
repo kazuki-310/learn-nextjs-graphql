@@ -1,8 +1,8 @@
 import { Role } from '@/lib/graphql/__generated__';
 
-describe('User actions', () => {
+describe('ユーザーアクション', () => {
   describe('updateUser', () => {
-    it('should validate user update data types', () => {
+    it('ユーザー更新データ型を検証できること', () => {
       const updateData = {
         name: 'Updated User',
         email: 'updated@example.com',
@@ -14,7 +14,7 @@ describe('User actions', () => {
       expect(updateData.role).toBe(Role.Editor);
     });
 
-    it('should handle different user roles for update', () => {
+    it('更新時に異なるユーザーロールを処理できること', () => {
       const roles = [Role.Admin, Role.Editor, Role.Viewer];
 
       roles.forEach((role) => {
@@ -29,7 +29,7 @@ describe('User actions', () => {
       });
     });
 
-    it('should validate required fields for update', () => {
+    it('更新時の必須フィールドを検証できること', () => {
       const validUpdateData = {
         name: 'Valid User',
         email: 'valid@example.com',
@@ -43,14 +43,14 @@ describe('User actions', () => {
   });
 
   describe('deleteUser', () => {
-    it('should validate user ID for deletion', () => {
+    it('削除用ユーザーIDを検証できること', () => {
       const userId = '12345';
 
       expect(typeof userId).toBe('string');
       expect(userId.length).toBeGreaterThan(0);
     });
 
-    it('should handle different ID formats', () => {
+    it('異なるIDフォーマットを処理できること', () => {
       const userIds = ['1', 'user-123', 'uuid-format-id', '999'];
 
       userIds.forEach((id) => {
@@ -60,8 +60,8 @@ describe('User actions', () => {
     });
   });
 
-  describe('User data validation', () => {
-    it('should validate email format patterns', () => {
+  describe('ユーザーデータ検証', () => {
+    it('メールアドレスフォーマットパターンを検証できること', () => {
       const validEmails = ['test@example.com', 'user.name@domain.co.jp', 'admin+tag@company.org'];
 
       validEmails.forEach((email) => {
@@ -71,7 +71,7 @@ describe('User actions', () => {
       });
     });
 
-    it('should validate name requirements', () => {
+    it('名前の要件を検証できること', () => {
       const validNames = ['John Doe', '田中太郎', 'User 123'];
 
       validNames.forEach((name) => {
@@ -80,7 +80,7 @@ describe('User actions', () => {
       });
     });
 
-    it('should validate role enum consistency', () => {
+    it('ロールenumの一貫性を検証できること', () => {
       expect(Role.Admin).toBe('admin');
       expect(Role.Editor).toBe('editor');
       expect(Role.Viewer).toBe('viewer');
@@ -93,8 +93,8 @@ describe('User actions', () => {
     });
   });
 
-  describe('Error handling scenarios', () => {
-    it('should handle invalid user data for update', () => {
+  describe('エラーハンドリングシナリオ', () => {
+    it('更新時の不正なユーザーデータを処理できること', () => {
       const invalidData = [
         { name: '', email: 'valid@example.com', role: Role.Admin }, // empty name
         { name: 'Valid Name', email: '', role: Role.Admin }, // empty email
@@ -111,7 +111,7 @@ describe('User actions', () => {
       });
     });
 
-    it('should handle invalid user ID for deletion', () => {
+    it('削除時の不正なユーザーIDを処理できること', () => {
       const invalidIds = ['', '   ', null, undefined];
 
       invalidIds.forEach((id) => {

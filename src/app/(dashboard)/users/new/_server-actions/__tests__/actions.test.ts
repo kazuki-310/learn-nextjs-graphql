@@ -1,13 +1,13 @@
 import { Role } from '@/lib/graphql/__generated__'
 
-describe('createUser action', () => {
-  it('should have correct role enum values', () => {
+describe('createUserアクション', () => {
+  it('正しいロールenum値を持つこと', () => {
     expect(Role.Admin).toBe('admin')
     expect(Role.Editor).toBe('editor')
     expect(Role.Viewer).toBe('viewer')
   })
 
-  it('should validate user data types', () => {
+  it('ユーザーデータ型を検証できること', () => {
     const mockUserData = {
       name: 'Test User',
       email: 'test@example.com',
@@ -19,7 +19,7 @@ describe('createUser action', () => {
     expect(mockUserData.role).toBe(Role.Admin)
   })
 
-  it('should handle different user roles', () => {
+  it('異なるユーザーロールを処理できること', () => {
     const roles = [Role.Admin, Role.Editor, Role.Viewer]
     
     roles.forEach(role => {

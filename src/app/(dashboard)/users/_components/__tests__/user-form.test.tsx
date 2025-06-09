@@ -29,7 +29,7 @@ describe('UserForm', () => {
     ;(useRouter as jest.Mock).mockReturnValue(mockRouter)
   })
 
-  it('should render form fields with correct labels', () => {
+  it('正しいラベルでフォームフィールドをレンダーできること', () => {
     render(<UserForm />)
     
     expect(screen.getByLabelText('ユーザー名')).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('UserForm', () => {
     expect(screen.getByRole('button', { name: '作成する' })).toBeInTheDocument()
   })
 
-  it('should render with default values in create mode', () => {
+  it('作成モードでデフォルト値でレンダーできること', () => {
     render(<UserForm />)
     
     const nameField = screen.getByLabelText('ユーザー名') as HTMLInputElement
@@ -49,7 +49,7 @@ describe('UserForm', () => {
     expect(screen.getByRole('button', { name: '作成する' })).toBeInTheDocument()
   })
 
-  it('should render with user data in edit mode', () => {
+  it('編集モードでユーザーデータでレンダーできること', () => {
     const mockUser = {
       id: '1',
       name: 'Test User',
@@ -69,7 +69,7 @@ describe('UserForm', () => {
     expect(screen.getByRole('button', { name: '更新する' })).toBeInTheDocument()
   })
 
-  it('should call createUser when form is submitted in create mode', async () => {
+  it('作成モードでフォーム送信時にcreateUserを呼び出すこと', async () => {
     const mockCreateUser = createUser as jest.Mock
     mockCreateUser.mockResolvedValue({ success: true })
 
@@ -99,7 +99,7 @@ describe('UserForm', () => {
     })
   })
 
-  it('should display role options correctly', () => {
+  it('ロールオプションを正しく表示できること', () => {
     render(<UserForm />)
     
     const roleSelect = screen.getByLabelText('ロール')

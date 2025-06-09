@@ -10,9 +10,9 @@ jest.mock('../../_components/project-form', () => ({
   ),
 }));
 
-describe('Project Edit Page Components', () => {
+describe('プロジェクト編集ページコンポーネント', () => {
   describe('ProjectFormLoader', () => {
-    it('should render ProjectForm when project exists', () => {
+    it('プロジェクトが存在する時にProjectFormをレンダーできること', () => {
       const mockProject = {
         id: '1',
         title: 'Test Project',
@@ -30,7 +30,7 @@ describe('Project Edit Page Components', () => {
       expect(screen.getByText('Project Form for Test Project ($1000)')).toBeInTheDocument();
     });
 
-    it('should render error message when project is null', () => {
+    it('プロジェクトがnullの時にエラーメッセージを表示できること', () => {
       const ErrorComponent = () => <div>プロジェクトは存在しません</div>;
 
       render(<ErrorComponent />);
@@ -39,8 +39,8 @@ describe('Project Edit Page Components', () => {
     });
   });
 
-  describe('Page structure', () => {
-    it('should have correct page layout', () => {
+  describe('ページ構造', () => {
+    it('正しいページレイアウトを持つこと', () => {
       const PageLayout = () => (
         <main className="space-y-6">
           <h1 className="text-3xl font-bold">プロジェクト編集</h1>
@@ -57,8 +57,8 @@ describe('Project Edit Page Components', () => {
     });
   });
 
-  describe('Project data validation', () => {
-    it('should validate project object structure', () => {
+  describe('プロジェクトデータ検証', () => {
+    it('プロジェクトオブジェクトの構造を検証できること', () => {
       const project = {
         id: '1',
         title: 'Test Project',
@@ -76,7 +76,7 @@ describe('Project Edit Page Components', () => {
       expect(project).toHaveProperty('updatedAt');
     });
 
-    it('should validate project field types', () => {
+    it('プロジェクトフィールドの型を検証できること', () => {
       const project = {
         id: '123',
         title: 'Test Project',
@@ -93,7 +93,7 @@ describe('Project Edit Page Components', () => {
       expect(project.price).toBeGreaterThanOrEqual(0);
     });
 
-    it('should validate different project prices', () => {
+    it('異なるプロジェクト価格を検証できること', () => {
       const projects = [{ price: 0 }, { price: 100 }, { price: 1000 }, { price: 9999 }];
 
       projects.forEach((project) => {

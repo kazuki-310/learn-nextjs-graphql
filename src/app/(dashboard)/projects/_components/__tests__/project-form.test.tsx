@@ -68,11 +68,11 @@ jest.mock('lucide-react', () => ({
   Loader2: () => <div data-testid="loader-icon" />,
 }));
 
-describe('ProjectForm', () => {
+describe('プロジェクトフォーム', () => {
   // Import the component after mocks are set up
   const { ProjectForm } = require('../project-form');
 
-  it('should render form with basic structure', () => {
+  it('基本構造でフォームをレンダリングすること', () => {
     render(<ProjectForm />);
 
     expect(screen.getByTestId('form')).toBeInTheDocument();
@@ -81,7 +81,7 @@ describe('ProjectForm', () => {
     expect(screen.getByText('価格（円）')).toBeInTheDocument();
   });
 
-  it('should render create button in create mode', () => {
+  it('作成モードで作成ボタンをレンダリングすること', () => {
     render(<ProjectForm />);
 
     const button = screen.getByTestId('submit-button');
@@ -89,7 +89,7 @@ describe('ProjectForm', () => {
     expect(button).toHaveTextContent('作成');
   });
 
-  it('should render update button in edit mode', () => {
+  it('編集モードで更新ボタンをレンダリングすること', () => {
     const mockProject = {
       id: '1',
       title: 'Test Project',
@@ -106,7 +106,7 @@ describe('ProjectForm', () => {
     expect(button).toHaveTextContent('更新');
   });
 
-  it('should render input fields with placeholders', () => {
+  it('プレースホルダー付きの入力フィールドをレンダリングすること', () => {
     render(<ProjectForm />);
 
     expect(screen.getByPlaceholderText('タイトルを入力してください')).toBeInTheDocument();
@@ -114,7 +114,7 @@ describe('ProjectForm', () => {
     expect(screen.getByPlaceholderText('0')).toBeInTheDocument();
   });
 
-  it('should render different button text based on mode', () => {
+  it('モードに基づいて異なるボタンテキストをレンダリングすること', () => {
     const { rerender } = render(<ProjectForm />);
     expect(screen.getByTestId('submit-button')).toHaveTextContent('作成');
 
@@ -131,7 +131,7 @@ describe('ProjectForm', () => {
     expect(screen.getByTestId('submit-button')).toHaveTextContent('更新');
   });
 
-  it('should detect edit mode correctly', () => {
+  it('編集モードを正しく検出すること', () => {
     const mockProject = {
       id: '1',
       title: 'Test Project',

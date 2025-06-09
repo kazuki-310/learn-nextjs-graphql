@@ -12,7 +12,7 @@ jest.mock('@/lib/utils/server-action-wrapper', () => ({
   withServerAction: jest.fn((fn) => fn),
 }));
 
-describe('Project Actions', () => {
+describe('プロジェクトアクション', () => {
   const mockGraphQLFetchSdk = graphQLFetchSdk as jest.Mocked<typeof graphQLFetchSdk>;
 
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe('Project Actions', () => {
   });
 
   describe('updateProject', () => {
-    it('should update a project successfully', async () => {
+    it('プロジェクトを正常に更新できること', async () => {
       const projectId = '1';
       const mockUpdateData = {
         title: 'Updated Project',
@@ -50,7 +50,7 @@ describe('Project Actions', () => {
       expect(result).toEqual(mockResponse.updateProject);
     });
 
-    it('should handle GraphQL errors on update', async () => {
+    it('更新時のGraphQLエラーを処理できること', async () => {
       const projectId = '1';
       const mockUpdateData = {
         title: 'Updated Project',
@@ -69,7 +69,7 @@ describe('Project Actions', () => {
       });
     });
 
-    it('should handle partial updates', async () => {
+    it('部分的な更新を処理できること', async () => {
       const projectId = '2';
       const mockUpdateData = {
         title: 'Only Title Updated',
@@ -97,7 +97,7 @@ describe('Project Actions', () => {
       });
     });
 
-    it('should update project with zero price', async () => {
+    it('価格が0のプロジェクトを更新できること', async () => {
       const projectId = '3';
       const mockUpdateData = {
         title: 'Free Project',
@@ -127,7 +127,7 @@ describe('Project Actions', () => {
   });
 
   describe('deleteProject', () => {
-    it('should delete a project successfully', async () => {
+    it('プロジェクトを正常に削除できること', async () => {
       const projectId = '1';
       const mockResponse = {
         deleteProject: {
@@ -150,7 +150,7 @@ describe('Project Actions', () => {
       expect(result).toEqual(mockResponse.deleteProject);
     });
 
-    it('should handle GraphQL errors on delete', async () => {
+    it('削除時のGraphQLエラーを処理できること', async () => {
       const projectId = '999';
       const mockError = new Error('Project not found');
 
@@ -163,7 +163,7 @@ describe('Project Actions', () => {
       });
     });
 
-    it('should handle empty project ID', async () => {
+    it('空のプロジェクトIDを処理できること', async () => {
       const projectId = '';
       const mockError = new Error('Invalid project ID');
 
@@ -176,7 +176,7 @@ describe('Project Actions', () => {
       });
     });
 
-    it('should call GraphQL deleteProject once', async () => {
+    it('GraphQLのdeleteProjectを一度だけ呼び出すこと', async () => {
       const projectId = '5';
       const mockResponse = {
         deleteProject: {

@@ -6,6 +6,11 @@ jest.mock('@/lib/graphql', () => ({
   graphQLFetchSdk: {
     getProjects: jest.fn(),
   },
+  cacheOptions: {
+    static: jest.fn((tags) => ({ revalidate: false, tags, cache: 'force-cache' })),
+    revalidate: jest.fn((seconds, tags) => ({ revalidate: seconds, tags, cache: 'force-cache' })),
+    noCache: jest.fn(() => ({ cache: 'no-store' })),
+  },
 }));
 
 // Mock React cache
@@ -17,7 +22,7 @@ jest.mock('react', () => ({
 // Mock console.error to test error logging
 const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
 
-describe('getProjects fetcher', () => {
+describe('プロジェクト取得フェッチャー', () => {
   const mockGraphQLFetchSdk = graphQLFetchSdk as jest.Mocked<typeof graphQLFetchSdk>;
 
   beforeEach(() => {
@@ -29,7 +34,7 @@ describe('getProjects fetcher', () => {
     consoleSpy.mockRestore();
   });
 
-  it('should fetch projects successfully', async () => {
+  it('プロジェクトを正常に取得できること', async () => {
     const mockResponse = {
       projects: [
         {
@@ -58,11 +63,12 @@ describe('getProjects fetcher', () => {
     expect(mockGraphQLFetchSdk.getProjects).toHaveBeenCalledWith(undefined, {
       revalidate: false,
       tags: ['projects'],
+      cache: 'force-cache',
     });
     expect(result).toEqual(mockResponse.projects);
   });
 
-  it('should handle empty projects list', async () => {
+  it('空のプロジェクトリストを処理できること', async () => {
     const mockResponse = {
       projects: [],
     };
@@ -75,10 +81,11 @@ describe('getProjects fetcher', () => {
     expect(mockGraphQLFetchSdk.getProjects).toHaveBeenCalledWith(undefined, {
       revalidate: false,
       tags: ['projects'],
+      cache: 'force-cache',
     });
   });
 
-  it('should throw error when GraphQL fails', async () => {
+  it('GraphQLが失敗した場合にエラーをスローすること', async () => {
     const mockError = new Error('GraphQL server error');
 
     mockGraphQLFetchSdk.getProjects.mockRejectedValue(mockError);
@@ -89,10 +96,11 @@ describe('getProjects fetcher', () => {
     expect(mockGraphQLFetchSdk.getProjects).toHaveBeenCalledWith(undefined, {
       revalidate: false,
       tags: ['projects'],
+      cache: 'force-cache',
     });
   });
 
-  it('should handle network errors', async () => {
+  it('ネットワークエラーを処理できること', async () => {
     const networkError = new Error('Network connection failed');
 
     mockGraphQLFetchSdk.getProjects.mockRejectedValue(networkError);
@@ -102,7 +110,7 @@ describe('getProjects fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching projects:', networkError);
   });
 
-  it('should call GraphQL with correct cache options', async () => {
+  it('正しいキャッシュオプションでGraphQLを呼び出すこと', async () => {
     const mockResponse = {
       projects: [
         {
@@ -123,10 +131,11 @@ describe('getProjects fetcher', () => {
     expect(mockGraphQLFetchSdk.getProjects).toHaveBeenCalledWith(undefined, {
       revalidate: false,
       tags: ['projects'],
+      cache: 'force-cache',
     });
   });
 
-  it('should handle GraphQL response with undefined projects', async () => {
+  it('プロジェクトがundefinedのGraphQLレスポンスを処理できること', async () => {
     const mockError = new Error('Projects query returned undefined');
 
     mockGraphQLFetchSdk.getProjects.mockRejectedValue(mockError);
@@ -136,7 +145,7 @@ describe('getProjects fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching projects:', mockError);
   });
 
-  it('should handle malformed project data', async () => {
+  it('不正な形式のプロジェクトデータを処理できること', async () => {
     const malformedError = new Error('Invalid project data structure');
 
     mockGraphQLFetchSdk.getProjects.mockRejectedValue(malformedError);
@@ -146,7 +155,7 @@ describe('getProjects fetcher', () => {
     expect(consoleSpy).toHaveBeenCalledWith('Error fetching projects:', malformedError);
   });
 
-  it('should call GraphQL only once per request', async () => {
+  it('リクエストごとにGraphQLを一度だけ呼び出すこと', async () => {
     const mockResponse = {
       projects: [
         {
@@ -167,7 +176,7 @@ describe('getProjects fetcher', () => {
     expect(mockGraphQLFetchSdk.getProjects).toHaveBeenCalledTimes(1);
   });
 
-  it('should handle projects with various price values', async () => {
+  it('様々な価格のプロジェクトを処理できること', async () => {
     const mockResponse = {
       projects: [
         {

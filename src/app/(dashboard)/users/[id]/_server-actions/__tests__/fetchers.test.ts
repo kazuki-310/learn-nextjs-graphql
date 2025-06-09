@@ -1,8 +1,8 @@
 import { Role } from '@/lib/graphql/__generated__';
 
-describe('User fetchers', () => {
+describe('ユーザーフェッチャー', () => {
   describe('getUser', () => {
-    it('should validate user ID parameter', () => {
+    it('ユーザーIDパラメータを検証できること', () => {
       const validUserIds = ['1', 'user-123', 'uuid-format-id'];
 
       validUserIds.forEach((id) => {
@@ -11,7 +11,7 @@ describe('User fetchers', () => {
       });
     });
 
-    it('should handle expected user data structure', () => {
+    it('期待されるユーザーデータ構造を処理できること', () => {
       const expectedUser = {
         id: '1',
         name: 'Test User',
@@ -29,7 +29,7 @@ describe('User fetchers', () => {
       expect(expectedUser).toHaveProperty('updatedAt');
     });
 
-    it('should validate user field types', () => {
+    it('ユーザーフィールドの型を検証できること', () => {
       const user = {
         id: '1',
         name: 'Test User',
@@ -47,7 +47,7 @@ describe('User fetchers', () => {
       expect(typeof user.updatedAt).toBe('string');
     });
 
-    it('should handle different user roles', () => {
+    it('異なるユーザーロールを処理できること', () => {
       const users = [
         { id: '1', role: Role.Admin },
         { id: '2', role: Role.Editor },
@@ -59,7 +59,7 @@ describe('User fetchers', () => {
       });
     });
 
-    it('should validate timestamp format', () => {
+    it('タイムスタンプフォーマットを検証できること', () => {
       const timestamps = ['2023-01-01T00:00:00Z', '2023-12-31T23:59:59Z', '2024-06-15T12:30:45Z'];
 
       timestamps.forEach((timestamp) => {
@@ -68,13 +68,13 @@ describe('User fetchers', () => {
       });
     });
 
-    it('should handle null response for non-existent user', () => {
+    it('存在しないユーザーにnullレスポンスを処理できること', () => {
       const nonExistentResponse = null;
 
       expect(nonExistentResponse).toBeNull();
     });
 
-    it('should handle error scenarios', () => {
+    it('エラーシナリオを処理できること', () => {
       const errorScenarios = [
         { type: 'network', message: 'Network error' },
         { type: 'not_found', message: 'User not found' },
@@ -88,7 +88,7 @@ describe('User fetchers', () => {
       });
     });
 
-    it('should validate cache configuration', () => {
+    it('キャッシュ設定を検証できること', () => {
       const cacheOptions = {
         cache: 'no-store' as const,
       };

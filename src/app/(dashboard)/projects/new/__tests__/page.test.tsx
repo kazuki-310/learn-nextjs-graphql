@@ -6,20 +6,20 @@ jest.mock('../../_components/project-form', () => ({
   ProjectForm: () => <div data-testid="project-form">Project Form Component</div>,
 }));
 
-describe('Projects New Page', () => {
-  it('should render page title', () => {
+describe('プロジェクト新規作成ページ', () => {
+  it('ページタイトルをレンダリングすること', () => {
     render(<Page />);
 
     expect(screen.getByText('新規プロジェクト作成')).toBeInTheDocument();
   });
 
-  it('should render ProjectForm component', () => {
+  it('ProjectFormコンポーネントをレンダリングすること', () => {
     render(<Page />);
 
     expect(screen.getByTestId('project-form')).toBeInTheDocument();
   });
 
-  it('should have correct page structure', () => {
+  it('正しいページ構造を持つこと', () => {
     render(<Page />);
 
     const container = screen.getByText('新規プロジェクト作成').closest('.container');

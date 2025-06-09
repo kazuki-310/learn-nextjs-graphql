@@ -10,9 +10,9 @@ jest.mock('../../_components/user-form', () => ({
   ),
 }));
 
-describe('User Edit Page Components', () => {
+describe('ユーザー編集ページコンポーネント', () => {
   describe('UserDetailLoader', () => {
-    it('should render UserForm when user exists', () => {
+    it('ユーザーが存在する時にUserFormをレンダーできること', () => {
       const mockUser = {
         id: '1',
         name: 'Test User',
@@ -30,7 +30,7 @@ describe('User Edit Page Components', () => {
       expect(screen.getByText('User Form for Test User (test@example.com)')).toBeInTheDocument();
     });
 
-    it('should render error message when user is null', () => {
+    it('ユーザーがnullの時にエラーメッセージを表示できること', () => {
       const ErrorComponent = () => <div>ユーザーは存在しません</div>;
 
       render(<ErrorComponent />);
@@ -39,8 +39,8 @@ describe('User Edit Page Components', () => {
     });
   });
 
-  describe('Page structure', () => {
-    it('should have correct page layout', () => {
+  describe('ページ構造', () => {
+    it('正しいページレイアウトを持つこと', () => {
       const PageLayout = () => (
         <main className="space-y-6">
           <h1 className="text-3xl font-bold">ユーザー編集</h1>
@@ -57,8 +57,8 @@ describe('User Edit Page Components', () => {
     });
   });
 
-  describe('User data validation', () => {
-    it('should validate user object structure', () => {
+  describe('ユーザーデータ検証', () => {
+    it('ユーザーオブジェクトの構造を検証できること', () => {
       const user = {
         id: '1',
         name: 'Test User',
@@ -76,7 +76,7 @@ describe('User Edit Page Components', () => {
       expect(user).toHaveProperty('updatedAt');
     });
 
-    it('should validate user field types', () => {
+    it('ユーザーフィールドの型を検証できること', () => {
       const user = {
         id: '123',
         name: 'Test User',
@@ -93,7 +93,7 @@ describe('User Edit Page Components', () => {
       expect(Object.values(Role)).toContain(user.role);
     });
 
-    it('should validate different user roles', () => {
+    it('異なるユーザーロールを検証できること', () => {
       const roles = [Role.Admin, Role.Editor, Role.Viewer];
 
       roles.forEach((role) => {
