@@ -1,6 +1,8 @@
 import { graphQLFetchSdk, cacheOptions } from '@/lib/graphql';
 import { cache } from 'react';
 
+export const runtime = 'edge';
+
 export const getProjects = cache(async () => {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 1000));

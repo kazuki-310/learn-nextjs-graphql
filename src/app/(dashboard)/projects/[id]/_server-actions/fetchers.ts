@@ -1,5 +1,7 @@
 import { cacheOptions, graphQLFetchSdk } from '@/lib/graphql';
 
+export const runtime = 'edge';
+
 export async function getProject(projectId: string) {
   try {
     const res = await graphQLFetchSdk.getProject(
