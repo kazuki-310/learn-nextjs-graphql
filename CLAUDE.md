@@ -13,28 +13,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Core Development
 
-- `npm run dev` - Start development server with Turbopack
-- `npm run build` - Build for production (includes Prisma generation)
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Run ESLint with auto-fix
-- `npm run format` - Format code with Prettier
+- `pnpm dev` - Start development server with Turbopack
+- `pnpm build` - Build for production (includes Prisma generation)
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm lint:fix` - Run ESLint with auto-fix
+- `pnpm format` - Format code with Prettier
 
 ### Testing
 
-- `npm run test` - Run all Jest tests
-- `npm run test:watch` - Run Jest in watch mode
-- `npm run test:coverage` - Run tests with coverage report
+- `pnpm test` - Run all Jest tests
+- `pnpm test:watch` - Run Jest in watch mode
+- `pnpm test:coverage` - Run tests with coverage report
 
 ### Database (Prisma)
 
-- `npm run prisma-migrate` - Run database migrations
-- `npm run prisma-generate` - Generate Prisma client
-- `npm run prisma-reset` - Reset database and apply migrations
+- `pnpm prisma-migrate` - Run database migrations
+- `pnpm prisma-generate` - Generate Prisma client
+- `pnpm prisma-reset` - Reset database and apply migrations
 
 ### GraphQL
 
-- `npm run codegen` - Generate GraphQL types and resolvers from schema
+- `pnpm codegen` - Generate GraphQL types and resolvers from schema
 
 ## Architecture Overview
 
