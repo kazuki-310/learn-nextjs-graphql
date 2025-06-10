@@ -5,6 +5,8 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+export const runtime = 'edge';
+
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
 const resolvers: Resolvers = {
