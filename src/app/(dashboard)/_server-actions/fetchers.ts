@@ -1,6 +1,8 @@
 import { cache } from 'react';
 import { graphQLFetchSdk, cacheOptions } from '@/lib/graphql';
 
+export const runtime = 'edge';
+
 export const getDashboardStats = cache(async () => {
   try {
     const res = await graphQLFetchSdk.getDashboardStats(

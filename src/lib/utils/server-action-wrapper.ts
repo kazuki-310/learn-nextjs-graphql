@@ -7,16 +7,16 @@ type ServerActionConfig = {
 
 export function withServerAction<T extends readonly unknown[], R>(
   action: (...args: T) => Promise<R>,
-  config: ServerActionConfig
+  config: ServerActionConfig,
 ) {
   return async (...args: T): Promise<R> => {
     try {
       const result = await action(...args);
-      
+
       if (config.revalidateTag) {
         revalidateTag(config.revalidateTag);
       }
-      
+
       return result;
     } catch (error) {
       console.error('GraphQL error:', error);

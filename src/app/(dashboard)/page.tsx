@@ -1,5 +1,7 @@
 import { DashboardContent } from './_components/dashboard-content';
 
+export const runtime = 'edge';
+
 export default function DashboardPage() {
   return (
     <div className="container mx-auto space-y-8 p-6">
