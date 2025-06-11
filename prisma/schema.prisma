@@ -17,7 +17,9 @@ model Users {
   id        String   @id @default(cuid())
   name      String
   email     String   @unique
-  role      Role     @default(admin)
+  password  String
+  image     String?
+  role      Role     @default(viewer)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

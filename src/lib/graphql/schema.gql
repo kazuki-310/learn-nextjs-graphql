@@ -45,7 +45,14 @@ input ProjectInput {
   price: Int
 }
 
-input UserInput {
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  role: Role!
+}
+
+input UpdateUserInput {
   name: String!
   email: String!
   role: Role!
@@ -63,7 +70,7 @@ type Mutation {
   createProject(input: ProjectInput!): Project!
   updateProject(id: ID!, input: ProjectInput!): Project!
   deleteProject(id: ID!): Project!
-  createUser(input: UserInput!): User!
-  updateUser(id: ID!, input: UserInput!): User!
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
   deleteUser(id: ID!): User!
 }

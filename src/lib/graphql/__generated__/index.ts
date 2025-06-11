@@ -17,6 +17,13 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type CreateUserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  role: Role;
+};
+
 export type DashboardStats = {
   __typename?: 'DashboardStats';
   averageProjectPrice: Scalars['Float']['output'];
@@ -44,7 +51,7 @@ export type MutationCreateProjectArgs = {
 
 
 export type MutationCreateUserArgs = {
-  input: UserInput;
+  input: CreateUserInput;
 };
 
 
@@ -66,7 +73,7 @@ export type MutationUpdateProjectArgs = {
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID']['input'];
-  input: UserInput;
+  input: UpdateUserInput;
 };
 
 export type Project = {
@@ -110,6 +117,12 @@ export enum Role {
   Viewer = 'viewer'
 }
 
+export type UpdateUserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  role: Role;
+};
+
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime']['output'];
@@ -118,12 +131,6 @@ export type User = {
   name: Scalars['String']['output'];
   role: Role;
   updatedAt: Scalars['DateTime']['output'];
-};
-
-export type UserInput = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  role: Role;
 };
 
 export type GetDashboardStatsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -181,7 +188,7 @@ export type GetUserQuery = { __typename?: 'Query', user?: { __typename?: 'User',
 
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars['ID']['input'];
-  input: UserInput;
+  input: UpdateUserInput;
 }>;
 
 
@@ -193,7 +200,7 @@ export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetUsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any }> };
 
 export type CreateUserMutationVariables = Exact<{
-  input: UserInput;
+  input: CreateUserInput;
 }>;
 
 
@@ -297,7 +304,7 @@ export const GetUserDocument = gql`
 }
     `;
 export const UpdateUserDocument = gql`
-    mutation updateUser($id: ID!, $input: UserInput!) {
+    mutation updateUser($id: ID!, $input: UpdateUserInput!) {
   updateUser(id: $id, input: $input) {
     id
     name
@@ -321,7 +328,7 @@ export const GetUsersDocument = gql`
 }
     `;
 export const CreateUserDocument = gql`
-    mutation createUser($input: UserInput!) {
+    mutation createUser($input: CreateUserInput!) {
   createUser(input: $input) {
     id
     name

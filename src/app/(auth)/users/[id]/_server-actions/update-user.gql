@@ -1,0 +1,10 @@
+mutation updateUser($id: ID!, $input: UpdateUserInput!) {
+  updateUser(id: $id, input: $input) {
+    id
+    name
+    email
+    role
+    createdAt
+    updatedAt
+  }
+}

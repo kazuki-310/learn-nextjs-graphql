@@ -17,6 +17,13 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type CreateUserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  role: Role;
+};
+
 export type DashboardStats = {
   __typename?: 'DashboardStats';
   averageProjectPrice: Scalars['Float']['output'];
@@ -44,7 +51,7 @@ export type MutationCreateProjectArgs = {
 
 
 export type MutationCreateUserArgs = {
-  input: UserInput;
+  input: CreateUserInput;
 };
 
 
@@ -66,7 +73,7 @@ export type MutationUpdateProjectArgs = {
 
 export type MutationUpdateUserArgs = {
   id: Scalars['ID']['input'];
-  input: UserInput;
+  input: UpdateUserInput;
 };
 
 export type Project = {
@@ -110,6 +117,12 @@ export enum Role {
   Viewer = 'viewer'
 }
 
+export type UpdateUserInput = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  role: Role;
+};
+
 export type User = {
   __typename?: 'User';
   createdAt: Scalars['DateTime']['output'];
@@ -118,12 +131,6 @@ export type User = {
   name: Scalars['String']['output'];
   role: Role;
   updatedAt: Scalars['DateTime']['output'];
-};
-
-export type UserInput = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  role: Role;
 };
 
 
@@ -198,6 +205,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateUserInput: CreateUserInput;
   DashboardStats: ResolverTypeWrapper<DashboardStats>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
@@ -209,13 +217,14 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   Role: Role;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
+  UpdateUserInput: UpdateUserInput;
   User: ResolverTypeWrapper<User>;
-  UserInput: UserInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  CreateUserInput: CreateUserInput;
   DashboardStats: DashboardStats;
   DateTime: Scalars['DateTime']['output'];
   Float: Scalars['Float']['output'];
@@ -226,8 +235,8 @@ export type ResolversParentTypes = {
   ProjectInput: ProjectInput;
   Query: {};
   String: Scalars['String']['output'];
+  UpdateUserInput: UpdateUserInput;
   User: User;
-  UserInput: UserInput;
 };
 
 export type DashboardStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DashboardStats'] = ResolversParentTypes['DashboardStats']> = {

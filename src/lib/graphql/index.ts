@@ -2,6 +2,8 @@ import { print } from 'graphql';
 
 import { getSdk, Requester } from './__generated__';
 import { env } from '@/env.mjs';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 const URL = env.NEXT_PUBLIC_API_URL;
 const endpoint = `${URL}/api/graphql`;
@@ -23,9 +25,19 @@ export const cacheOptions = {
 };
 
 const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables, options?) => {
-  const headers = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
+
+  // Server Componentsでの認証対応
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      headers['x-user-id'] = session.user.id;
+    }
+  } catch (error) {
+    // クライアントサイドでは getServerSession が使えないため、エラーを無視
+  }
 
   const revalidate = options?.revalidate;
   const tags = options?.tags ?? [];
@@ -47,13 +59,21 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     });
 
     if (!response.ok) {
-      throw new Error(`GraphQL Error: ${response.status} ${response.statusText}`);
+      throw new Error(`GraphQL HTTP Error: ${response.status} ${response.statusText}`);
     }
 
-    const data = (await response.json()).data;
-    return data;
+    const result = await response.json();
+    
+    // GraphQLエラーをチェック
+    if (result.errors) {
+      console.error('GraphQL Errors:', result.errors);
+      throw new Error(`GraphQL Error: ${result.errors.map((e: any) => e.message).join(', ')}`);
+    }
+
+    return result.data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
+    throw error; // エラーを再throw
   }
 };
 
