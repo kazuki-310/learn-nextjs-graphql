@@ -1,7 +1,26 @@
 'use client';
 
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
-import { useAppForm } from '@/hooks/use-app-form';
+import { Loader2 } from 'lucide-react';
 import { Role, User } from '@/lib/graphql/__generated__';
 import {
   createUserSchema,
@@ -23,7 +42,8 @@ export function UserForm({ user }: { user?: User }) {
   const router = useRouter();
   const isEditMode = !!user;
 
-  const form = useAppForm({
+  const form = useForm<CreateUserFormData | UpdateUserFormData>({
+    resolver: zodResolver(isEditMode ? updateUserSchema : createUserSchema),
     defaultValues: isEditMode
       ? {
           name: user.name,
@@ -36,79 +56,111 @@ export function UserForm({ user }: { user?: User }) {
           password: '',
           role: Role.Admin,
         },
-    onSubmit: async ({ value }) => {
-      try {
-        if (isEditMode) {
-          const updateData: UpdateUserFormData = {
-            name: value.name,
-            email: value.email,
-            role: value.role,
-          };
-          await updateUser(user.id, updateData);
-          toast.success(`「${value.name}」を更新しました`);
-        } else {
-          const createData = value as CreateUserFormData;
-          await createUser(createData);
-          toast.success(`「${value.name}」を作成しました`);
-        }
-        router.push('/users');
-      } catch (error) {
-        console.error('Error creating/updating user:', error);
-        toast.error(isEditMode ? '更新に失敗しました' : '作成に失敗しました');
-      }
-    },
-    validators: {
-      onChange: isEditMode ? updateUserSchema : createUserSchema,
-    },
+    mode: 'onChange',
   });
 
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        form.handleSubmit();
-      }}
-      className="space-y-6"
-    >
-      <div className="grid gap-6 sm:grid-cols-1">
-        <form.AppField name="name">
-          {(field) => <field.TextField placeholder="ユーザー名を入力" label="ユーザー名" />}
-        </form.AppField>
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid, isSubmitting },
+  } = form;
 
-        <form.AppField name="email">
-          {(field) => (
-            <field.TextField
-              placeholder="メールアドレスを入力"
-              label="メールアドレス"
-              type="email"
-            />
+  const onSubmit = async (data: CreateUserFormData | UpdateUserFormData) => {
+    try {
+      if (isEditMode) {
+        const updateData = data as UpdateUserFormData;
+        await updateUser(user.id, updateData);
+        toast.success(`「${updateData.name}」を更新しました`);
+      } else {
+        const createData = data as CreateUserFormData;
+        await createUser(createData);
+        toast.success(`「${createData.name}」を作成しました`);
+      }
+
+      router.push('/users');
+    } catch (error) {
+      console.error('Error creating/updating user:', error);
+      toast.error(isEditMode ? '更新に失敗しました' : '作成に失敗しました');
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ユーザー名</FormLabel>
+              <FormControl>
+                <Input placeholder="ユーザー名を入力" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </form.AppField>
+        />
+
+        <FormField
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>メールアドレス</FormLabel>
+              <FormControl>
+                <Input type="email" placeholder="メールアドレスを入力" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         {!isEditMode && (
-          <form.AppField name="password">
-            {(field) => (
-              <field.TextField placeholder="パスワードを入力" label="パスワード" type="password" />
+          <FormField
+            control={control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>パスワード</FormLabel>
+                <FormControl>
+                  <Input type="password" placeholder="パスワードを入力" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          </form.AppField>
+          />
         )}
 
-        <form.AppField name="role">
-          {(field) => (
-            <field.SelectField
-              label="ロール"
-              selectOptions={USER_ROLE_OPTIONS}
-              defaultValue={field.state.value}
-            />
+        <FormField
+          control={control}
+          name="role"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>ロール</FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="ロールを選択" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {USER_ROLE_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           )}
-        </form.AppField>
-      </div>
+        />
 
-      <div className="flex justify-end border-t pt-6">
-        <form.AppForm>
-          <form.SubscribeButton label={isEditMode ? '更新する' : '作成する'} className="min-w-32" />
-        </form.AppForm>
-      </div>
-    </form>
+        <Button type="submit" disabled={!isValid || isSubmitting}>
+          {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+          {isEditMode ? '更新' : '作成'}
+        </Button>
+      </form>
+    </Form>
   );
 }

@@ -1,56 +1,51 @@
-import { NextRequest, NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
-import { hashPassword } from "@/lib/password"
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { hashPassword } from '@/lib/password';
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, password } = await request.json()
+    const { name, email, password } = await request.json();
 
-    // バリデーション
     if (!name || !email || !password) {
       return NextResponse.json(
-        { error: "名前、メールアドレス、パスワードは必須です" },
-        { status: 400 }
-      )
+        { error: '名前、メールアドレス、パスワードは必須です' },
+        { status: 400 },
+      );
     }
 
-    // パスワードの強度チェック
     if (password.length < 8) {
       return NextResponse.json(
-        { error: "パスワードは8文字以上で入力してください" },
-        { status: 400 }
-      )
+        { error: 'パスワードは8文字以上で入力してください' },
+        { status: 400 },
+      );
     }
 
     if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
       return NextResponse.json(
-        { error: "パスワードは大文字、小文字、数字を含む必要があります" },
-        { status: 400 }
-      )
+        { error: 'パスワードは大文字、小文字、数字を含む必要があります' },
+        { status: 400 },
+      );
     }
 
-    // 既存ユーザーのチェック
     const existingUser = await prisma.users.findUnique({
       where: { email },
-    })
+    });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: "このメールアドレスは既に登録されています" },
-        { status: 400 }
-      )
+        { error: 'このメールアドレスは既に登録されています' },
+        { status: 400 },
+      );
     }
 
-    // パスワードをハッシュ化
-    const hashedPassword = await hashPassword(password)
+    const hashedPassword = await hashPassword(password);
 
-    // ユーザーを作成
     const user = await prisma.users.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role: "viewer", // デフォルトはviewer
+        role: 'viewer',
       },
       select: {
         id: true,
@@ -59,17 +54,14 @@ export async function POST(request: NextRequest) {
         role: true,
         createdAt: true,
       },
-    })
+    });
 
     return NextResponse.json({
-      message: "ユーザーが正常に作成されました",
+      message: 'ユーザーが正常に作成されました',
       user,
-    })
+    });
   } catch (error) {
-    console.error("ユーザー作成エラー:", error)
-    return NextResponse.json(
-      { error: "サーバーエラーが発生しました" },
-      { status: 500 }
-    )
+    console.error('ユーザー作成エラー:', error);
+    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
   }
 }

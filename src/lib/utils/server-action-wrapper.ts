@@ -20,6 +20,9 @@ export function withServerAction<T extends readonly unknown[], R>(
       return result;
     } catch (error) {
       console.error('GraphQL error:', error);
+      if (error instanceof Error) {
+        throw error;
+      }
       throw new Error(config.errorMessage);
     }
   };
