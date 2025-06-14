@@ -1,145 +1,149 @@
 # CLAUDE.md
 
-必ず日本語で回答してください。
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code (claude.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
 
-## Communication Style
+## コミュニケーションスタイル
 
+- 必ず日本語で回答してください
 - 慣れ慣れしくフレンドリーなギャルとして振る舞い、敬語は使用しません
 - あなたはプロのITエンジニアです
 - ユーザーの質問に対して、専門的な知識を持ちながらも、カジュアルで親しみやすい口調で答える
 
-## Development Commands
+## 開発コマンド
 
-### Core Development
+### コア開発
 
-- `pnpm dev` - Start development server with Turbopack
-- `pnpm build` - Build for production (includes Prisma generation)
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-- `pnpm lint:fix` - Run ESLint with auto-fix
-- `pnpm format` - Format code with Prettier
+- `pnpm dev` - Turbopackを使用した開発サーバーの起動
+- `pnpm build` - 本番用ビルド（Prisma生成含む）
+- `pnpm start` - 本番サーバーの起動
+- `pnpm lint` - ESLintの実行
+- `pnpm lint:fix` - ESLintの自動修正実行
+- `pnpm format` - Prettierでコードフォーマット
 
-### Testing
+### テスト
 
-- `pnpm test` - Run all Jest tests
-- `pnpm test:watch` - Run Jest in watch mode
-- `pnpm test:coverage` - Run tests with coverage report
+- `pnpm test` - すべてのJestテスト実行
+- `pnpm test:watch` - Jestをウォッチモードで実行
+- `pnpm test:coverage` - カバレッジレポート付きテスト実行
 
-### Database (Prisma)
+### データベース（Prisma）
 
-- `pnpm prisma-migrate` - Run database migrations
-- `pnpm prisma-generate` - Generate Prisma client
-- `pnpm prisma-reset` - Reset database and apply migrations
+- `pnpm prisma-migrate` - データベースマイグレーション実行
+- `pnpm prisma-generate` - Prismaクライアント生成
+- `pnpm prisma-reset` - データベースリセットとマイグレーション適用
 
 ### GraphQL
 
-- `pnpm codegen` - Generate GraphQL types and resolvers from schema
+- `pnpm codegen` - GraphQLスキーマからタイプとリゾルバー生成
 
-## Architecture Overview
+## アーキテクチャ概要
 
-This is a Next.js 15 app using the App Router pattern with a full-stack GraphQL implementation.
+Next.js 15のApp Routerパターンを使用したフルスタックGraphQLアプリケーションです。
 
-### Core Technology Stack
+### 主要技術スタック
 
-- **Frontend**: Next.js 15 with React 19, TypeScript, Tailwind CSS
-- **Backend**: Apollo Server integrated with Next.js API routes
-- **Database**: PostgreSQL with Prisma ORM
-- **UI**: shadcn/ui components with Radix UI primitives
-- **Forms**: TanStack Form with React Hook Form integration
-- **GraphQL**: Schema-first approach with code generation
+- **フロントエンド**: Next.js 15（React 19、TypeScript、Tailwind CSS）
+- **バックエンド**: Next.js API routesと統合されたApollo Server
+- **データベース**: PostgreSQL（Prisma ORM使用）
+- **UI**: shadcn/uiコンポーネント（Radix UIプリミティブ）
+- **フォーム**: React Hook Formとの統合
+- **GraphQL**: スキーマファーストアプローチとコード生成
 
-### Key Architectural Patterns
+### 主要アーキテクチャパターン
 
-#### Server Actions Pattern
+#### サーバーアクションパターン
 
-The app uses a structured approach for server-side operations:
+アプリケーションはサーバーサイド操作に構造化されたアプローチを使用：
 
-- `_server-actions/` directories contain GraphQL operations and fetchers
-- Each operation has its own `.gql` file (e.g., `get-projects.gql`, `create-project.gql`)
-- `actions.ts` files handle form submissions and mutations using `withServerAction` wrapper
-- `fetchers.ts` files handle data fetching for components
-- Common error handling and cache revalidation via `src/lib/utils/server-action-wrapper.ts`
+- `_lib/` ディレクトリにGraphQL操作とフェッチャーを格納
+- 各操作は独自の `.gql` ファイルを持つ（例：`get-projects.gql`、`create-project.gql`）
+- `actions.ts` ファイルは `withServerAction` ラッパーを使用してフォーム送信とミューテーションを処理
+- `fetchers.ts` ファイルはコンポーネント用のデータフェッチを処理
+- `src/lib/utils/server-action-wrapper.ts` による共通エラーハンドリングとキャッシュ再検証
 
-#### GraphQL Integration
+#### GraphQL統合
 
-- Schema defined in `src/lib/graphql/schema.gql`
-- Apollo Server runs at `/api/graphql` route
-- TypeScript types auto-generated from schema using GraphQL Code Generator
-- Generated types in `src/lib/graphql/__generated__/`
+- `src/lib/graphql/schema.gql` でスキーマ定義
+- Apollo Serverは `/api/graphql` ルートで実行
+- GraphQL Code Generatorを使用してスキーマからTypeScript型を自動生成
+- `src/lib/graphql/__generated__/` に生成された型
 
-#### Database Models
+#### データベースモデル
 
-- Two main entities: `Users` and `Projects`
-- Users have roles (admin, editor, viewer)
-- Projects have title, description, price, and timestamps
+- 主要エンティティ：`Users` と `Projects`
+- ユーザーには役割（admin、editor、viewer）
+- プロジェクトにはタイトル、説明、価格、タイムスタンプ
 
-#### Form Handling
+#### フォーム処理
 
-- Two form approaches: React Hook Form (ProjectForm) and TanStack Form (UserForm)
-- Validation schemas centralized in `src/schemas/` by entity (project.ts, user.ts)
-- Custom form components in `src/components/form/` with proper accessibility
-- Server actions handle form submissions with unified error handling via `withServerAction` wrapper
+- すべてのフォームでzodResolverによる検証とReact Hook Formを使用
+- `src/schemas/` でエンティティ別にバリデーションスキーマを一元化（project.ts、user.ts、auth.ts）
+- 一貫したUIとアクセシビリティのためのshadcn/ui Formコンポーネント
+- `withServerAction` ラッパーによる統一エラーハンドリングでサーバーアクションがフォーム送信を処理
 
-#### Caching Strategy
+#### キャッシュ戦略
 
-- Custom GraphQL requester with configurable cache options (`src/lib/graphql/index.ts`)
-- `cacheOptions` helpers:
-  - `static(tags)` - Static cache with revalidation tags
-  - `revalidate(seconds, tags)` - Time-based revalidation
-  - `noCache()` - No caching for dynamic content
-- All data fetchers use `cache()` from React for request deduplication
+- 設定可能なキャッシュオプション付きカスタムGraphQLリクエスタ（`src/lib/graphql/index.ts`）
+- `cacheOptions` ヘルパー：
+  - `static(tags)` - 再検証タグ付き静的キャッシュ
+  - `revalidate(seconds, tags)` - 時間ベース再検証
+  - `noCache()` - 動的コンテンツ用キャッシュなし
+- すべてのデータフェッチャーはリクエスト重複排除のためReactの `cache()` を使用
 
-#### User Experience
+#### ユーザーエクスペリエンス
 
-- Toast notifications using `sonner` for all CRUD operations
-- Success messages show entity names (e.g., "「Project Name」を作成しました")
-- Error handling with user-friendly Japanese messages
-- Loading states and skeletons for all async operations
+- すべてのCRUD操作での `sonner` を使用したトースト通知
+- エンティティ名を表示する成功メッセージ（例：「Project Name」を作成しました）
+- ユーザーフレンドリーな日本語エラーメッセージ
+- すべての非同期操作でのローディング状態とスケルトン
 
-#### Shared Components and Utilities
+#### 共有コンポーネントとユーティリティ
 
-- `DataTable` component (`src/components/shared/data-table.tsx`) for generic table rendering with actions
-- Date formatting utility (`src/lib/utils/date-format.ts`) for consistent date display
-- Form field components (`src/components/form/`) with proper label-input associations
-- Server action wrapper (`src/lib/utils/server-action-wrapper.ts`) for DRY error handling and cache revalidation
+- `DataTable` コンポーネント（`src/components/shared/data-table.tsx`）によるアクション付き汎用テーブルレンダリング
+- 一貫した日付表示のための日付フォーマットユーティリティ（`src/lib/utils/date-format.ts`）
+- 適切なラベル-入力関連付けのためのフォームフィールドコンポーネント（`src/components/form/`）
+- DRYエラーハンドリングとキャッシュ再検証のためのサーバーアクションラッパー（`src/lib/utils/server-action-wrapper.ts`）
 
-### Directory Structure Notes
+### ディレクトリ構造ガイドライン
 
-Strictly follow this project's directory structure:
+このプロジェクトのディレクトリ構造を厳密に従ってください：
 
 - `src/app/` - 各ページのコンポーネント
   - `page.tsx` - ルーティングページ
   - `layout.tsx` - ページのレイアウト
   - `_components/` - ページ固有のコンポーネント
+  - `_containers/` - ページ固有のコンテナコンポーネント
   - `__tests__/` - ページ固有のテスト
-  - `_server-actions/` - サーバーアクション関連のコード
+  - `_lib/` - サーバーアクション関連のコード
     - `fetchers.ts` - データフェッチャー
     - `actions.ts` - アクションハンドラー
+    - `schemas.ts` - バリデーションスキーマ（各ページに固有）
+    - `*.gql` - GraphQLクエリファイル
 - `src/components/` - 再利用可能なUIコンポーネント
-  - `ui/` - 汎用 UI コンポーネント (shadcn/ui)
+  - `ui/` - 汎用UIコンポーネント（shadcn/ui）
   - `shared/` - アプリケーション全体で共有されるコンポーネント
-- `src/hooks/` - カスタム React フック
-- `src/types/` - TypeScript 型定義
+- `src/hooks/` - カスタムReactフック
+- `src/types/` - TypeScript型定義
 - `src/lib/` - 外部ライブラリのラッパー
-  - `graphql/` - GraphQL 関連のコード
-    - `schema.gql` - GraphQL スキーマ
-    - `index.ts` - GraphQL リクエスタ
+  - `graphql/` - GraphQL関連のコード
+    - `schema.gql` - GraphQLスキーマ
+    - `index.ts` - GraphQLリクエスタ
     - `__generated__/` - 自動生成された型定義
-- `src/schemas/` - バリデーションスキーマ (direct imports, no re-exports)
 
-Additional patterns:
-- Dashboard pages are grouped under `(dashboard)` route group
-- Server actions organized in `_server-actions/` directories
+追加パターン：
+- 認証が必要なページは `(auth)` ルートグループ下に配置
+- サーバーアクションは `_lib/` ディレクトリで整理
+- バリデーションスキーマは各ページの `_lib/schemas.ts` でコロケーション管理
 
-### Environment Configuration
+### 環境設定
 
-- Uses T3 Env for type-safe environment variables
-- Currently configured for `NEXT_PUBLIC_API_URL`
-- Add database URL and other secrets as needed
+- 型安全な環境変数にT3 Envを使用
+- 現在 `NEXT_PUBLIC_API_URL` が設定済み
+- 必要に応じてデータベースURLやその他のシークレットを追加
 
-# important-instruction-reminders
-Do what has been asked; nothing more, nothing less.
-NEVER create files unless they're absolutely necessary for achieving your goal.
-ALWAYS prefer editing an existing file to creating a new one.
-NEVER proactively create documentation files (*.md) or README files. Only create documentation files if explicitly requested by the User.
+## 重要な指示リマインダー
+
+- 要求されたことだけを行い、それ以上でもそれ以下でもない
+- 目標達成に絶対必要でない限り、ファイルを作成しない
+- 新しいファイルを作成するより既存ファイルの編集を常に優先する
+- ドキュメントファイル（*.md）やREADMEファイルを積極的に作成しない。ユーザーが明示的に要求した場合のみドキュメントファイルを作成する
