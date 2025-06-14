@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useAppForm } from '@/hooks/use-app-form';
 import { signupSchema } from '@/schemas/auth';
-import { signupAction } from '../_server-actions/actions';
+import { signupAction } from '../_lib/actions';
 import { toast } from 'sonner';
 import { signIn } from 'next-auth/react';
 
@@ -39,7 +39,7 @@ export function SignupForm() {
           }, 1500);
         } else {
           toast.success('アカウントが作成され、ログインしました');
-          router.push('/');
+          router.push('/dashboard');
         }
       } catch (error) {
         console.error('登録エラー:', error);

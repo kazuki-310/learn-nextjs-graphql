@@ -26,7 +26,7 @@ export function SigninForm() {
           toast.error('メールアドレスまたはパスワードが正しくありません');
         } else {
           toast.success('ログインしました');
-          router.push('/');
+          router.push('/dashboard');
         }
       } catch (error) {
         toast.error('ログインエラーが発生しました');
@@ -48,21 +48,13 @@ export function SigninForm() {
     >
       <form.AppField name="email">
         {(field) => (
-          <field.TextField
-            label="メールアドレス"
-            type="email"
-            placeholder="example@email.com"
-          />
+          <field.TextField label="メールアドレス" type="email" placeholder="example@email.com" />
         )}
       </form.AppField>
 
       <form.AppField name="password">
         {(field) => (
-          <field.TextField
-            label="パスワード"
-            type="password"
-            placeholder="パスワードを入力"
-          />
+          <field.TextField label="パスワード" type="password" placeholder="パスワードを入力" />
         )}
       </form.AppField>
 

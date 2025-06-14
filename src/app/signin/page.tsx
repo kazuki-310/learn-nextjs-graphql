@@ -10,6 +10,7 @@ export default function SignInPage() {
           <CardTitle className="text-2xl">ログイン</CardTitle>
           <CardDescription>メールアドレスとパスワードでログインしてください</CardDescription>
         </CardHeader>
+
         <CardContent>
           <SigninForm />
 

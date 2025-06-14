@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
-import { requireAuth } from '@/lib/page-auth';
 import { StatsContainer } from './_containers/stats-container';
 import { DashboardStatsSkeleton } from './_components/dashboard-stats-skeleton';
 import { DashboardChartSkeleton } from './_components/dashboard-chart-skeleton';
 import { ChartContainer } from './_containers/chart-container';
+import { getCurrentUser } from './_lib/auth';
 
 export default async function DashboardPage() {
-  await requireAuth();
+  await getCurrentUser();
 
   return (
     <div className="container mx-auto space-y-8 p-6">

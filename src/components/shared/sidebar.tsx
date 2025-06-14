@@ -7,7 +7,7 @@ import { signOut } from 'next-auth/react';
 import { Button } from '../ui/button';
 
 const navLinks = [
-  { href: '/', label: 'ダッシュボード', icon: BarChart3 },
+  { href: '/dashboard', label: 'ダッシュボード', icon: BarChart3 },
   { href: '/users', label: 'ユーザー', icon: Users },
   { href: '/projects', label: 'プロジェクト', icon: FolderOpen },
 ];
@@ -20,7 +20,7 @@ export function Sidebar() {
   return (
     <aside className="flex min-w-64 flex-col border-r bg-gray-50 p-6">
       <div className="flex-1">
-        <Link href="/" className="mb-8 block">
+        <Link href="/dashboard" className="mb-8 block">
           <h2 className="text-xl font-bold text-gray-800 transition-colors hover:text-blue-600">
             Management Portal
           </h2>

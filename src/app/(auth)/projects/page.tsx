@@ -5,10 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Plus } from 'lucide-react';
 import { ProjectList } from './_containers/project-list';
 import ProjectTableSkeleton from './_components/project-table-skeleton';
-import { requireAuth } from '@/lib/page-auth';
+import { getCurrentUser } from '../dashboard/_lib/auth';
 
 export default async function Page() {
-  await requireAuth();
+  await getCurrentUser();
 
   return (
     <div className="container mx-auto space-y-8 p-6">
