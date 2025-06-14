@@ -1,10 +1,10 @@
 import { Suspense } from 'react';
 import { getDashboardStats } from '../_server-actions/fetchers';
-import { getProjects } from '../projects/_server-actions/fetchers';
 import { DashboardStats } from './dashboard-stats';
 import { DashboardChart } from './dashboard-chart';
 import { DashboardStatsSkeleton } from './dashboard-stats-skeleton';
 import { DashboardChartSkeleton } from './dashboard-chart-skeleton';
+import { getProjects } from '../projects/_lib/fetchers';
 
 export function DashboardContent() {
   return (

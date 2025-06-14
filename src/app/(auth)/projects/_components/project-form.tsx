@@ -17,8 +17,8 @@ import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { Project } from '@/lib/graphql/__generated__';
 import { createProjectSchema, ProjectFormData } from '@/schemas/project';
-import { updateProject } from '../[id]/_server-actions/actions';
-import { createProject } from '../new/_server-actions/actions';
+import { updateProject } from '../[id]/_lib/actions';
+import { createProject } from '../new/_lib/actions';
 import { toast } from 'sonner';
 
 export function ProjectForm({ project }: { project?: Project }) {

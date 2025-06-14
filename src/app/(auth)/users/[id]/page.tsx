@@ -8,6 +8,7 @@ import { UserForm } from '../_components/user-form';
 import { UserEditSkeleton } from './_components/user-edit-skeleton';
 import { getUser } from './_server-actions/fetchers';
 import { requireAuth } from '@/lib/page-auth';
+import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   await requireAuth();

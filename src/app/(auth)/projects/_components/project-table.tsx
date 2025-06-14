@@ -1,11 +1,11 @@
 'use client';
 
 import { DataTable, TableColumn, TableAction } from '@/components/shared/data-table';
-import { GetProjectQuery, Project } from '@/lib/graphql/__generated__';
+import { Project } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
-import { deleteProject } from '../[id]/_server-actions/actions';
 import { toast } from 'sonner';
+import { deleteProject } from '../[id]/_lib/actions';
 
 export function ProjectTable({ projects }: { projects: Project[] }) {
   const router = useRouter();
