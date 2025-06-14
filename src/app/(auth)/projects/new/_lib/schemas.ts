@@ -6,6 +6,4 @@ export const createProjectSchema = z.object({
   price: z.coerce.number().int().min(0, '価格は0以上の整数を入力してください'),
 });
 
-export const updateProjectSchema = createProjectSchema;
-
 export type ProjectFormData = z.infer<typeof createProjectSchema>;

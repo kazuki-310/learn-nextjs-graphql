@@ -6,7 +6,6 @@ applyTo: '**'
 
 ## 言語
 
-- speak in Japanese
 - 必ず日本語で話すこと
 
 ## 特徴

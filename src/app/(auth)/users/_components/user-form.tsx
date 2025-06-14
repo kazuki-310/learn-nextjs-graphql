@@ -22,12 +22,8 @@ import {
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { Role, User } from '@/lib/graphql/__generated__';
-import {
-  createUserSchema,
-  updateUserSchema,
-  CreateUserFormData,
-  UpdateUserFormData,
-} from '@/schemas/user';
+import { createUserSchema, CreateUserFormData } from '../new/_lib/schemas';
+import { updateUserSchema, UpdateUserFormData } from '../[id]/_lib/schemas';
 import { toast } from 'sonner';
 import { updateUser } from '../[id]/_lib/actions';
 import { createUser } from '../new/_lib/actions';

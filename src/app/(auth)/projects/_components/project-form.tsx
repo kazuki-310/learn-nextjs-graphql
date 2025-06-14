@@ -16,7 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { Project } from '@/lib/graphql/__generated__';
-import { createProjectSchema, ProjectFormData } from '@/schemas/project';
+import { createProjectSchema, ProjectFormData } from '../new/_lib/schemas';
 import { updateProject } from '../[id]/_lib/actions';
 import { createProject } from '../new/_lib/actions';
 import { toast } from 'sonner';

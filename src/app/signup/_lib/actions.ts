@@ -1,6 +1,6 @@
 'use server';
 
-import { SignupFormData } from '@/schemas/auth';
+import { SignupFormData } from './schemas';
 import { withServerAction } from '@/lib/utils/server-action-wrapper';
 import { env } from '@/env.mjs';
 

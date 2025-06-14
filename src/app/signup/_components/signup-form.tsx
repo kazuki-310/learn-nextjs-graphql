@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { signupSchema, SignupFormData } from '@/schemas/auth';
+import { signupSchema, SignupFormData } from '../_lib/schemas';
 import { signupAction } from '../_lib/actions';
 import { toast } from 'sonner';
 import { signIn } from 'next-auth/react';
