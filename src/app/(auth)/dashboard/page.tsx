@@ -3,7 +3,7 @@ import { StatsContainer } from './_containers/stats-container';
 import { DashboardStatsSkeleton } from './_components/dashboard-stats-skeleton';
 import { DashboardChartSkeleton } from './_components/dashboard-chart-skeleton';
 import { ChartContainer } from './_containers/chart-container';
-import { getCurrentUser } from './_lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 
 export default async function DashboardPage() {
   await getCurrentUser();

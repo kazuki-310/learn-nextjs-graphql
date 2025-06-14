@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import { UserDetail } from './_containers/user-detail';
 import { UserEditSkeleton } from './_components/user-edit-skeleton';
-import { requireAuth } from '@/lib/page-auth';
+import { getCurrentUser } from '@/lib/auth';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  await requireAuth();
+  await getCurrentUser();
+
   const { id } = await params;
 
   return (

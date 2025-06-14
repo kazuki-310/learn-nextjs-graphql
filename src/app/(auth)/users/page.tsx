@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Plus } from 'lucide-react';
 import { UserList } from './_containers/user-list';
 import UserTableSkeleton from './_components/user-table-skeleton';
-import { getCurrentUser } from '../dashboard/_lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 
 export default async function Page() {
   await getCurrentUser();

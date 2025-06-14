@@ -1,7 +1,8 @@
-import { NextAuthOptions } from 'next-auth';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from './prisma';
 import { verifyPassword } from './password';
+import { redirect } from 'next/navigation';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -59,3 +60,13 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
 };
+
+export async function getCurrentUser() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect('/signin');
+  }
+
+  return session.user;
+}

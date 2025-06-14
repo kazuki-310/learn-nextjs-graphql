@@ -4,9 +4,9 @@ import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { requireAuth, getCurrentUser } from '@/lib/auth-utils';
 import { hashPassword } from '@/lib/password';
 import { NextRequest } from 'next/server';
+import { getCurrentUser } from '@/lib/auth';
 
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
