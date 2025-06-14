@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserForm } from '../_components/user-form';
-import { requireAuth } from '@/lib/page-auth';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftFromLine } from 'lucide-react';
