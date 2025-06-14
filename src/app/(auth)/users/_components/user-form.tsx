@@ -3,8 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useAppForm } from '@/hooks/use-app-form';
 import { Role, User } from '@/lib/graphql/__generated__';
-import { createUser } from '../new/_server-actions/actions';
-import { updateUser } from '../[id]/_server-actions/actions';
 import {
   createUserSchema,
   updateUserSchema,
@@ -12,6 +10,8 @@ import {
   UpdateUserFormData,
 } from '@/schemas/user';
 import { toast } from 'sonner';
+import { updateUser } from '../[id]/_lib/actions';
+import { createUser } from '../new/_lib/actions';
 
 const USER_ROLE_OPTIONS = [
   { value: Role.Admin, label: '管理者' },

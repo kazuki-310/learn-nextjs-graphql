@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, UserPlus } from 'lucide-react';
 import { UserForm } from '../_components/user-form';
 import { requireAuth } from '@/lib/page-auth';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { ArrowLeftFromLine } from 'lucide-react';
 
 export default async function Page() {
   await requireAuth();
@@ -18,12 +18,13 @@ export default async function Page() {
             </div>
             <Link href="/users">
               <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeftFromLine className="h-4 w-4" />
                 戻る
               </Button>
             </Link>
           </div>
         </CardHeader>
+
         <CardContent className="p-6">
           <UserForm />
         </CardContent>

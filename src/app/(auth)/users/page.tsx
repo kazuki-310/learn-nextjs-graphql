@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
-import { UserList } from './_components/user-list';
+import { UserList } from './_containers/user-list';
 import UserTableSkeleton from './_components/user-table-skeleton';
 import { requireAuth } from '@/lib/page-auth';
 

@@ -4,8 +4,8 @@ import { DataTable, TableColumn, TableAction } from '@/components/shared/data-ta
 import { User } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
-import { deleteUser } from '../[id]/_server-actions/actions';
 import { toast } from 'sonner';
+import { deleteUser } from '../[id]/_lib/actions';
 
 export function UserTable({ users }: { users: User[] }) {
   const router = useRouter();
