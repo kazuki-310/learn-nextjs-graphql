@@ -10,31 +10,6 @@ import { getCurrentUser } from '@/lib/auth';
 
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
-interface GraphQLContext {
-  userId?: string;
-}
-
-async function createContext(req: NextRequest): Promise<GraphQLContext> {
-  const userIdFromHeader = req.headers.get('x-user-id');
-  if (userIdFromHeader) {
-    return { userId: userIdFromHeader };
-  }
-
-  try {
-    const user = await getCurrentUser();
-    return { userId: user?.id };
-  } catch {
-    return {};
-  }
-}
-
-function requireAuthWithContext(context: GraphQLContext) {
-  if (!context.userId) {
-    throw new Error('認証が必要です');
-  }
-  return context.userId;
-}
-
 const resolvers: Resolvers = {
   Query: {
     async users(_, __, context: GraphQLContext) {
@@ -218,6 +193,31 @@ const resolvers: Resolvers = {
     },
   },
 };
+
+interface GraphQLContext {
+  userId?: string;
+}
+
+async function createContext(req: NextRequest): Promise<GraphQLContext> {
+  const userIdFromHeader = req.headers.get('x-user-id');
+  if (userIdFromHeader) {
+    return { userId: userIdFromHeader };
+  }
+
+  try {
+    const user = await getCurrentUser();
+    return { userId: user?.id };
+  } catch {
+    return {};
+  }
+}
+
+function requireAuthWithContext(context: GraphQLContext) {
+  if (!context.userId) {
+    throw new Error('認証が必要です');
+  }
+  return context.userId;
+}
 
 const server = new ApolloServer<GraphQLContext>({
   typeDefs,
