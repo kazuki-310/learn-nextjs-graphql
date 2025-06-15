@@ -1,31 +1,74 @@
-# Dockerビルドから除外するファイル
-node_modules
+# 開発・ビルド関連ファイル
 .next
-.git
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vercelデプロイ関連
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# 環境変数ファイル
+.env
 .env.local
-.env.*.local
-README.md
-.dockerignore
-Dockerfile
-docker-compose.yml
-.gitignore
+.env.development.local
+.env.test.local
+.env.production.local
 
-# ログファイル
-*.log
-
-# テストファイル
+# テスト関連
+coverage/
+.nyc_output
+.jest-cache
 **/__tests__/**
 **/*.test.ts
 **/*.test.tsx
 **/*.spec.ts
 **/*.spec.tsx
 
-# エディタファイル
+# Git関連
+.git
+.gitignore
+
+# CI/CD関連
+.github
+
+# Docker関連
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# IDE・エディタ関連
 .vscode
 .idea
 *.swp
 *.swo
+*~
 
 # OS生成ファイル
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# ログファイル
+*.log
+
+# 一時ファイル
+tmp/
+temp/
+
+# ドキュメント（任意）
+README.md
+docs/
+
+# Prismaデータベースファイル（開発用）
+prisma/*.db
+prisma/*.db-journal

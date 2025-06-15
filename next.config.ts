@@ -12,6 +12,7 @@ async function redirects() {
 
 const nextConfig: NextConfig = {
   redirects,
+  output: 'standalone',
 };
 
 export default nextConfig;
