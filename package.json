@@ -15,7 +15,13 @@
     "prisma-reset": "npx prisma migrate reset",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "db:up": "docker-compose up -d db",
+    "db:down": "docker-compose down",
+    "db:logs": "docker-compose logs -f db",
+    "db:setup": "pnpm db:up && sleep 5 && pnpm prisma-migrate && pnpm prisma-generate",
+    "db:seed": "tsx prisma/seed.ts",
+    "dev:setup": "pnpm db:setup && pnpm dev"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
