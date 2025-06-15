@@ -25,6 +25,8 @@
 - `pnpm test` - すべてのJestテスト実行
 - `pnpm test:watch` - Jestをウォッチモードで実行
 - `pnpm test:coverage` - カバレッジレポート付きテスト実行
+- `pnpm test -- <ファイルパス>` - 特定のテストファイルのみ実行
+- `pnpm test -- --testNamePattern="<テスト名>"` - 特定のテストケースのみ実行
 
 ### データベース（Prisma）
 
@@ -77,7 +79,7 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 #### フォーム処理
 
 - すべてのフォームでzodResolverによる検証とReact Hook Formを使用
-- `src/schemas/` でエンティティ別にバリデーションスキーマを一元化（project.ts、user.ts、auth.ts）
+- 各ページの `_lib/schemas.ts` でバリデーションスキーマをコロケーション管理
 - 一貫したUIとアクセシビリティのためのshadcn/ui Formコンポーネント
 - `withServerAction` ラッパーによる統一エラーハンドリングでサーバーアクションがフォーム送信を処理
 
@@ -97,12 +99,26 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 - ユーザーフレンドリーな日本語エラーメッセージ
 - すべての非同期操作でのローディング状態とスケルトン
 
+#### Container/Presentationalパターン
+
+- `_containers/` でデータフェッチを担当するContainerコンポーネント
+- `_components/` で表示ロジックを担当するPresentationalコンポーネント
+- Containerはデータフェッチのみに集中、Presentationalは表示とエラー状態処理に集中
+- エラー状態（null/undefined）と空状態（空配列）を適切に区別して処理
+
 #### 共有コンポーネントとユーティリティ
 
 - `DataTable` コンポーネント（`src/components/shared/data-table.tsx`）によるアクション付き汎用テーブルレンダリング
 - 一貫した日付表示のための日付フォーマットユーティリティ（`src/lib/utils/date-format.ts`）
 - 適切なラベル-入力関連付けのためのフォームフィールドコンポーネント（`src/components/form/`）
 - DRYエラーハンドリングとキャッシュ再検証のためのサーバーアクションラッパー（`src/lib/utils/server-action-wrapper.ts`）
+
+#### 認証システム
+
+- NextAuth v4を使用したセッション管理
+- `/signin` と `/signup` ページで認証フロー
+- `(auth)` ルートグループで認証が必要なページを保護
+- サーバーサイドでのセッション確認とリダイレクト処理
 
 ### ディレクトリ構造ガイドライン
 
