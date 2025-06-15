@@ -1,20 +1,18 @@
-import { getProject } from '../_lib/fetchers';
-import { ProjectForm } from '../../_components/project-form';
+import { User } from '@/lib/graphql/__generated__';
+import { UserForm } from '../../_components/user-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 
-export async function ProjectDetail({ projectId }: { projectId: string }) {
-  const project = await getProject(projectId);
-
-  if (!project) {
+export function UserDetail({ user }: { user?: User | null }) {
+  if (!user) {
     return (
       <Alert variant="destructive">
         <AlertTriangle className="h-4 w-4" />
         <AlertDescription>
-          指定されたプロジェクトが見つかりません。プロジェクトが削除されているか、IDが正しくない可能性があります。
+          指定されたユーザーが見つかりません。ユーザーが削除されているか、IDが正しくない可能性があります。
         </AlertDescription>
       </Alert>
     );
@@ -25,10 +23,10 @@ export async function ProjectDetail({ projectId }: { projectId: string }) {
       <CardHeader className="bg-muted/50 border-b p-6">
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle className="text-xl">プロジェクト編集</CardTitle>
-            <CardDescription>{project.title} の情報を編集</CardDescription>
+            <CardTitle className="text-xl">ユーザー編集</CardTitle>
+            <CardDescription>{user.name} さんの情報を編集</CardDescription>
           </div>
-          <Link href="/projects">
+          <Link href="/users">
             <Button variant="ghost" size="sm" className="gap-2">
               <ArrowLeft className="h-4 w-4" />
               戻る
@@ -36,8 +34,9 @@ export async function ProjectDetail({ projectId }: { projectId: string }) {
           </Link>
         </div>
       </CardHeader>
+
       <CardContent className="p-6">
-        <ProjectForm project={project} />
+        <UserForm user={user} />
       </CardContent>
     </Card>
   );

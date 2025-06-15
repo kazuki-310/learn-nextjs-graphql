@@ -1,7 +1,7 @@
-import { ProjectDetail } from './_containers/project-detail';
 import { ProjectEditSkeleton } from '../_components/project-edit-skeleton';
 import { Suspense } from 'react';
 import { getCurrentUser } from '@/lib/auth';
+import { ProjectDetailContainer } from './_containers/project-detail-container';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   await getCurrentUser();
@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   return (
     <div className="container mx-auto max-w-2xl space-y-8 p-6">
       <Suspense fallback={<ProjectEditSkeleton />}>
-        <ProjectDetail projectId={id} />
+        <ProjectDetailContainer projectId={id} />
       </Suspense>
     </div>
   );

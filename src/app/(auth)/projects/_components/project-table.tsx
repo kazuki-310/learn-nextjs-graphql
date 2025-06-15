@@ -6,6 +6,8 @@ import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { deleteProject } from '../[id]/_lib/actions';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
 
 export function ProjectTable({ projects }: { projects: Project[] }) {
   const router = useRouter();
@@ -48,6 +50,17 @@ export function ProjectTable({ projects }: { projects: Project[] }) {
       variant: 'destructive',
     },
   ];
+
+  if (projects.length === 0) {
+    return (
+      <Alert>
+        <AlertTriangle className="h-4 w-4" />
+        <AlertDescription>
+          プロジェクトが登録されていません。新規作成ボタンから最初のプロジェクトを作成してください。
+        </AlertDescription>
+      </Alert>
+    );
+  }
 
   return <DataTable data={projects} columns={columns} actions={actions} />;
 }

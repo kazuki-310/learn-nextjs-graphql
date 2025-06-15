@@ -5,8 +5,6 @@ export const runtime = 'edge';
 
 export const getProjects = cache(async () => {
   try {
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const res = await graphQLFetchSdk.getProjects(undefined, cacheOptions.static(['projects']));
 
     return res.projects;

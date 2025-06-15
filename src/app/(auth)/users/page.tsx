@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
-import { UserList } from './_containers/user-list';
+import { UserListContainer } from './_containers/user-list-container';
 import UserTableSkeleton from './_components/user-table-skeleton';
 import { getCurrentUser } from '@/lib/auth';
 
@@ -30,7 +30,7 @@ export default async function Page() {
 
         <CardContent className="p-3">
           <Suspense fallback={<UserTableSkeleton />}>
-            <UserList />
+            <UserListContainer />
           </Suspense>
         </CardContent>
       </Card>

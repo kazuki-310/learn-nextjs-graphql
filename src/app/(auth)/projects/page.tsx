@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus } from 'lucide-react';
-import { ProjectList } from './_containers/project-list';
 import ProjectTableSkeleton from './_components/project-table-skeleton';
 import { getCurrentUser } from '@/lib/auth';
+import { ProjectListContainer } from './_containers/project-list-container';
 
 export default async function Page() {
   await getCurrentUser();
@@ -30,7 +30,7 @@ export default async function Page() {
 
         <CardContent className="p-3">
           <Suspense fallback={<ProjectTableSkeleton />}>
-            <ProjectList />
+            <ProjectListContainer />
           </Suspense>
         </CardContent>
       </Card>
