@@ -138,13 +138,6 @@ export type GetDashboardStatsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetDashboardStatsQuery = { __typename?: 'Query', dashboardStats: { __typename?: 'DashboardStats', totalProjects: number, totalUsers: number, totalRevenue: number, averageProjectPrice: number, maxProjectPrice: number, recentProjectsCount: number } };
 
-export type DeleteProjectMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
-
 export type GetProjectQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -160,6 +153,13 @@ export type UpdateProjectMutationVariables = Exact<{
 
 export type UpdateProjectMutation = { __typename?: 'Mutation', updateProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
 
+export type DeleteProjectMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
+
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -171,13 +171,6 @@ export type CreateProjectMutationVariables = Exact<{
 
 
 export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
-
-export type DeleteUserMutationVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
 
 export type GetUserQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -193,6 +186,13 @@ export type UpdateUserMutationVariables = Exact<{
 
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser: { __typename?: 'User', id: string, name: string, email: string, role: Role, createdAt: any, updatedAt: any } };
 
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -219,18 +219,6 @@ export const GetDashboardStatsDocument = gql`
   }
 }
     `;
-export const DeleteProjectDocument = gql`
-    mutation deleteProject($id: ID!) {
-  deleteProject(id: $id) {
-    id
-    title
-    description
-    createdAt
-    updatedAt
-    price
-  }
-}
-    `;
 export const GetProjectDocument = gql`
     query getProject($id: ID!) {
   project(id: $id) {
@@ -246,6 +234,18 @@ export const GetProjectDocument = gql`
 export const UpdateProjectDocument = gql`
     mutation updateProject($id: ID!, $input: ProjectInput!) {
   updateProject(id: $id, input: $input) {
+    id
+    title
+    description
+    createdAt
+    updatedAt
+    price
+  }
+}
+    `;
+export const DeleteProjectDocument = gql`
+    mutation deleteProject($id: ID!) {
+  deleteProject(id: $id) {
     id
     title
     description
@@ -279,18 +279,6 @@ export const CreateProjectDocument = gql`
   }
 }
     `;
-export const DeleteUserDocument = gql`
-    mutation deleteUser($id: ID!) {
-  deleteUser(id: $id) {
-    id
-    name
-    email
-    role
-    createdAt
-    updatedAt
-  }
-}
-    `;
 export const GetUserDocument = gql`
     query getUser($id: ID!) {
   user(id: $id) {
@@ -306,6 +294,18 @@ export const GetUserDocument = gql`
 export const UpdateUserDocument = gql`
     mutation updateUser($id: ID!, $input: UpdateUserInput!) {
   updateUser(id: $id, input: $input) {
+    id
+    name
+    email
+    role
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export const DeleteUserDocument = gql`
+    mutation deleteUser($id: ID!) {
+  deleteUser(id: $id) {
     id
     name
     email
@@ -345,14 +345,14 @@ export function getSdk<C>(requester: Requester<C>) {
     getDashboardStats(variables?: GetDashboardStatsQueryVariables, options?: C): Promise<GetDashboardStatsQuery> {
       return requester<GetDashboardStatsQuery, GetDashboardStatsQueryVariables>(GetDashboardStatsDocument, variables, options) as Promise<GetDashboardStatsQuery>;
     },
-    deleteProject(variables: DeleteProjectMutationVariables, options?: C): Promise<DeleteProjectMutation> {
-      return requester<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, variables, options) as Promise<DeleteProjectMutation>;
-    },
     getProject(variables: GetProjectQueryVariables, options?: C): Promise<GetProjectQuery> {
       return requester<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, variables, options) as Promise<GetProjectQuery>;
     },
     updateProject(variables: UpdateProjectMutationVariables, options?: C): Promise<UpdateProjectMutation> {
       return requester<UpdateProjectMutation, UpdateProjectMutationVariables>(UpdateProjectDocument, variables, options) as Promise<UpdateProjectMutation>;
+    },
+    deleteProject(variables: DeleteProjectMutationVariables, options?: C): Promise<DeleteProjectMutation> {
+      return requester<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, variables, options) as Promise<DeleteProjectMutation>;
     },
     getProjects(variables?: GetProjectsQueryVariables, options?: C): Promise<GetProjectsQuery> {
       return requester<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, variables, options) as Promise<GetProjectsQuery>;
@@ -360,14 +360,14 @@ export function getSdk<C>(requester: Requester<C>) {
     createProject(variables: CreateProjectMutationVariables, options?: C): Promise<CreateProjectMutation> {
       return requester<CreateProjectMutation, CreateProjectMutationVariables>(CreateProjectDocument, variables, options) as Promise<CreateProjectMutation>;
     },
-    deleteUser(variables: DeleteUserMutationVariables, options?: C): Promise<DeleteUserMutation> {
-      return requester<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, variables, options) as Promise<DeleteUserMutation>;
-    },
     getUser(variables: GetUserQueryVariables, options?: C): Promise<GetUserQuery> {
       return requester<GetUserQuery, GetUserQueryVariables>(GetUserDocument, variables, options) as Promise<GetUserQuery>;
     },
     updateUser(variables: UpdateUserMutationVariables, options?: C): Promise<UpdateUserMutation> {
       return requester<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument, variables, options) as Promise<UpdateUserMutation>;
+    },
+    deleteUser(variables: DeleteUserMutationVariables, options?: C): Promise<DeleteUserMutation> {
+      return requester<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument, variables, options) as Promise<DeleteUserMutation>;
     },
     getUsers(variables?: GetUsersQueryVariables, options?: C): Promise<GetUsersQuery> {
       return requester<GetUsersQuery, GetUsersQueryVariables>(GetUsersDocument, variables, options) as Promise<GetUsersQuery>;

@@ -24,6 +24,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# 環境変数ファイルをコピー
+COPY .env ./
+COPY .env.production ./
+
 # Prismaクライアントを生成
 RUN pnpm prisma-generate
 
