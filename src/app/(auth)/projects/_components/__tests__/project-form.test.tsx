@@ -17,11 +17,11 @@ jest.mock('next/navigation', () => ({
   }),
 }));
 
-jest.mock('../../new/_server-actions/actions', () => ({
+jest.mock('../../new/_lib/actions', () => ({
   createProject: jest.fn(),
 }));
 
-jest.mock('../../[id]/_server-actions/actions', () => ({
+jest.mock('../../[id]/_lib/actions', () => ({
   updateProject: jest.fn(),
 }));
 
