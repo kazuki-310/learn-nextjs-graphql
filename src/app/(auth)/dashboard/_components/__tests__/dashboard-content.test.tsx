@@ -19,15 +19,11 @@ jest.mock('../dashboard-chart', () => ({
 }));
 
 jest.mock('../dashboard-stats-skeleton', () => ({
-  DashboardStatsSkeleton: () => (
-    <div data-testid="dashboard-stats-skeleton">Loading Stats...</div>
-  ),
+  DashboardStatsSkeleton: () => <div data-testid="dashboard-stats-skeleton">Loading Stats...</div>,
 }));
 
 jest.mock('../dashboard-chart-skeleton', () => ({
-  DashboardChartSkeleton: () => (
-    <div data-testid="dashboard-chart-skeleton">Loading Chart...</div>
-  ),
+  DashboardChartSkeleton: () => <div data-testid="dashboard-chart-skeleton">Loading Chart...</div>,
 }));
 
 jest.mock('../../_server-actions/fetchers', () => ({
@@ -53,7 +49,13 @@ jest.mock('react', () => {
   const originalReact = jest.requireActual('react');
   return {
     ...originalReact,
-    Suspense: ({ children, fallback }: { children: React.ReactNode; fallback: React.ReactNode }) => {
+    Suspense: ({
+      children,
+      fallback,
+    }: {
+      children: React.ReactNode;
+      fallback: React.ReactNode;
+    }) => {
       return fallback;
     },
   };
