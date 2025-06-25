@@ -29,14 +29,9 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     'Content-Type': 'application/json',
   };
 
-  // Server Componentsでの認証対応
-  try {
-    const session = await getServerSession(authOptions);
-    if (session?.user?.id) {
-      headers['x-user-id'] = session.user.id;
-    }
-  } catch (error) {
-    // クライアントサイドでは getServerSession が使えないため、エラーを無視
+  const session = await getServerSession(authOptions);
+  if (session?.user?.id) {
+    headers['x-user-id'] = session.user.id;
   }
 
   const revalidate = options?.revalidate;
@@ -63,8 +58,7 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     }
 
     const result = await response.json();
-    
-    // GraphQLエラーをチェック
+
     if (result.errors) {
       console.error('GraphQL Errors:', result.errors);
       throw new Error(`GraphQL Error: ${result.errors.map((e: any) => e.message).join(', ')}`);
@@ -73,7 +67,7 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     return result.data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
-    throw error; // エラーを再throw
+    throw error;
   }
 };
 
