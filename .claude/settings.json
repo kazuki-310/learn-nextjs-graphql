@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(rm:*)",
+      "Bash(pnpm install:*)",
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(pnpm run dev:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(pnpm run codegen:*)",
+      "Bash(pnpm run prisma-generate:*)",
+      "Bash(pnpm run build:*)",
+      "Bash(pnpm build:*)",
+      "Bash(pnpm prisma generate:*)",
+      "Bash(pnpm codegen:*)",
+      "Bash(pnpm lint:*)"
+    ],
+    "deny": ["Bash(git:commit*)", "Bash(git:push*)", "Bash(sudo:*)"]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": ["playwright"]
+}
