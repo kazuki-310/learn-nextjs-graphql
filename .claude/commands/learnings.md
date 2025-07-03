@@ -1,6 +1,4 @@
 新たな知見が得られたら、次のファイルを更新してください
 
-- `.claude/context.md`: 背景・制約・技術選定理由
-- `.claude/project-knowledge.md`: 実装パターン・設計決定
-- `.claude/common-patterns.md`: 定型実装・コマンドパターン
+- `.claude/coding-standards.md`: コード規約
 - `.claude/architecture.md`: アーキテクチャ・ディレクトリ構造

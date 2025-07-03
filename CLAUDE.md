@@ -10,22 +10,11 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 
 このプロジェクトでは以下のファイルで知見を体系的に管理しています：
 
-### `.claude/context.md`
+### `.claude/coding-standards.md`
 
-- プロジェクトの背景、目的、制約条件
-- 技術スタック選定理由
-- ビジネス要件や技術的制約
-
-### `.claude/project-knowledge.md`
-
-- 実装パターンや設計決定の知見
-- アーキテクチャの選択理由
-- 避けるべきパターンやアンチパターン
-
-### `.claude/common-patterns.md`
-
-- 頻繁に使用するコマンドパターン
-- 定型的な実装テンプレート
+- コーディング規約とベストプラクティス
+- TypeScriptとReactの実装指針
+- GraphQLとNext.jsの規約
 
 ### `.claude/architecture.md`
 
