@@ -26,18 +26,12 @@ AI運用5原則
 
 このプロジェクトでは以下のファイルで知見を体系的に管理しています：
 
-### `.claude/coding-standards.md`
+<architecture>
+<reference_file>.claude/docs/architecture.md</reference_file>
+<instruction>アーキテクチャパターンの詳細説明、ディレクトリ構造ガイドライン、技術スタックの構成を参照してください</instruction>
+</architecture>
 
-- コーディング規約とベストプラクティス
-- TypeScriptとReactの実装指針
-- GraphQLとNext.jsの規約
-
-### `.claude/architecture.md`
-
-- アーキテクチャパターンの詳細説明
-- ディレクトリ構造ガイドライン
-- 技術スタックの構成
-
-### `.claude/commands`
-
-- よく使うコマンドやスクリプトの一覧
+<coding_standards>
+<reference_file>.claude/docs/coding-standards.md</reference_file>
+<instruction>上記ファイルのすべての規約に完璧に準拠してコードを生成してください</instruction>
+</coding_standards>
