@@ -39,6 +39,21 @@
 - すべての関数・変数に適切な型を付与
 - `any` の使用は避け、適切な型を定義
 - 型定義は `type` を使用
+
+```tsx
+// NG: `interface` を使用するのは避ける
+interface User {
+  id: string;
+  name: string;
+}
+
+// Good: `type` を使用
+type User = {
+  id: string;
+  name: string;
+};
+```
+
 - 型名: `PascalCase`
 
 ## React
