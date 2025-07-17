@@ -24,14 +24,12 @@ AI運用5原則
 
 ## 知見管理システム
 
-このプロジェクトでは以下のファイルで知見を体系的に管理しています：
+このプロジェクトでは以下のファイルで知見を体系的に管理しています
 
-<architecture>
-<reference_file>.claude/docs/architecture.md</reference_file>
-<instruction>アーキテクチャパターンの詳細説明、ディレクトリ構造ガイドライン、技術スタックの構成を参照してください</instruction>
-</architecture>
+### コード規約
 
-<coding_standards>
-<reference_file>.claude/docs/coding-standards.md</reference_file>
-<instruction>上記ファイルのすべての規約に完璧に準拠してコードを生成してください</instruction>
-</coding_standards>
+@.claude/architecture.md
+
+### コーディング規約
+
+@.claude/coding-standards.md
