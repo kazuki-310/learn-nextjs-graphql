@@ -22,11 +22,11 @@ AI運用5原則
 #[n] times. # n = increment each chat, end line, etc(#1, #2...)
 </every_chat>
 
-## 知見管理システム
+## 開発ガイドライン
 
 このプロジェクトでは以下のファイルで知見を体系的に管理しています
 
-### コード規約
+### アーキテクチャ
 
 @.claude/architecture.md
 
