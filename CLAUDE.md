@@ -26,10 +26,10 @@ AI運用5原則
 
 このプロジェクトでは以下のファイルで知見を体系的に管理しています
 
-### アーキテクチャ
-
-@.claude/docs/architecture.md
-
 ### コーディング規約
 
 @.claude/docs/coding-standards.md
+
+### アーキテクチャ
+
+@.claude/docs/architecture.md
