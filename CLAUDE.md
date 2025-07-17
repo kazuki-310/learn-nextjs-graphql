@@ -28,8 +28,8 @@ AI運用5原則
 
 ### アーキテクチャ
 
-@.claude/architecture.md
+@.claude/docs/architecture.md
 
 ### コーディング規約
 
-@.claude/coding-standards.md
+@.claude/docs/coding-standards.md
