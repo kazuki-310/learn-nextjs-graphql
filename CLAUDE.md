@@ -28,8 +28,10 @@ AI運用5原則
 
 ### コーディング規約
 
+以下のファイルでコーディング規約を定義しています。
 @.claude/docs/coding-standards.md
 
 ### アーキテクチャ
 
+以下のファイルでアーキテクチャを定義しています。
 @.claude/docs/architecture.md
