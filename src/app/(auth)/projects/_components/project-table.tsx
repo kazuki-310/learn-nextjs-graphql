@@ -1,6 +1,6 @@
 'use client';
 
-import { DataTable, TableColumn, TableAction, PaginationConfig, SortConfig } from '@/components/shared/data-table';
+import { DataTable, TableColumn, TableAction } from '@/components/shared/data-table';
 import { Project } from '@/lib/graphql/__generated__';
 import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
@@ -9,52 +9,30 @@ import { deleteProject } from '../[id]/_lib/actions';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
 
-interface ProjectTableProps {
+type ProjectTableProps = {
   projects: Project[];
-  enablePagination?: boolean;
-  totalItems?: number;
-  pagination?: PaginationConfig;
-  onPaginationChange?: (pagination: PaginationConfig) => void;
-  enableServerSort?: boolean;
-  sorting?: SortConfig[];
-  onSortingChange?: (sorting: SortConfig[]) => void;
-}
+};
 
-export function ProjectTable({ 
-  projects, 
-  enablePagination = false,
-  totalItems = 0,
-  pagination,
-  onPaginationChange,
-  enableServerSort = false,
-  sorting,
-  onSortingChange
-}: ProjectTableProps) {
+export function ProjectTable({ projects }: ProjectTableProps) {
   const router = useRouter();
 
   const columns: TableColumn<Project>[] = [
-    { key: 'title', label: 'Title', sortable: true, showCsvCheckbox: true },
-    { key: 'description', label: 'Description', sortable: true, showCsvCheckbox: true },
+    { key: 'title', label: 'Title' },
+    { key: 'description', label: 'Description' },
     {
       key: 'price',
       label: 'Price',
       render: (value) => (value ? `${value} 円` : ''),
-      sortable: true,
-      showCsvCheckbox: true,
     },
     {
       key: 'createdAt',
       label: 'Created At',
       render: (value) => formatDate(value),
-      sortable: true,
-      showCsvCheckbox: true,
     },
     {
       key: 'updatedAt',
       label: 'Updated At',
       render: (value) => formatDate(value),
-      sortable: true,
-      showCsvCheckbox: true,
     },
   ];
 
@@ -88,20 +66,5 @@ export function ProjectTable({
     );
   }
 
-  return (
-    <DataTable 
-      data={projects} 
-      columns={columns} 
-      actions={actions} 
-      enableCsvExport={true}
-      csvFilename="projects.csv"
-      enablePagination={enablePagination}
-      totalItems={totalItems}
-      pagination={pagination}
-      onPaginationChange={onPaginationChange}
-      enableServerSort={enableServerSort}
-      sorting={sorting}
-      onSortingChange={onSortingChange}
-    />
-  );
+  return <DataTable data={projects} columns={columns} actions={actions} />;
 }
