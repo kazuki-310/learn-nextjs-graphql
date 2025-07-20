@@ -2,29 +2,29 @@
 
 ### 1. 要件定義
 
-- `.claude_workflow/complete.md` が存在すれば参照
+- `.claude/workflow/complete.md` が存在すれば参照
 - 目的の明確化、現状把握、成功基準の設定
-- `.claude_workflow/requirements.md` に文書化
+- `.claude/workflow/requirements.md` に文書化
 - **必須確認**: 「要件定義フェーズが完了しました。設計フェーズに進んでよろしいですか？」
 
 ### 2. 設計
 
 - **必ず `.claude/workflow/requirements.md`, `.claude/docs/coding-standards.md`, `.claude/docs/architecture.md` を読み込んでから開始**
 - アプローチ検討、実施手順決定、問題点の特定
-- `.claude_workflow/design.md` に文書化
+- `.claude/workflow/design.md` に文書化
 - **必須確認**: 「設計フェーズが完了しました。タスク化フェーズに進んでよろしいですか？」
 
 ### 3. タスク化
 
-- **必ず `.claude_workflow/design.md` を読み込んでから開始**
+- **必ず `.claude/workflow/design.md` を読み込んでから開始**
 - タスクを実行可能な単位に分解、優先順位設定
-- `.claude_workflow/tasks.md` に文書化
+- `.claude/workflow/tasks.md` に文書化
 - **必須確認**: 「タスク化フェーズが完了しました。実行フェーズに進んでよろしいですか？」
 
 ### 4. 実行
 
-- **必ず `.claude_workflow/tasks.md` を読み込んでから開始**
-- タスクを順次実行、進捗を `.claude_workflow/tasks.md` に更新
+- **必ず `.claude/workflow/tasks.md` を読み込んでから開始**
+- タスクを順次実行、進捗を `.claude/workflow/tasks.md` に更新
 - 各タスク完了時に報告
 
 ## 実行ルール
