@@ -73,12 +73,12 @@ type User = {
 
 ```tsx
 // NG: 役割が不明確
-`client.tsx`
-`component.tsx`
+`client.tsx`;
+`component.tsx`;
 
 // Good: 目的が明確
 `user-profile-form.tsx`;
-`campaign-list.tsx;
+`campaign-list.tsx`;
 ```
 
 ```typescript
@@ -338,14 +338,14 @@ const { id, name } = user;
 
 ```tsx
 const data = {
-  user = {
-    id: 1
-    name: "Taro Yamada"
+  user: {
+    id: 1,
+    name: 'Taro Yamada',
     address: {
-      city: "Tokyo"
-    }
-  }
-}
+      city: 'Tokyo',
+    },
+  },
+};
 
 // NG
 console.log(data.user.id);
@@ -353,7 +353,11 @@ console.log(data.user.name);
 console.log(data.user.address.city);
 
 // NG
-const { user: { address: { city } } } = data;
+const {
+  user: {
+    address: { city },
+  },
+} = data;
 
 // Good
 const { user } = data;
@@ -433,7 +437,6 @@ function newMultiply(x) {
 - API 呼び出し中に適切なローディングインジケーター（スピナー等）が表示されているか
 - ボタン等の連打対策がされており、同一の API が連続で呼び出されないように制御しているか
 - フォームの入力値に対するバリデーションが適切に設定されているか
-  - e.g. 文字列のサイズ、重複チェック
 - データが必要に応じて再フェッチされているか
 
 ### セキュリティ
@@ -444,7 +447,7 @@ function newMultiply(x) {
 ### メンテナビリティ
 
 - マジックナンバーを使用していないか
-- any 型の多用を避けているか
+- `any` 型の多用を避けているか
 - コンポーネントが適切に分割されているか
 - コンポーネントが再利用可能な形で設計されているか
 - フォルダ構成とコードの整理が適切で、プロジェクト全体が見通しやすくなっているか
