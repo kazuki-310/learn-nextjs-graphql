@@ -53,3 +53,6 @@ docker/data/
 # Database
 *.db
 *.sqlite
+
+# claude code
+.claude/workflow
