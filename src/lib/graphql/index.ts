@@ -53,6 +53,7 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     return data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
+    throw error;
   }
 };
 
