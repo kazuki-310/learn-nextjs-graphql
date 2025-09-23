@@ -18,10 +18,10 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 アプリケーションはサーバーサイド操作に構造化されたアプローチを使用：
 
 - `_lib/` ディレクトリにGraphQL操作とフェッチャーを格納
-- 各操作は独自の `.gql` ファイルを持つ（例：`get-projects.gql`、`create-project.gql`）
-- `actions.ts` ファイルは `withServerAction` ラッパーを使用してフォーム送信とミューテーションを処理
+- 各操作は独自の `.ts` ファイルでgraphql-tagを使用（例：`get-projects.ts`、`create-project.ts`）
+- `actions.ts` ファイルはNext.jsのServer Actionsを使用してフォーム送信とミューテーションを処理
 - `fetchers.ts` ファイルはコンポーネント用のデータフェッチを処理
-- `src/lib/utils/server-action-wrapper.ts` による共通エラーハンドリングとキャッシュ再検証
+- 各Server Actionで `revalidateTag` を直接呼び出してキャッシュ再検証
 
 ### GraphQL統合
 
@@ -41,7 +41,7 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 - すべてのフォームでzodResolverによる検証とReact Hook Formを使用
 - 各ページの `_lib/schemas.ts` でバリデーションスキーマをコロケーション管理
 - 一貫したUIとアクセシビリティのためのshadcn/ui Formコンポーネント
-- `withServerAction` ラッパーによる統一エラーハンドリングでサーバーアクションがフォーム送信を処理
+- Next.jsのServer Actionsが直接フォーム送信を処理し、シンプルなエラーハンドリング
 
 ### キャッシュ戦略
 
@@ -58,6 +58,7 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 - エンティティ名を表示する成功メッセージ（例：「Project Name」を作成しました）
 - ユーザーフレンドリーな日本語エラーメッセージ
 - すべての非同期操作でのローディング状態とスケルトン
+- データフェッチが必要なページは `export const dynamic = 'force-dynamic'` で動的レンダリング
 
 ### Container/Presentationalパターン
 
@@ -71,14 +72,6 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
 - `DataTable` コンポーネント（`src/components/shared/data-table.tsx`）によるアクション付き汎用テーブルレンダリング
 - 一貫した日付表示のための日付フォーマットユーティリティ（`src/lib/utils/date-format.ts`）
 - 適切なラベル-入力関連付けのためのフォームフィールドコンポーネント（`src/components/form/`）
-- DRYエラーハンドリングとキャッシュ再検証のためのサーバーアクションラッパー（`src/lib/utils/server-action-wrapper.ts`）
-
-### 認証システム
-
-- NextAuth v4を使用したセッション管理
-- `/signin` と `/signup` ページで認証フロー
-- `(auth)` ルートグループで認証が必要なページを保護
-- サーバーサイドでのセッション確認とリダイレクト処理
 
 ## ディレクトリ構造ガイドライン
 
@@ -94,7 +87,7 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
     - `fetchers.ts` - データフェッチャー
     - `actions.ts` - アクションハンドラー
     - `schemas.ts` - バリデーションスキーマ（各ページに固有）
-    - `*.gql` - GraphQLクエリファイル
+    - `*.ts` - GraphQLクエリファイル（graphql-tag使用）
 - `src/components/` - 再利用可能なUIコンポーネント
   - `ui/` - 汎用UIコンポーネント（shadcn/ui）
   - `shared/` - アプリケーション全体で共有されるコンポーネント
@@ -107,9 +100,9 @@ Next.js 15のApp Routerパターンを使用したフルスタックGraphQLア�
     - `__generated__/` - 自動生成された型定義
 
 ### 追加パターン
-- 認証が必要なページは `(auth)` ルートグループ下に配置
 - サーバーアクションは `_lib/` ディレクトリで整理
 - バリデーションスキーマは各ページの `_lib/schemas.ts` でコロケーション管理
+- 認証システムはなし - 全てのページとAPIがオープンアクセス
 
 ## 環境設定
 

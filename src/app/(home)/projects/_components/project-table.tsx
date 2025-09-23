@@ -22,7 +22,7 @@ export function ProjectTable({ projects }: ProjectTableProps) {
     {
       key: 'price',
       label: 'Price',
-      render: (value) => (value ? `${value} 円` : ''),
+      render: (value) => (value ? `${value} 円` : '0 円'),
     },
     {
       key: 'createdAt',

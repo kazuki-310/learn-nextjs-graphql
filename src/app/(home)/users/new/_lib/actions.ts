@@ -1,16 +1,15 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
 import { graphQLFetchSdk } from '@/lib/graphql';
 import { CreateUserInput } from '@/lib/graphql/__generated__/resolvers-types';
-import { withServerAction } from '@/lib/utils/server-action-wrapper';
 
-export const createUser = withServerAction(
-  async (data: CreateUserInput) => {
+export async function createUser(data: CreateUserInput) {
+  try {
     const res = await graphQLFetchSdk.createUser({ input: data });
+    revalidateTag('users');
     return res.createUser;
-  },
-  {
-    revalidateTag: 'users',
-    errorMessage: 'ユーザー作成に失敗しました',
+  } catch (error) {
+    throw error;
   }
-);
+}
