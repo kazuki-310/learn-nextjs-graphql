@@ -1,11 +1,8 @@
 import { ProjectEditSkeleton } from '../_components/project-edit-skeleton';
 import { Suspense } from 'react';
-import { getCurrentUser } from '@/lib/auth';
 import { ProjectDetailContainer } from './_containers/project-detail-container';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  await getCurrentUser();
-
   const { id } = await params;
 
   return (

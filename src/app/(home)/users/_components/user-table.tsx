@@ -13,9 +13,9 @@ export function UserTable({ users }: { users: User[] }) {
   const router = useRouter();
 
   const columns: TableColumn<User>[] = [
-    { key: 'name', label: 'Name', sortable: true, showCsvCheckbox: true },
-    { key: 'email', label: 'Email', sortable: true, showCsvCheckbox: true },
-    { key: 'role', label: 'Role', sortable: true, showCsvCheckbox: true },
+    { key: 'name', label: 'Name', sortable: true },
+    { key: 'email', label: 'Email', sortable: true },
+    { key: 'role', label: 'Role', sortable: true },
     {
       key: 'createdAt',
       label: 'Created At',
@@ -27,7 +27,6 @@ export function UserTable({ users }: { users: User[] }) {
       label: 'Updated At',
       render: (value) => formatDate(value),
       sortable: true,
-      showCsvCheckbox: true,
     },
   ];
 
@@ -67,8 +66,6 @@ export function UserTable({ users }: { users: User[] }) {
       columns={columns}
       actions={actions}
       className="p-6"
-      enableCsvExport={true}
-      csvFilename="users.csv"
     />
   );
 }

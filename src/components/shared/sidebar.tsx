@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BarChart3, Users, FolderOpen } from 'lucide-react';
-import { signOut } from 'next-auth/react';
 import { Button } from '../ui/button';
 
 const navLinks = [
@@ -13,10 +12,6 @@ const navLinks = [
 ];
 
 export function Sidebar() {
-  const handleSignOut = async () => {
-    await signOut({ callbackUrl: '/signin' });
-  };
-
   return (
     <aside className="flex min-w-64 flex-col border-r bg-gray-50 p-6">
       <div className="flex-1">
@@ -27,12 +22,6 @@ export function Sidebar() {
         </Link>
 
         <NavMenu />
-      </div>
-
-      <div className="mt-4 border-t pt-4">
-        <Button variant="outline" onClick={handleSignOut}>
-          ログアウト
-        </Button>
       </div>
     </aside>
   );

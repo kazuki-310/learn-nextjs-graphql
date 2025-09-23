@@ -1,11 +1,8 @@
 import { Suspense } from 'react';
 import { UserDetailContainer } from './_containers/user-detail-container';
 import { UserEditSkeleton } from './_components/user-edit-skeleton';
-import { getCurrentUser } from '@/lib/auth';
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  await getCurrentUser();
-
   const { id } = await params;
 
   return (

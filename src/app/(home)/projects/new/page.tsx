@@ -3,11 +3,8 @@ import { ProjectForm } from '../_components/project-form';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import { getCurrentUser } from '@/lib/auth';
 
 export default async function Page() {
-  await getCurrentUser();
-
   return (
     <div className="container mx-auto max-w-2xl space-y-8 p-6">
       <Card className="gap-0 border-0 p-0 shadow-md">

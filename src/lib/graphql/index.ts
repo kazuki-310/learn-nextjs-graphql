@@ -2,8 +2,6 @@ import { print } from 'graphql';
 
 import { getSdk, Requester } from './__generated__';
 import { env } from '@/env.mjs';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 
 const URL = env.NEXT_PUBLIC_API_URL;
 const endpoint = `${URL}/api/graphql`;
@@ -28,11 +26,6 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
-
-  const session = await getServerSession(authOptions);
-  if (session?.user?.id) {
-    headers['x-user-id'] = session.user.id;
-  }
 
   const revalidate = options?.revalidate;
   const tags = options?.tags ?? [];

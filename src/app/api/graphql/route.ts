@@ -4,17 +4,12 @@ import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { hashPassword } from '@/lib/password';
-import { NextRequest } from 'next/server';
-import { getCurrentUser } from '@/lib/auth';
 
 const typeDefs = readFileSync(join(process.cwd(), 'src/lib/graphql/schema.gql'), 'utf-8');
 
 const resolvers: Resolvers = {
   Query: {
-    async users(_, __, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async users() {
       const users = await prisma.users.findMany({
         orderBy: { createdAt: 'desc' },
       });
@@ -28,9 +23,7 @@ const resolvers: Resolvers = {
         updatedAt: user.updatedAt,
       }));
     },
-    async user(_, { id }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async user(_, { id }) {
       const user = await prisma.users.findUnique({
         where: { id },
       });
@@ -48,27 +41,21 @@ const resolvers: Resolvers = {
         updatedAt: user.updatedAt,
       };
     },
-    async projects(_, __, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async projects() {
       const projects = await prisma.projects.findMany({
         orderBy: { createdAt: 'desc' },
       });
 
       return projects;
     },
-    async project(_, { id }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async project(_, { id }) {
       const project = await prisma.projects.findUnique({
         where: { id },
       });
 
       return project;
     },
-    async dashboardStats(_, __, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async dashboardStats() {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
@@ -95,9 +82,7 @@ const resolvers: Resolvers = {
     },
   },
   Mutation: {
-    async createProject(_, { input }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async createProject(_, { input }) {
       const project = await prisma.projects.create({
         data: {
           title: input.title,
@@ -108,9 +93,7 @@ const resolvers: Resolvers = {
 
       return project;
     },
-    async updateProject(_, { id, input }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async updateProject(_, { id, input }) {
       const project = await prisma.projects.update({
         where: { id },
         data: {
@@ -122,25 +105,19 @@ const resolvers: Resolvers = {
 
       return project;
     },
-    async deleteProject(_, { id }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async deleteProject(_, { id }) {
       const project = await prisma.projects.delete({
         where: { id },
       });
 
       return project;
     },
-    async createUser(_, { input }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
-      const hashedPassword = await hashPassword(input.password);
-
+    async createUser(_, { input }) {
       const user = await prisma.users.create({
         data: {
           name: input.name,
           email: input.email,
-          password: hashedPassword,
+          password: input.password,
           role: input.role,
         },
       });
@@ -154,9 +131,7 @@ const resolvers: Resolvers = {
         updatedAt: user.updatedAt,
       };
     },
-    async updateUser(_, { id, input }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async updateUser(_, { id, input }) {
       const user = await prisma.users.update({
         where: { id },
         data: {
@@ -175,9 +150,7 @@ const resolvers: Resolvers = {
         updatedAt: user.updatedAt,
       };
     },
-    async deleteUser(_, { id }, context: GraphQLContext) {
-      requireAuthWithContext(context);
-
+    async deleteUser(_, { id }) {
       const user = await prisma.users.delete({
         where: { id },
       });
@@ -194,39 +167,12 @@ const resolvers: Resolvers = {
   },
 };
 
-interface GraphQLContext {
-  userId?: string;
-}
-
-async function createContext(req: NextRequest): Promise<GraphQLContext> {
-  const userIdFromHeader = req.headers.get('x-user-id');
-  if (userIdFromHeader) {
-    return { userId: userIdFromHeader };
-  }
-
-  try {
-    const user = await getCurrentUser();
-    return { userId: user?.id };
-  } catch {
-    return {};
-  }
-}
-
-function requireAuthWithContext(context: GraphQLContext) {
-  if (!context.userId) {
-    throw new Error('認証が必要です');
-  }
-  return context.userId;
-}
-
-const server = new ApolloServer<GraphQLContext>({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-const handler = startServerAndCreateNextHandler(server, {
-  context: async (req: NextRequest) => createContext(req),
-});
+const handler = startServerAndCreateNextHandler(server);
 
 export async function GET(request: Request) {
   return handler(request);
