@@ -8,10 +8,10 @@ const endpoint = `${URL}/api/graphql`;
 
 type RequestOptions = {
   cache?: RequestCache;
-  revalidate?: false | number;
+  headers?: Record<string, string>;
+  revalidate: false | number;
   tags?: string[];
 };
-
 export const cacheOptions = {
   static: (tags: string[]): RequestOptions => ({ revalidate: false, tags, cache: 'force-cache' }),
   revalidate: (seconds: number, tags: string[]): RequestOptions => ({
@@ -19,18 +19,17 @@ export const cacheOptions = {
     tags,
     cache: 'force-cache',
   }),
-  noCache: (): RequestOptions => ({ cache: 'no-store' }),
+  noCache: (): RequestOptions => ({ revalidate: false, cache: 'no-store' }),
 };
 
 const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables, options?) => {
-  const headers: Record<string, string> = {
+  const headers = {
     'Content-Type': 'application/json',
+    ...options?.headers,
   };
-
+  const cache = options?.cache;
   const revalidate = options?.revalidate;
   const tags = options?.tags ?? [];
-  const cache = options?.cache;
-
   try {
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -47,20 +46,13 @@ const customGraphQLRequester: Requester<RequestOptions> = async (doc, variables,
     });
 
     if (!response.ok) {
-      throw new Error(`GraphQL HTTP Error: ${response.status} ${response.statusText}`);
+      throw new Error(`GraphQL Error: ${response.status} ${response.statusText}`);
     }
 
-    const result = await response.json();
-
-    if (result.errors) {
-      console.error('GraphQL Errors:', result.errors);
-      throw new Error(`GraphQL Error: ${result.errors.map((e: any) => e.message).join(', ')}`);
-    }
-
-    return result.data;
+    const data = (await response.json()).data;
+    return data;
   } catch (error) {
     console.error('Error in GraphQL request:', error);
-    throw error;
   }
 };
 

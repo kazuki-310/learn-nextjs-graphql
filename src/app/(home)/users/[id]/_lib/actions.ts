@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidateTag } from 'next/cache';
+import { TAGS } from '@/lib/constants';
 import { graphQLFetchSdk } from '@/lib/graphql';
 import { UpdateUserInput } from '@/lib/graphql/__generated__/resolvers-types';
 
@@ -10,7 +11,7 @@ export async function updateUser(id: string, data: UpdateUserInput) {
       id,
       input: data,
     });
-    revalidateTag('users');
+    revalidateTag(TAGS.users);
     return res.updateUser;
   } catch (error) {
     throw error;
@@ -22,7 +23,7 @@ export async function deleteUser(id: string) {
     const res = await graphQLFetchSdk.deleteUser({
       id,
     });
-    revalidateTag('users');
+    revalidateTag(TAGS.users);
     return res.deleteUser;
   } catch (error) {
     throw error;

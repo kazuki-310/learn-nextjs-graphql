@@ -1,18 +1,13 @@
 import { cache } from 'react';
+import { TAGS } from '@/lib/constants';
 import { graphQLFetchSdk, cacheOptions } from '@/lib/graphql';
 
 export const runtime = 'edge';
 
 export const getDashboardStats = cache(async () => {
-  try {
-    const res = await graphQLFetchSdk.getDashboardStats(
-      undefined,
-      cacheOptions.static(['users', 'projects']),
-    );
-
-    return res.dashboardStats;
-  } catch (error) {
-    console.error('Error fetching dashboard stats:', error);
-    throw error;
-  }
+  const res = await graphQLFetchSdk.getDashboardStats(
+    {},
+    cacheOptions.static([TAGS.users, TAGS.projects]),
+  );
+  return res.dashboardStats;
 });
