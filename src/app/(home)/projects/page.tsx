@@ -7,8 +7,6 @@ import ProjectTableSkeleton from './_components/project-table-skeleton';
 
 import { ProjectListContainer } from './_containers/project-list-container';
 
-export const dynamic = 'force-dynamic';
-
 export default async function Page() {
   return (
     <div className="container mx-auto space-y-8 p-6">
