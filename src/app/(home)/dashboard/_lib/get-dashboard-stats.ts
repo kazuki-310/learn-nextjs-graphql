@@ -1,3 +1,6 @@
+import { gql } from 'graphql-tag';
+
+export const GET_DASHBOARD_STATS = gql`
 query getDashboardStats {
   dashboardStats {
     totalProjects
@@ -8,3 +11,4 @@ query getDashboardStats {
     recentProjectsCount
   }
 }
+`;

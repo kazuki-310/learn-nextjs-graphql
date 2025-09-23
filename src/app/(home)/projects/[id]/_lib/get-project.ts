@@ -1,3 +1,6 @@
+import { gql } from 'graphql-tag';
+
+export const GET_PROJECT = gql`
 query getProject($id: ID!) {
   project(id: $id) {
     id
@@ -8,3 +11,4 @@ query getProject($id: ID!) {
     price
   }
 }
+`;

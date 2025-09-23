@@ -1,3 +1,6 @@
+import { gql } from 'graphql-tag';
+
+export const UPDATE_PROJECT = gql`
 mutation updateProject($id: ID!, $input: ProjectInput!) {
   updateProject(id: $id, input: $input) {
     id
@@ -8,3 +11,4 @@ mutation updateProject($id: ID!, $input: ProjectInput!) {
     price
   }
 }
+`;

@@ -1,3 +1,6 @@
+import { gql } from 'graphql-tag';
+
+export const CREATE_PROJECT = gql`
 mutation createProject($input: ProjectInput!) {
   createProject(input: $input) {
     id
@@ -8,3 +11,4 @@ mutation createProject($input: ProjectInput!) {
     price
   }
 }
+`;
