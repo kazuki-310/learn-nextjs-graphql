@@ -55,6 +55,28 @@ const resolvers: Resolvers = {
 
       return project;
     },
+    async categories() {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      return [
+        { id: '1', name: 'ウェブ開発' },
+        { id: '2', name: 'モバイルアプリ' },
+        { id: '3', name: 'デザイン' },
+        { id: '4', name: 'マーケティング' },
+        { id: '5', name: 'コンサルティング' },
+      ];
+    },
+    async locations() {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+
+      return [
+        { id: '1', name: '東京' },
+        { id: '2', name: '大阪' },
+        { id: '3', name: '名古屋' },
+        { id: '4', name: '福岡' },
+        { id: '5', name: 'リモート' },
+      ];
+    },
     async dashboardStats() {
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);

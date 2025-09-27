@@ -13,8 +13,8 @@ type RequestOptions = {
   tags?: string[];
 };
 export const cacheOptions = {
-  static: (tags: string[]): RequestOptions => ({ revalidate: false, tags, cache: 'force-cache' }),
-  revalidate: (seconds: number, tags: string[]): RequestOptions => ({
+  static: (tags?: string[]): RequestOptions => ({ revalidate: false, tags, cache: 'force-cache' }),
+  revalidate: (seconds: number, tags?: string[]): RequestOptions => ({
     revalidate: seconds,
     tags,
     cache: 'force-cache',

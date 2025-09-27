@@ -56,3 +56,6 @@ docker/data/
 
 # claude code
 .claude/workflow
+
+# graphql generated files
+**/graphql/__generated__/

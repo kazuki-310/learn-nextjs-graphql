@@ -17,6 +17,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -32,6 +38,12 @@ export type DashboardStats = {
   totalProjects: Scalars['Int']['output'];
   totalRevenue: Scalars['Int']['output'];
   totalUsers: Scalars['Int']['output'];
+};
+
+export type Location = {
+  __typename?: 'Location';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -94,7 +106,9 @@ export type ProjectInput = {
 
 export type Query = {
   __typename?: 'Query';
+  categories: Array<Category>;
   dashboardStats: DashboardStats;
+  locations: Array<Location>;
   project?: Maybe<Project>;
   projects: Array<Project>;
   user?: Maybe<User>;
@@ -205,12 +219,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Category: ResolverTypeWrapper<Category>;
   CreateUserInput: CreateUserInput;
   DashboardStats: ResolverTypeWrapper<DashboardStats>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Location: ResolverTypeWrapper<Location>;
   Mutation: ResolverTypeWrapper<{}>;
   Project: ResolverTypeWrapper<Project>;
   ProjectInput: ProjectInput;
@@ -224,12 +240,14 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  Category: Category;
   CreateUserInput: CreateUserInput;
   DashboardStats: DashboardStats;
   DateTime: Scalars['DateTime']['output'];
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
+  Location: Location;
   Mutation: {};
   Project: Project;
   ProjectInput: ProjectInput;
@@ -237,6 +255,12 @@ export type ResolversParentTypes = {
   String: Scalars['String']['output'];
   UpdateUserInput: UpdateUserInput;
   User: User;
+};
+
+export type CategoryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Category'] = ResolversParentTypes['Category']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DashboardStatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DashboardStats'] = ResolversParentTypes['DashboardStats']> = {
@@ -252,6 +276,12 @@ export type DashboardStatsResolvers<ContextType = any, ParentType extends Resolv
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
 }
+
+export type LocationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Location'] = ResolversParentTypes['Location']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createProject?: Resolver<ResolversTypes['Project'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'input'>>;
@@ -273,7 +303,9 @@ export type ProjectResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  categories?: Resolver<Array<ResolversTypes['Category']>, ParentType, ContextType>;
   dashboardStats?: Resolver<ResolversTypes['DashboardStats'], ParentType, ContextType>;
+  locations?: Resolver<Array<ResolversTypes['Location']>, ParentType, ContextType>;
   project?: Resolver<Maybe<ResolversTypes['Project']>, ParentType, ContextType, RequireFields<QueryProjectArgs, 'id'>>;
   projects?: Resolver<Array<ResolversTypes['Project']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryUserArgs, 'id'>>;
@@ -291,8 +323,10 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  Category?: CategoryResolvers<ContextType>;
   DashboardStats?: DashboardStatsResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
+  Location?: LocationResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

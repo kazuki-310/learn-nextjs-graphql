@@ -3,6 +3,8 @@ import { ProjectForm } from '../_components/project-form';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { CategoryOptionContainer } from '../_containers/category-option-container';
+import { LocationOptionContainer } from '../_containers/location-option-container';
 
 export default async function Page() {
   return (
@@ -24,7 +26,10 @@ export default async function Page() {
         </CardHeader>
 
         <CardContent className="p-6">
-          <ProjectForm />
+          <ProjectForm
+            categoryOptions={<CategoryOptionContainer />}
+            locationOptions={<LocationOptionContainer />}
+          />
         </CardContent>
       </Card>
     </div>

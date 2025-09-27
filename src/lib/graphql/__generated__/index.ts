@@ -17,6 +17,12 @@ export type Scalars = {
   DateTime: { input: any; output: any; }
 };
 
+export type Category = {
+  __typename?: 'Category';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 export type CreateUserInput = {
   email: Scalars['String']['input'];
   name: Scalars['String']['input'];
@@ -32,6 +38,12 @@ export type DashboardStats = {
   totalProjects: Scalars['Int']['output'];
   totalRevenue: Scalars['Int']['output'];
   totalUsers: Scalars['Int']['output'];
+};
+
+export type Location = {
+  __typename?: 'Location';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type Mutation = {
@@ -94,7 +106,9 @@ export type ProjectInput = {
 
 export type Query = {
   __typename?: 'Query';
+  categories: Array<Category>;
   dashboardStats: DashboardStats;
+  locations: Array<Location>;
   project?: Maybe<Project>;
   projects: Array<Project>;
   user?: Maybe<User>;
@@ -159,6 +173,16 @@ export type DeleteProjectMutationVariables = Exact<{
 
 
 export type DeleteProjectMutation = { __typename?: 'Mutation', deleteProject: { __typename?: 'Project', id: string, title: string, description?: string | null, createdAt: any, updatedAt: any, price: number } };
+
+export type GetCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: string, name: string }> };
+
+export type GetLocationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetLocationsQuery = { __typename?: 'Query', locations: Array<{ __typename?: 'Location', id: string, name: string }> };
 
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -252,6 +276,22 @@ export const DeleteProjectDocument = gql`
     createdAt
     updatedAt
     price
+  }
+}
+    `;
+export const GetCategoriesDocument = gql`
+    query getCategories {
+  categories {
+    id
+    name
+  }
+}
+    `;
+export const GetLocationsDocument = gql`
+    query getLocations {
+  locations {
+    id
+    name
   }
 }
     `;
@@ -353,6 +393,12 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     deleteProject(variables: DeleteProjectMutationVariables, options?: C): Promise<DeleteProjectMutation> {
       return requester<DeleteProjectMutation, DeleteProjectMutationVariables>(DeleteProjectDocument, variables, options) as Promise<DeleteProjectMutation>;
+    },
+    getCategories(variables?: GetCategoriesQueryVariables, options?: C): Promise<GetCategoriesQuery> {
+      return requester<GetCategoriesQuery, GetCategoriesQueryVariables>(GetCategoriesDocument, variables, options) as Promise<GetCategoriesQuery>;
+    },
+    getLocations(variables?: GetLocationsQueryVariables, options?: C): Promise<GetLocationsQuery> {
+      return requester<GetLocationsQuery, GetLocationsQueryVariables>(GetLocationsDocument, variables, options) as Promise<GetLocationsQuery>;
     },
     getProjects(variables?: GetProjectsQueryVariables, options?: C): Promise<GetProjectsQuery> {
       return requester<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, variables, options) as Promise<GetProjectsQuery>;

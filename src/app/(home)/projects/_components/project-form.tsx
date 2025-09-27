@@ -20,8 +20,18 @@ import { createProjectSchema, ProjectFormData } from '../new/_lib/schemas';
 import { updateProject } from '../[id]/_lib/actions';
 import { createProject } from '../new/_lib/actions';
 import { toast } from 'sonner';
+import { Suspense } from 'react';
+import { Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-export function ProjectForm({ project }: { project?: Project }) {
+export function ProjectForm({
+  project,
+  categoryOptions,
+  locationOptions,
+}: {
+  project?: Project;
+  categoryOptions?: React.ReactNode;
+  locationOptions?: React.ReactNode;
+}) {
   const router = useRouter();
   const isEditMode = !!project;
 
@@ -107,6 +117,35 @@ export function ProjectForm({ project }: { project?: Project }) {
             </FormItem>
           )}
         />
+
+        {/* CC -> RSC -> CC Composition Pattern */}
+        <div className="space-y-2">
+          <FormLabel>カテゴリ</FormLabel>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="カテゴリを選択してください" />
+            </SelectTrigger>
+            <SelectContent>
+              <Suspense fallback={<div className="p-2 text-sm">カテゴリ読み込み中...</div>}>
+                {categoryOptions}
+              </Suspense>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <FormLabel>場所</FormLabel>
+          <Select>
+            <SelectTrigger>
+              <SelectValue placeholder="場所を選択してください" />
+            </SelectTrigger>
+            <SelectContent>
+              <Suspense fallback={<div className="p-2 text-sm">場所読み込み中...</div>}>
+                {locationOptions}
+              </Suspense>
+            </SelectContent>
+          </Select>
+        </div>
 
         <Button type="submit" disabled={!isValid || isSubmitting}>
           {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}

@@ -29,6 +29,16 @@ type Project {
   updatedAt: DateTime!
 }
 
+type Category {
+  id: ID!
+  name: String!
+}
+
+type Location {
+  id: ID!
+  name: String!
+}
+
 type DashboardStats {
   totalProjects: Int!
   totalUsers: Int!
@@ -63,6 +73,8 @@ type Query {
   user(id: ID!): User
   projects: [Project!]!
   project(id: ID!): Project
+  categories: [Category!]!
+  locations: [Location!]!
   dashboardStats: DashboardStats!
 }
 
