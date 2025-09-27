@@ -26,10 +26,10 @@ export default async function Page() {
         </CardHeader>
 
         <CardContent className="p-6">
-          {/* <ProjectForm
+          <ProjectForm
             categoryOptions={<CategoryOptionContainer />}
             locationOptions={<LocationOptionContainer />}
-          /> */}
+          />
         </CardContent>
       </Card>
     </div>
