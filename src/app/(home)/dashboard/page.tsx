@@ -5,6 +5,8 @@ import { DashboardStatsSkeleton } from './_components/dashboard-stats-skeleton';
 import { DashboardChartSkeleton } from './_components/dashboard-chart-skeleton';
 import { ChartContainer } from './_containers/chart-container';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   return (
     <Container maxW="container.xl" py={6}>

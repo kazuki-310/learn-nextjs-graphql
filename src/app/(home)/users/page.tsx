@@ -5,6 +5,8 @@ import { Plus } from 'lucide-react';
 import { UserListContainer } from './_containers/user-list-container';
 import UserTableSkeleton from './_components/user-table-skeleton';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   return (
     <Container maxW="container.xl" py={6}>
