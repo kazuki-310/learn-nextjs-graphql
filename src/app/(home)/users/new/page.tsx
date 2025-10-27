@@ -1,32 +1,37 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Container, Card, Flex, Box, Heading, Text, Button, HStack } from '@chakra-ui/react';
 import { UserForm } from '../_components/user-form';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { ArrowLeftFromLine } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   return (
-    <div className="container mx-auto max-w-2xl space-y-8 p-6">
-      <Card className="gap-0 border-0 p-0 shadow-md">
-        <CardHeader className="bg-muted/50 border-b p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-xl">新規ユーザー作成</CardTitle>
-              <CardDescription>必要な情報を入力してユーザーを作成してください</CardDescription>
-            </div>
+    <Container maxW="container.md" py={6}>
+      <Card.Root shadow="md">
+        <Card.Header bg="gray.50" borderBottom="1px" borderColor="gray.200" p={6}>
+          <Flex justify="space-between" align="center">
+            <Box>
+              <Heading as="h1" size="xl" mb={1}>
+                新規ユーザー作成
+              </Heading>
+              <Text color="gray.600">必要な情報を入力してユーザーを作成してください</Text>
+            </Box>
             <Link href="/users">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeftFromLine className="h-4 w-4" />
-                戻る
+              <Button variant="ghost" size="sm">
+                <HStack gap={2}>
+                  <ArrowLeftFromLine size={16} />
+                  <Text>戻る</Text>
+                </HStack>
               </Button>
             </Link>
-          </div>
-        </CardHeader>
+          </Flex>
+        </Card.Header>
 
-        <CardContent className="p-6">
+        <Card.Body p={6}>
           <UserForm />
-        </CardContent>
-      </Card>
-    </div>
+        </Card.Body>
+      </Card.Root>
+    </Container>
   );
 }

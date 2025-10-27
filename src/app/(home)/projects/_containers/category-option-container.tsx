@@ -1,4 +1,3 @@
-import { SelectItem } from '@/components/ui/select';
 import { fetchCategories } from '../_lib/fetchers';
 
 export async function CategoryOptionContainer() {
@@ -7,9 +6,9 @@ export async function CategoryOptionContainer() {
   return (
     <>
       {categories.map((category) => (
-        <SelectItem key={category.id} value={category.id}>
+        <option key={category.id} value={category.id}>
           {category.name}
-        </SelectItem>
+        </option>
       ))}
     </>
   );

@@ -1,26 +1,9 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Field, Button, Input, VStack, NativeSelectRoot, NativeSelectField, Spinner } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
 import { Role, User } from '@/lib/graphql/__generated__';
 import { createUserSchema, CreateUserFormData } from '../new/_lib/schemas';
 import { updateUserSchema, UpdateUserFormData } from '../[id]/_lib/schemas';
@@ -81,82 +64,71 @@ export function UserForm({ user }: { user?: User }) {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <VStack gap={8} align="stretch">
+        <Controller
           control={control}
           name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>ユーザー名</FormLabel>
-              <FormControl>
-                <Input placeholder="ユーザー名を入力" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>ユーザー名</Field.Label>
+              <Input placeholder="ユーザー名を入力" {...field} />
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
-        <FormField
+        <Controller
           control={control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>メールアドレス</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="メールアドレスを入力" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>メールアドレス</Field.Label>
+              <Input type="email" placeholder="メールアドレスを入力" {...field} />
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
         {!isEditMode && (
-          <FormField
+          <Controller
             control={control}
             name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>パスワード</FormLabel>
-                <FormControl>
-                  <Input type="password" placeholder="パスワードを入力" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            render={({ field, fieldState }) => (
+              <Field.Root invalid={!!fieldState.error}>
+                <Field.Label>パスワード</Field.Label>
+                <Input type="password" placeholder="パスワードを入力" {...field} />
+                {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+              </Field.Root>
             )}
           />
         )}
 
-        <FormField
+        <Controller
           control={control}
           name="role"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>ロール</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="ロールを選択" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {USER_ROLE_OPTIONS.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>ロール</Field.Label>
+              <NativeSelectRoot>
+                <NativeSelectField {...field}>
+                  {USER_ROLE_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </NativeSelectField>
+              </NativeSelectRoot>
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
-        <Button type="submit" disabled={!isValid || isSubmitting}>
-          {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+        <Button type="submit" disabled={!isValid || isSubmitting} colorPalette="blue">
+          {isSubmitting && <Spinner size="sm" mr={2} />}
           {isEditMode ? '更新' : '作成'}
         </Button>
-      </form>
-    </Form>
+      </VStack>
+    </form>
   );
 }

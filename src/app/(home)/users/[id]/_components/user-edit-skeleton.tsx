@@ -1,31 +1,34 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, Button, Flex, Box, Heading, Text, HStack, Center } from '@chakra-ui/react';
 import { ArrowLeft } from 'lucide-react';
 import { Spinner } from '@/components/shared/spinner';
 
 export function UserEditSkeleton() {
   return (
-    <Card className="gap-0 border-0 p-0 shadow-md">
-      <CardHeader className="bg-muted/50 border-b p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-xl">ユーザー編集</CardTitle>
-            <CardDescription>読み込み中...</CardDescription>
-          </div>
+    <Card.Root shadow="md">
+      <Card.Header bg="gray.50" borderBottom="1px" borderColor="gray.200" p={6}>
+        <Flex justify="space-between" align="center">
+          <Box>
+            <Heading as="h1" size="xl" mb={1}>
+              ユーザー編集
+            </Heading>
+            <Text color="gray.600">読み込み中...</Text>
+          </Box>
           <Link href="/users">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              戻る
+            <Button variant="ghost" size="sm">
+              <HStack gap={2}>
+                <ArrowLeft size={16} />
+                <Text>戻る</Text>
+              </HStack>
             </Button>
           </Link>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-center py-8">
+        </Flex>
+      </Card.Header>
+      <Card.Body p={6}>
+        <Center py={8}>
           <Spinner />
-        </div>
-      </CardContent>
-    </Card>
+        </Center>
+      </Card.Body>
+    </Card.Root>
   );
 }

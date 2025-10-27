@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BarChart3, Users, FolderOpen } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Box, Flex, Heading, VStack, HStack, Text } from '@chakra-ui/react';
 
 const navLinks = [
   { href: '/dashboard', label: 'ダッシュボード', icon: BarChart3 },
@@ -13,17 +13,33 @@ const navLinks = [
 
 export function Sidebar() {
   return (
-    <aside className="flex min-w-64 flex-col border-r bg-gray-50 p-6">
-      <div className="flex-1">
-        <Link href="/dashboard" className="mb-8 block">
-          <h2 className="text-xl font-bold text-gray-800 transition-colors hover:text-blue-600">
+    <Box
+      as="aside"
+      minW="256px"
+      borderRight="1px"
+      borderColor="gray.200"
+      bg="gray.50"
+      p={6}
+      display="flex"
+      flexDirection="column"
+    >
+      <Box flex="1">
+        <Link href="/dashboard">
+          <Heading
+            as="h2"
+            size="lg"
+            color="gray.800"
+            mb={8}
+            _hover={{ color: 'blue.600' }}
+            transition="colors 0.2s"
+          >
             Management Portal
-          </h2>
+          </Heading>
         </Link>
 
         <NavMenu />
-      </div>
-    </aside>
+      </Box>
+    </Box>
   );
 }
 
@@ -31,27 +47,36 @@ export function NavMenu() {
   const pathname = usePathname();
 
   return (
-    <nav>
-      <ul className="space-y-2">
+    <Box as="nav">
+      <VStack gap={2} align="stretch">
         {navLinks.map((link) => {
           const isActive = pathname === link.href;
           const Icon = link.icon;
 
           return (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-gray-200 ${
-                  isActive ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:text-gray-900'
-                }`}
+            <Link key={link.href} href={link.href}>
+              <HStack
+                gap={3}
+                px={3}
+                py={2}
+                borderRadius="lg"
+                fontSize="sm"
+                fontWeight="medium"
+                transition="all 0.2s"
+                bg={isActive ? 'blue.100' : 'transparent'}
+                color={isActive ? 'blue.700' : 'gray.700'}
+                _hover={{
+                  bg: isActive ? 'blue.100' : 'gray.200',
+                  color: isActive ? 'blue.700' : 'gray.900',
+                }}
               >
-                <Icon className="h-4 w-4" />
-                {link.label}
-              </Link>
-            </li>
+                <Icon size={16} />
+                <Text>{link.label}</Text>
+              </HStack>
+            </Link>
           );
         })}
-      </ul>
-    </nav>
+      </VStack>
+    </Box>
   );
 }

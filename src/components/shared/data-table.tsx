@@ -1,19 +1,6 @@
 'use client';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import { Table, MenuRoot, MenuTrigger, MenuContent, MenuItem, Button, Checkbox, HStack, Box } from '@chakra-ui/react';
 import { EllipsisIcon, ArrowUpDown, Download, CheckSquare, Square } from 'lucide-react';
 import { useTransition } from 'react';
 import {
@@ -25,12 +12,9 @@ import {
   SortingState,
   Column,
   Row,
-  Cell,
   VisibilityState,
 } from '@tanstack/react-table';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 
 export type TableColumn<T> = {
   key: keyof T | string;
@@ -51,7 +35,6 @@ type DataTableProps<T> = {
   data: T[];
   columns: TableColumn<T>[];
   actions?: TableAction<T>[];
-  className?: string;
   enableCsvExport?: boolean;
   csvFilename?: string;
 };
@@ -60,7 +43,6 @@ export function DataTable<T extends { id: string }>({
   data,
   columns,
   actions,
-  className,
   enableCsvExport = false,
   csvFilename = 'data.csv',
 }: DataTableProps<T>) {
@@ -95,26 +77,28 @@ export function DataTable<T extends { id: string }>({
       accessorKey: column.key,
       header: ({ column: tableColumn }: { column: Column<T, unknown> }) => {
         return (
-          <div className="flex items-center space-x-2">
+          <HStack gap={2}>
             {column.showCsvCheckbox && (
-              <Checkbox
+              <Checkbox.Root
                 checked={csvColumns[String(column.key)] || false}
-                onCheckedChange={(checked) => toggleCsvColumn(String(column.key), !!checked)}
+                onCheckedChange={(details) => toggleCsvColumn(String(column.key), !!details.checked)}
               />
             )}
             {column.sortable ? (
               <Button
                 variant="ghost"
+                size="sm"
                 onClick={() => tableColumn.toggleSorting(tableColumn.getIsSorted() === 'asc')}
-                className={column.showCsvCheckbox ? '-ml-2 h-8 px-2' : '-ml-4 h-8 px-2'}
+                px={2}
+                h={8}
               >
                 {column.label}
-                <ArrowUpDown className="ml-2 h-4 w-4" />
+                <ArrowUpDown size={16} style={{ marginLeft: '8px' }} />
               </Button>
             ) : (
               <span>{column.label}</span>
             )}
-          </div>
+          </HStack>
         );
       },
       cell: ({ getValue, row }: { getValue: () => unknown; row: Row<T> }) => {
@@ -131,27 +115,26 @@ export function DataTable<T extends { id: string }>({
           {
             id: 'actions',
             cell: ({ row }: { row: Row<T> }) => (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
+              <MenuRoot lazyMount={false}>
+                <MenuTrigger asChild>
+                  <Button variant="ghost" size="sm" p={0} h={8} w={8}>
                     <EllipsisIcon width={16} height={16} />
                   </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                </MenuTrigger>
+                <MenuContent>
                   {actions.map((action, index) => (
-                    <DropdownMenuItem
+                    <MenuItem
                       key={index}
-                      className={
-                        action.variant === 'destructive' ? 'text-red-600 focus:text-red-600' : ''
-                      }
+                      color={action.variant === 'destructive' ? 'red.600' : undefined}
+                      value={action.label}
                       onClick={() => handleAction(action, row.original)}
                       disabled={isPending}
                     >
                       {action.label}
-                    </DropdownMenuItem>
+                    </MenuItem>
                   ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </MenuContent>
+              </MenuRoot>
             ),
           } as ColumnDef<T>,
         ]
@@ -224,61 +207,61 @@ export function DataTable<T extends { id: string }>({
   };
 
   return (
-    <div className="space-y-4">
+    <Box>
       {enableCsvExport && columns.some((col) => col.showCsvCheckbox) && (
-        <div className="flex items-center gap-2">
+        <HStack gap={2} mb={4}>
           <Button onClick={() => toggleAllCsvColumns(true)} size="sm" variant="outline">
-            <CheckSquare className="mr-2 h-4 w-4" />
+            <CheckSquare size={16} style={{ marginRight: '8px' }} />
             全選択
           </Button>
 
           <Button onClick={() => toggleAllCsvColumns(false)} size="sm" variant="outline">
-            <Square className="mr-2 h-4 w-4" />
+            <Square size={16} style={{ marginRight: '8px' }} />
             全解除
           </Button>
 
           <Button onClick={generateCSV} size="sm" variant="outline">
-            <Download className="mr-2 h-4 w-4" />
+            <Download size={16} style={{ marginRight: '8px' }} />
             CSV ダウンロード
           </Button>
-        </div>
+        </HStack>
       )}
 
-      <Table className={className}>
-        <TableHeader>
+      <Table.Root>
+        <Table.Header>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id}>
+            <Table.Row key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <Table.ColumnHeader key={header.id}>
                   {header.isPlaceholder
                     ? null
                     : flexRender(header.column.columnDef.header, header.getContext())}
-                </TableHead>
+                </Table.ColumnHeader>
               ))}
-            </TableRow>
+            </Table.Row>
           ))}
-        </TableHeader>
+        </Table.Header>
 
-        <TableBody>
+        <Table.Body>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+              <Table.Row key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <Table.Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  </Table.Cell>
                 ))}
-              </TableRow>
+              </Table.Row>
             ))
           ) : (
-            <TableRow>
-              <TableCell colSpan={tableColumns.length} className="h-24 text-center">
+            <Table.Row>
+              <Table.Cell colSpan={tableColumns.length} textAlign="center" height="96px">
                 No results.
-              </TableCell>
-            </TableRow>
+              </Table.Cell>
+            </Table.Row>
           )}
-        </TableBody>
-      </Table>
-    </div>
+        </Table.Body>
+      </Table.Root>
+    </Box>
   );
 }

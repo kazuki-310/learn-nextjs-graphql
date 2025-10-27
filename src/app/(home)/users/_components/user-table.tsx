@@ -6,7 +6,7 @@ import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { deleteUser } from '../[id]/_lib/actions';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert } from '@chakra-ui/react';
 import { AlertTriangle } from 'lucide-react';
 
 export function UserTable({ users }: { users: User[] }) {
@@ -51,21 +51,18 @@ export function UserTable({ users }: { users: User[] }) {
 
   if (users.length === 0) {
     return (
-      <Alert>
-        <AlertTriangle className="h-4 w-4" />
-        <AlertDescription>
-          ユーザーが登録されていません。新規作成ボタンから最初のユーザーを作成してください。
-        </AlertDescription>
-      </Alert>
+      <Alert.Root status="warning">
+        <Alert.Indicator>
+          <AlertTriangle size={16} />
+        </Alert.Indicator>
+        <Alert.Content>
+          <Alert.Description>
+            ユーザーが登録されていません。新規作成ボタンから最初のユーザーを作成してください。
+          </Alert.Description>
+        </Alert.Content>
+      </Alert.Root>
     );
   }
 
-  return (
-    <DataTable
-      data={users}
-      columns={columns}
-      actions={actions}
-      className="p-6"
-    />
-  );
+  return <DataTable data={users} columns={columns} actions={actions} />;
 }

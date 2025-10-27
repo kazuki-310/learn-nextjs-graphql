@@ -1,10 +1,13 @@
+import { Box, Flex } from '@chakra-ui/react';
 import { Sidebar } from '@/components/shared/sidebar';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen">
+    <Flex h="100vh">
       <Sidebar />
-      <main className="flex-1 overflow-auto p-6">{children}</main>
-    </div>
+      <Box as="main" flex="1" overflowY="auto" p={6}>
+        {children}
+      </Box>
+    </Flex>
   );
 }

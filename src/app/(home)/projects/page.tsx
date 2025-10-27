@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Container, Card, Flex, Box, Heading, Text, Button, HStack } from '@chakra-ui/react';
 import { Plus } from 'lucide-react';
 import ProjectTableSkeleton from './_components/project-table-skeleton';
 
@@ -9,29 +8,33 @@ import { ProjectListContainer } from './_containers/project-list-container';
 
 export default async function Page() {
   return (
-    <div className="container mx-auto space-y-8 p-6">
-      <Card className="gap-0 border-0 p-0 shadow-md">
-        <CardHeader className="bg-muted/50 border-b p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-xl">プロジェクト一覧</CardTitle>
-              <CardDescription>登録されているプロジェクトの一覧を表示しています</CardDescription>
-            </div>
+    <Container maxW="container.xl" py={6}>
+      <Card.Root shadow="md">
+        <Card.Header bg="gray.50" borderBottom="1px" borderColor="gray.200" p={6}>
+          <Flex justify="space-between" align="center">
+            <Box>
+              <Heading as="h1" size="xl" mb={1}>
+                プロジェクト一覧
+              </Heading>
+              <Text color="gray.600">登録されているプロジェクトの一覧を表示しています</Text>
+            </Box>
             <Link href="/projects/new">
-              <Button size="lg" className="shadow-lg transition-all hover:shadow-xl">
-                <Plus className="mr-2 h-4 w-4" />
-                新規プロジェクト作成
+              <Button size="lg" colorPalette="blue" shadow="lg" _hover={{ shadow: 'xl' }}>
+                <HStack gap={2}>
+                  <Plus size={16} />
+                  <Text>新規プロジェクト作成</Text>
+                </HStack>
               </Button>
             </Link>
-          </div>
-        </CardHeader>
+          </Flex>
+        </Card.Header>
 
-        <CardContent className="p-3">
+        <Card.Body p={3}>
           <Suspense fallback={<ProjectTableSkeleton />}>
             <ProjectListContainer />
           </Suspense>
-        </CardContent>
-      </Card>
-    </div>
+        </Card.Body>
+      </Card.Root>
+    </Container>
   );
 }

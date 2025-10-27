@@ -1,37 +1,42 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Container, Card, Flex, Box, Heading, Text, Button, HStack } from '@chakra-ui/react';
 import { ProjectForm } from '../_components/project-form';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { CategoryOptionContainer } from '../_containers/category-option-container';
 import { LocationOptionContainer } from '../_containers/location-option-container';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   return (
-    <div className="container mx-auto max-w-2xl space-y-8 p-6">
-      <Card className="gap-0 border-0 p-0 shadow-md">
-        <CardHeader className="bg-muted/50 border-b p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-xl">新規プロジェクト作成</CardTitle>
-              <CardDescription>必要な情報を入力してプロジェクトを作成してください</CardDescription>
-            </div>
+    <Container maxW="container.md" py={6}>
+      <Card.Root shadow="md">
+        <Card.Header bg="gray.50" borderBottom="1px" borderColor="gray.200" p={6}>
+          <Flex justify="space-between" align="center">
+            <Box>
+              <Heading as="h1" size="xl" mb={1}>
+                新規プロジェクト作成
+              </Heading>
+              <Text color="gray.600">必要な情報を入力してプロジェクトを作成してください</Text>
+            </Box>
             <Link href="/projects">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
-                戻る
+              <Button variant="ghost" size="sm">
+                <HStack gap={2}>
+                  <ArrowLeft size={16} />
+                  <Text>戻る</Text>
+                </HStack>
               </Button>
             </Link>
-          </div>
-        </CardHeader>
+          </Flex>
+        </Card.Header>
 
-        <CardContent className="p-6">
+        <Card.Body p={6}>
           <ProjectForm
             categoryOptions={<CategoryOptionContainer />}
             locationOptions={<LocationOptionContainer />}
           />
-        </CardContent>
-      </Card>
-    </div>
+        </Card.Body>
+      </Card.Root>
+    </Container>
   );
 }

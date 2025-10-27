@@ -12,7 +12,9 @@ async function redirects() {
 
 const nextConfig: NextConfig = {
   redirects,
-  output: 'standalone',
+  experimental: {
+    optimizePackageImports: ['@chakra-ui/react'],
+  },
 };
 
 export default nextConfig;

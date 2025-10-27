@@ -1,4 +1,3 @@
-import { SelectItem } from '@/components/ui/select';
 import { fetchLocations } from '../_lib/fetchers';
 
 export async function LocationOptionContainer() {
@@ -7,9 +6,9 @@ export async function LocationOptionContainer() {
   return (
     <>
       {locations.map((location) => (
-        <SelectItem key={location.id} value={location.id}>
+        <option key={location.id} value={location.id}>
           {location.name}
-        </SelectItem>
+        </option>
       ))}
     </>
   );

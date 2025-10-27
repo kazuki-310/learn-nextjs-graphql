@@ -1,8 +1,7 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Card, Box } from '@chakra-ui/react';
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 import type { Project } from '@/lib/graphql/__generated__/index';
 
 export function DashboardChart({ projects }: { projects: Project[] }) {
@@ -18,7 +17,7 @@ export function DashboardChart({ projects }: { projects: Project[] }) {
       { min: 100000, max: Infinity, label: '100,000以上' },
     ];
 
-    return ranges.map((range, index) => {
+    return ranges.map((range) => {
       const count = projects.filter(
         (project) => project.price >= range.min && project.price < range.max,
       ).length;
@@ -26,7 +25,6 @@ export function DashboardChart({ projects }: { projects: Project[] }) {
       return {
         range: range.label,
         count,
-        fill: `hsl(var(--chart-${index + 1}))`,
       };
     });
   };
@@ -34,30 +32,22 @@ export function DashboardChart({ projects }: { projects: Project[] }) {
   const priceRangeData = calculatePriceRangeData(projects);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>プロジェクト価格帯別分布</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <ChartContainer
-          config={{
-            count: {
-              label: 'プロジェクト数',
-              color: 'hsl(var(--chart-1))',
-            },
-          }}
-          className="h-[300px]"
-        >
+    <Card.Root>
+      <Card.Header>
+        <Card.Title>プロジェクト価格帯別分布</Card.Title>
+      </Card.Header>
+      <Card.Body>
+        <Box height="300px">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={priceRangeData}>
               <XAxis dataKey="range" />
               <YAxis />
-              <ChartTooltip content={<ChartTooltipContent />} />
-              <Bar dataKey="count" fill="var(--color-count)" />
+              <Tooltip />
+              <Bar dataKey="count" fill="#3182ce" />
             </BarChart>
           </ResponsiveContainer>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+        </Box>
+      </Card.Body>
+    </Card.Root>
   );
 }

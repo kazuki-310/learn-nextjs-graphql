@@ -6,7 +6,7 @@ import { formatDate } from '@/lib/utils/date-format';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { deleteProject } from '../[id]/_lib/actions';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert } from '@chakra-ui/react';
 import { AlertTriangle } from 'lucide-react';
 
 type ProjectTableProps = {
@@ -57,12 +57,16 @@ export function ProjectTable({ projects }: ProjectTableProps) {
 
   if (projects.length === 0) {
     return (
-      <Alert>
-        <AlertTriangle className="h-4 w-4" />
-        <AlertDescription>
-          プロジェクトが登録されていません。新規作成ボタンから最初のプロジェクトを作成してください。
-        </AlertDescription>
-      </Alert>
+      <Alert.Root status="warning">
+        <Alert.Indicator>
+          <AlertTriangle size={16} />
+        </Alert.Indicator>
+        <Alert.Content>
+          <Alert.Description>
+            プロジェクトが登録されていません。新規作成ボタンから最初のプロジェクトを作成してください。
+          </Alert.Description>
+        </Alert.Content>
+      </Alert.Root>
     );
   }
 

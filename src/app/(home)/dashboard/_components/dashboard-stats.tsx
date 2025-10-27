@@ -1,64 +1,88 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+'use client';
+
+import { SimpleGrid, Card, Text } from '@chakra-ui/react';
 import type { GetDashboardStatsQuery } from '@/lib/graphql/__generated__/index';
 
 export function DashboardStats({ stats }: { stats: GetDashboardStatsQuery['dashboardStats'] }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">総プロジェクト数</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{stats.totalProjects}</div>
-        </CardContent>
-      </Card>
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            総プロジェクト数
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
+            {stats.totalProjects}
+          </Text>
+        </Card.Body>
+      </Card.Root>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">総ユーザー数</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{stats.totalUsers}</div>
-        </CardContent>
-      </Card>
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            総ユーザー数
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
+            {stats.totalUsers}
+          </Text>
+        </Card.Body>
+      </Card.Root>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">総売上</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">¥{stats.totalRevenue.toLocaleString()}</div>
-        </CardContent>
-      </Card>
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            総売上
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
+            ¥{stats.totalRevenue.toLocaleString()}
+          </Text>
+        </Card.Body>
+      </Card.Root>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">平均プロジェクト価格</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            平均プロジェクト価格
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
             ¥{Math.round(stats.averageProjectPrice).toLocaleString()}
-          </div>
-        </CardContent>
-      </Card>
+          </Text>
+        </Card.Body>
+      </Card.Root>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">最高価格</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">¥{stats.maxProjectPrice.toLocaleString()}</div>
-        </CardContent>
-      </Card>
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            最高価格
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
+            ¥{stats.maxProjectPrice.toLocaleString()}
+          </Text>
+        </Card.Body>
+      </Card.Root>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-sm font-medium">今月の新規プロジェクト</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{stats.recentProjectsCount}</div>
-        </CardContent>
-      </Card>
-    </div>
+      <Card.Root>
+        <Card.Header>
+          <Card.Title fontSize="sm" fontWeight="medium">
+            今月の新規プロジェクト
+          </Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Text fontSize="2xl" fontWeight="bold">
+            {stats.recentProjectsCount}
+          </Text>
+        </Card.Body>
+      </Card.Root>
+    </SimpleGrid>
   );
 }

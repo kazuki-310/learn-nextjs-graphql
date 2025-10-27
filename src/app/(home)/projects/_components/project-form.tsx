@@ -1,27 +1,15 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Field, Button, Input, Textarea, VStack, Spinner, NativeSelectRoot, NativeSelectField } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
-import { Loader2 } from 'lucide-react';
 import { Project } from '@/lib/graphql/__generated__';
 import { createProjectSchema, ProjectFormData } from '../new/_lib/schemas';
 import { updateProject } from '../[id]/_lib/actions';
 import { createProject } from '../new/_lib/actions';
 import { toast } from 'sonner';
 import { Suspense } from 'react';
-import { Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function ProjectForm({
   project,
@@ -69,89 +57,76 @@ export function ProjectForm({
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <VStack gap={8} align="stretch">
+        <Controller
           control={control}
           name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>タイトル</FormLabel>
-              <FormControl>
-                <Input placeholder="タイトルを入力してください" {...field} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>タイトル</Field.Label>
+              <Input placeholder="タイトルを入力してください" {...field} />
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
-        <FormField
+        <Controller
           control={control}
           name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>商品説明</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="商品の説明を入力してください"
-                  className="min-h-[120px]"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>商品説明</Field.Label>
+              <Textarea
+                placeholder="商品の説明を入力してください"
+                minHeight="120px"
+                {...field}
+              />
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
-        <FormField
+        <Controller
           control={control}
           name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>価格（円）</FormLabel>
-              <FormControl>
-                <Input type="number" min="0" placeholder="0" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+          render={({ field, fieldState }) => (
+            <Field.Root invalid={!!fieldState.error}>
+              <Field.Label>価格（円）</Field.Label>
+              <Input type="number" min="0" placeholder="0" {...field} />
+              {fieldState.error && <Field.ErrorText>{fieldState.error.message}</Field.ErrorText>}
+            </Field.Root>
           )}
         />
 
         {/* CC -> RSC -> CC Composition Pattern */}
-        <div className="space-y-2">
-          <FormLabel>カテゴリ</FormLabel>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="カテゴリを選択してください" />
-            </SelectTrigger>
-            <SelectContent>
-              <Suspense fallback={<div className="p-2 text-sm">カテゴリ読み込み中...</div>}>
+        <Field.Root>
+          <Field.Label mb={2}>カテゴリ</Field.Label>
+          <NativeSelectRoot>
+            <NativeSelectField placeholder="カテゴリを選択してください">
+              <Suspense fallback={<option>カテゴリ読み込み中...</option>}>
                 {categoryOptions}
               </Suspense>
-            </SelectContent>
-          </Select>
-        </div>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Field.Root>
 
-        <div className="space-y-2">
-          <FormLabel>場所</FormLabel>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="場所を選択してください" />
-            </SelectTrigger>
-            <SelectContent>
-              <Suspense fallback={<div className="p-2 text-sm">場所読み込み中...</div>}>
+        <Field.Root>
+          <Field.Label mb={2}>場所</Field.Label>
+          <NativeSelectRoot>
+            <NativeSelectField placeholder="場所を選択してください">
+              <Suspense fallback={<option>場所読み込み中...</option>}>
                 {locationOptions}
               </Suspense>
-            </SelectContent>
-          </Select>
-        </div>
+            </NativeSelectField>
+          </NativeSelectRoot>
+        </Field.Root>
 
-        <Button type="submit" disabled={!isValid || isSubmitting}>
-          {isSubmitting && <Loader2 className="h-4 w-4 animate-spin" />}
+        <Button type="submit" disabled={!isValid || isSubmitting} colorPalette="blue">
+          {isSubmitting && <Spinner size="sm" mr={2} />}
           {isEditMode ? '更新' : '作成'}
         </Button>
-      </form>
-    </Form>
+      </VStack>
+    </form>
   );
 }

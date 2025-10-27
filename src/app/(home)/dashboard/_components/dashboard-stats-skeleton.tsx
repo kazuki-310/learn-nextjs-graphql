@@ -1,19 +1,18 @@
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { SimpleGrid, Card, Skeleton } from '@chakra-ui/react';
 
 export function DashboardStatsSkeleton() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
       {Array.from({ length: 6 }).map((_, index) => (
-        <Card key={index}>
-          <CardHeader>
-            <Skeleton className="h-4 w-32" />
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="h-8 w-24" />
-          </CardContent>
-        </Card>
+        <Card.Root key={index}>
+          <Card.Header>
+            <Skeleton height="16px" width="128px" />
+          </Card.Header>
+          <Card.Body>
+            <Skeleton height="32px" width="96px" />
+          </Card.Body>
+        </Card.Root>
       ))}
-    </div>
+    </SimpleGrid>
   );
 }
