@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BarChart3, Users, FolderOpen } from 'lucide-react';
+import { BarChart3, Users, FolderOpen, Info } from 'lucide-react';
 import { Box, Flex, Heading, VStack, HStack, Text } from '@chakra-ui/react';
 
 const navLinks = [
   { href: '/dashboard', label: 'ダッシュボード', icon: BarChart3 },
   { href: '/users', label: 'ユーザー', icon: Users },
   { href: '/projects', label: 'プロジェクト', icon: FolderOpen },
+  { href: '/about', label: 'このアプリについて', icon: Info },
 ];
 
 export function Sidebar() {
