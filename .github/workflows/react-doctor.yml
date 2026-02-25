@@ -18,6 +18,8 @@ jobs:
           fetch-depth: 0
 
       - uses: millionco/react-doctor@main
+        env:
+          NO_COLOR: 1
         with:
           diff: main
           github-token: ${{ secrets.GITHUB_TOKEN }}
