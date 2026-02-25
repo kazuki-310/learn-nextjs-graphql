@@ -1,0 +1,12 @@
+{
+  "ignore": {
+    "rules": [],
+    "files": [
+      "src/lib/graphql/__generated__/**",
+      "prisma/**",
+      "**/__tests__/**",
+      "**/*.test.ts",
+      "**/*.test.tsx"
+    ]
+  }
+}
