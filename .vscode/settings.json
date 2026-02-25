@@ -4,6 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "typescript.referencesCodeLens.enabled": true,
   "eslint.options": {
     "overrideConfigFile": "eslint.config.mjs"
   },
